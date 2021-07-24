@@ -223,6 +223,7 @@ export function AddWebsiteDialog(props) {
         websiteAlreadyExist: true,
         websiteValid: null
       })
+      return
     } else if (websiteResponse.status === 404) {
       let data = await websiteResponse.json()
       if (data.error.length > 650) {
@@ -253,7 +254,6 @@ export function AddWebsiteDialog(props) {
         invalidWebsiteText: `An error has occured. Try again`
       })
     }
-    return
   }
   const toggleLoading = (value) => { 
     setState( {...state, loading: value} )
