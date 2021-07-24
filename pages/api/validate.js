@@ -24,11 +24,11 @@ export default async (req, res) => {
 
   // Case 3
   // Check if website has adult, medical, racy or any kind of disturbing content
-  console.log(process.cwd())
   // const keyFilename = '../../../_files/famous-channels-f2d60f2dde10.json'
-  const keyFilename = '../../../_files/famous-channels-f2d60f2dde10.json'
-  const projectId = 'famous-channels'
-  const webRiskclient = new WebRiskServiceClient({projectId, keyFilename});
+  // const keyFilename = '../../../_files/famous-channels-f2d60f2dde10.json'
+  // const projectId = 'famous-channels'
+  // const webRiskclient = new WebRiskServiceClient({projectId, keyFilename});
+  const webRiskclient = new WebRiskServiceClient();
   const googleWebRiskRequest = {
     uri: url,
     threatTypes: ['MALWARE', 'SOCIAL_ENGINEERING', 'UNWANTED_SOFTWARE'],
