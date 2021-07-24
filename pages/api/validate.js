@@ -25,7 +25,7 @@ export default async (req, res) => {
 
   // Case 3
   // Check if website has adult, medical, racy or any kind of disturbing content
-  const keyFilename = await import('../../famous-channels-f2d60f2dde10.json')
+  const keyFilename = '../../famous-channels-f2d60f2dde10.json'
   const projectId = 'famous-channels'
   const webRiskclient = new WebRiskServiceClient({projectId, keyFilename});
   const googleWebRiskRequest = {
