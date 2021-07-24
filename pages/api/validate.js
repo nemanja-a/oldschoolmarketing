@@ -1,8 +1,11 @@
 import { connectToDatabase } from "../../util/mongodb"
 import { WebRiskServiceClient } from "@google-cloud/web-risk"
 import { websiteExistInNearbyPages } from "../../lib/util"
+import { readFileSync } from "fs"
+import { join } from "path"
 
 export default async (req, res) => {
+  console.log('Hello from /validate')
   const { db } = await connectToDatabase();
   const { url, page } = req.query
 
@@ -25,7 +28,10 @@ export default async (req, res) => {
   // Case 3
   // Check if website has adult, medical, racy or any kind of disturbing content
   const projectId = 'famous-channels'
-  const keyFilename = './famous-channels-f2d60f2dde10.json'
+  // const keyFilename = './famous-channels-f2d60f2dde10.json'
+  fs.readFileSync(process.cwd(), "PostList.json")
+
+  const keyFileName = readFileSync(join(__dirname, 'files', 'famous-channels-f2d60f2dde10.json'), 'utf8')
   const webRiskclient = new WebRiskServiceClient({projectId, keyFilename});
   const googleWebRiskRequest = {
     uri: url,

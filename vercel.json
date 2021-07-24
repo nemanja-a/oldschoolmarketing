@@ -1,0 +1,10 @@
+{
+    "functions": {
+      "api/validate.js": {
+        "includeFiles": "files/**"
+      },
+      "api/upload.js": {
+          "includeFIles": "files/**"
+      }
+    }
+  }

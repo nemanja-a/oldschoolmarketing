@@ -213,9 +213,10 @@ export function AddWebsiteDialog(props) {
     event.stopPropagation()
     event.preventDefault()
     toggleLoading(true)
-    
     const validateWebsiteURL = `${server}/api/validate?url=${state.website.url}&page=${state.website.page}`
-    const websiteResponse = await fetch(validateWebsiteURL)
+    const websiteResponse = await fetch(validateWebsiteURL, {
+      mode: 'no-cors'
+    })
     if (websiteResponse.status === 409) {
       setState({
         ...state,
@@ -249,7 +250,7 @@ export function AddWebsiteDialog(props) {
         ...state,
         websiteValid: false,
         websiteAlreadyExist: null,
-        invalidWebsiteText: `URL ${state.website.url} is not valid. Try again`
+        invalidWebsiteText: `An error has occured. Try again`
       })
     }
     return
