@@ -9,9 +9,6 @@ module.exports = {
       ]
     },
     images: {
-      domains: ["res.cloudinary.com"]
-    },
-    serverRuntimeConfig: {
-      PROJECT_ROOT: __dirname
-    } 
+      domains: ['res.cloudinary.com']
+    }
   }

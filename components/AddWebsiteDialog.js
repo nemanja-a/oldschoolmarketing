@@ -441,6 +441,7 @@ export function AddWebsiteDialog(props) {
                   maxLength={REFERER_HEADER_MAX_LENGTH}
                   ref={websiteUrlInputRef}
                 />
+                <strong>*Make sure that URL starts with https://</strong>
               </span>
             {state.websiteValid && <span className={dialogStyles.checkmark}>
                 <div className={dialogStyles.checkmarkStem}></div>
