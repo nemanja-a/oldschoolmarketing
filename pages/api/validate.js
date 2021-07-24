@@ -29,7 +29,7 @@ export default async (req, res) => {
   // Check if website has adult, medical, racy or any kind of disturbing content
   const projectId = 'famous-channels'
   // const keyFilename = './famous-channels-f2d60f2dde10.json'
-  const keyfilename = fs.readFileSync('./', "famous-channels-f2d60f2dde10.json")
+  const keyfilename = fs.readFileSync('/files', "famous-channels-f2d60f2dde10.json")
   const webRiskclient = new WebRiskServiceClient({projectId, keyfilename});
   const googleWebRiskRequest = {
     uri: url,
