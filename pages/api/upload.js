@@ -55,7 +55,7 @@ const handler = nc()
   const file64 = formatBufferTo64(req.file)
   const uploadResult = await cloudinaryUpload(file64.content)
 
-  res.json({uploaded: true, cloudinaryId: uploadResult.public_id, url: uploadResult.secure_url, version: uploadResult.version})
+  res.json({uploaded: true, cloudinaryId: uploadResult.public_id, url: uploadResult.secure_url})
   })
 
 export const config = {

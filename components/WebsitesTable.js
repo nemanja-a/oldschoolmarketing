@@ -55,17 +55,18 @@ export function WebsitesTable ({ pageIndex }) {
           
           return cell.isEmpty ? <AddWebsiteDialog 
            tableParams={tableParams}
+           id={`r${cell.rowIndex}-c${cell.columnIndex}`} 
            website={cell} key={cell.columnIndex}
            afterAddSuccess={() => setAfterAddSuccess(true)}
            />
           : 
           <div
-           key={`${cell.rowIndex}-${cell.columnIndex}`} 
+           key={`r${cell.rowIndex}-c${cell.columnIndex}`} 
            className={cellClasses}
            onClick={() => onWebsiteClick(cell.url)}
            >
             <Image
-              src={cell.thumbnail.url.cloudinaryId || WEBSITE.THUMBNAIL.DEFAULT}
+              src={cell.thumbnail.url || WEBSITE.THUMBNAIL.DEFAULT}
               className={tableStyles.websiteImage}
               layout="fill"
               alt='No image found'

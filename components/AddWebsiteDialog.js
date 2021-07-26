@@ -331,9 +331,8 @@ export function AddWebsiteDialog(props) {
   const showTitlePreview = (state.showTitle && state.step !== 1) && !state.imagePreviewHovered
   const showDescriptionPreview = (state.showDescription && state.step !== 1) && !state.imagePreviewHovered
   const nextButtonDisabled = state.step === 3 || !state.websiteValid || state.titleProfane || state.descriptionProfane
-
   return (
-    <div className={cellClasses}>
+    <div className={cellClasses} id={props.id}>
       {/* Collapsed grid cell  */}
         <a
             onClick={open}
@@ -343,7 +342,7 @@ export function AddWebsiteDialog(props) {
           > 
           <Image
             priority
-            src={(!state.website.image && state.website.thumbnail.url) || WEBSITE.THUMBNAIL.DEFAULT}
+            src={state.website.thumbnail.url || WEBSITE.THUMBNAIL.DEFAULT}
             className={tableStyles.websiteImage}
             height={tableParams.rowHeight}
             width={tableParams.cellWidth}
