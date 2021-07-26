@@ -37,10 +37,13 @@ const handler = nc()
   .use(upload.single("image"))
   .post( async (req,res) => {    
   const projectId = 'famous-channels'
-  const keyFilename = './famous-channels-f2d60f2dde10.json'
-
+  const projectId = 'famous-channels'
+  const credentials = {
+    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/gm, '\n'),
+    client_email: process.env.GOOGLE_CLIENT_EMAIL
+  }
   // Check if image has innapropriate content
-  const visionClient = new ImageAnnotatorClient({projectId, keyFilename})
+  const visionClient = new ImageAnnotatorClient({projectId, credentials})
   const [result] = await visionClient.safeSearchDetection(req.file.buffer)
   const detections = result.safeSearchAnnotation;
   if (!detections) {
