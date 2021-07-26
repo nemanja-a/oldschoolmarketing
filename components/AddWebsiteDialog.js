@@ -175,6 +175,7 @@ export function AddWebsiteDialog(props) {
     const uploadUrl = `${server}/api/upload`
     const uploadRequest = await fetch(uploadUrl, {
       method: 'POST',
+      mode: 'no-cors',
       body: formData
     })
     const uploadResponse = await uploadRequest.json()
