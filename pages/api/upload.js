@@ -7,6 +7,7 @@ import DataURIParser from 'datauri/parser'
 import path from 'path'
 import { ALLOWED_FORMATS } from '../../util/variables'
 import cloudinary from 'cloudinary'
+import { getGSACredentials } from '../../lib/util'
 
 const storage =  memoryStorage()
 const upload = multer({ 
@@ -38,10 +39,7 @@ const handler = nc()
   .post( async (req,res) => {    
   const projectId = 'famous-channels'
   const projectId = 'famous-channels'
-  const credentials = {
-    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/gm, '\n'),
-    client_email: process.env.GOOGLE_CLIENT_EMAIL
-  }
+  const credentials = getGSACredentials()
   // Check if image has innapropriate content
   const visionClient = new ImageAnnotatorClient({projectId, credentials})
   const [result] = await visionClient.safeSearchDetection(req.file.buffer)
