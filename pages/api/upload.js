@@ -37,8 +37,7 @@ const cloudinaryUpload = (file) => cloudinary.v2.uploader.upload(file)
 const handler = nc()
   .use(upload.single("image"))
   .post( async (req,res) => {    
-  const projectId = 'famous-channels'
-  const projectId = 'famous-channels'
+  const projectId = process.env.GOOGLE_PROJECT_ID
   const credentials = getGSACredentials()
   // Check if image has innapropriate content
   const visionClient = new ImageAnnotatorClient({projectId, credentials})
