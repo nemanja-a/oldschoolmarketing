@@ -27,8 +27,8 @@ export default async (req, res) => {
   // Check if website has adult, medical, racy or any kind of disturbing content
   const projectId = 'famous-channels'
   const credentials = {
-    private_key: process.env.GOOGLE_PRIVATE_KEY,
-    client_email: process.env.GOOGLE_CLIENT_EMAIL,
+    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/gm, '\n'),
+    client_email: process.env.GOOGLE_CLIENT_EMAIL
   }
 
   const webRiskclient = new WebRiskServiceClient({projectId, credentials});
