@@ -1,6 +1,7 @@
 import { connectToDatabase } from "../../util/mongodb"
 import { WebRiskServiceClient } from "@google-cloud/web-risk"
 import { websiteExistInNearbyPages } from "../../lib/util"
+import gunzipFile from "gunzip-file"
 
 export default async (req, res) => {
   const { db } = await connectToDatabase();
@@ -25,9 +26,10 @@ export default async (req, res) => {
   // Case 3
   // Check if website has adult, medical, racy or any kind of disturbing content
   const projectId = 'famous-channels'
-  const credentials = JSON.parse(
-    Buffer.from(process.env.GOOGLE_APPLICATION_CREDENTIALS, 'base64').toString()
-  );
+  const credentials = {
+    private_key: process.env.GOOGLE_PRIVATE_KEY,
+    client_email: process.env.GOOGLE_CLIENT_EMAIL,
+  }
 
   const webRiskclient = new WebRiskServiceClient({projectId, credentials});
   const googleWebRiskRequest = {
