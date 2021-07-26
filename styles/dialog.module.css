@@ -82,15 +82,15 @@
 
 #websiteInputWrapper {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
     margin-bottom: 0.4rem;
 }
 
 .checkmark {
     display:inline-block;
-    width: 22px;
-    height:22px;
+    width: 13px;
+    height: 26px;
     -ms-transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
@@ -114,8 +114,8 @@
     top: 25px;
 }
 
-#verifyButton:hover {
-    cursor: pointer;
+.verifyButton {
+    margin: 0 1.5rem;
 }
 
 #buttons {

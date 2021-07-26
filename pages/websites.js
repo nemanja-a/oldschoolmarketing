@@ -15,7 +15,7 @@ export default function Websites() {
         <Header/>
         <MainContent />
         <div id={utilStyles.footerDescription}>
-          Year 2021. Fight against COVID-19 still persists. Our daily lives has changed a lot since when pandemic started and it made us turn to digital technologies even more. <br/>
+          Year 2021. Fight against COVID-19 still persists. Our daily lives has changed a lot since pandemic started and it made us turn to digital technologies even more. <br/>
           Find out what are people up to during 2021.
         </div>
         <div id={utilStyles.footer}>

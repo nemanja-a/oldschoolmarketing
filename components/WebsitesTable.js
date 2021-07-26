@@ -20,7 +20,6 @@ export function WebsitesTable ({ pageIndex }) {
   })
 
     tableParams = (tableContainer && !tableParams) && getTableParams(tableContainer)
-    // if (tableParams && loading) data = null
     let { data, error } = useSWR(tableParams ? `/api/websites?page=${Number(pageIndex)}` : null, fetcher) 
     
     if (!data) return <TableLoader/>
@@ -54,7 +53,6 @@ export function WebsitesTable ({ pageIndex }) {
             loading = false
           }
           
-          // 'top' style calculation is based on image preview dimensions inside AddWebsitelDialog.js 
           return cell.isEmpty ? <AddWebsiteDialog 
            tableParams={tableParams}
            website={cell} key={cell.columnIndex}
@@ -67,7 +65,7 @@ export function WebsitesTable ({ pageIndex }) {
            onClick={() => onWebsiteClick(cell.url)}
            >
             <Image
-              src={cell.thumbnail.url || WEBSITE.THUMBNAIL.DEFAULT}
+              src={cell.thumbnail.url.cloudinaryId || WEBSITE.THUMBNAIL.DEFAULT}
               className={tableStyles.websiteImage}
               layout="fill"
               alt='No image found'

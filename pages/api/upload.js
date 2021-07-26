@@ -32,7 +32,9 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET
 }) 
-const cloudinaryUpload = (file) => cloudinary.v2.uploader.upload(file)
+const cloudinaryUpload = (file) => cloudinary.v2.uploader.unsigned_upload(
+  file, process.env.NEXT_PUBLIC_CLOUDINARY_UNSIGNED_UPLOAD_PRESET, { cloud_name: "worldin2021" }
+)
 
 const handler = nc()
   .use(upload.single("image"))
@@ -53,7 +55,7 @@ const handler = nc()
   const file64 = formatBufferTo64(req.file)
   const uploadResult = await cloudinaryUpload(file64.content)
 
-  res.json({uploaded: true, cloudinaryId: uploadResult.public_id, url: uploadResult.secure_url})
+  res.json({uploaded: true, cloudinaryId: uploadResult.public_id, url: uploadResult.secure_url, version: uploadResult.version})
   })
 
 export const config = {

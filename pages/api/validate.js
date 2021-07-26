@@ -15,7 +15,7 @@ export default async (req, res) => {
 
   // Case 2
   // Validate Domain Name Server
-  const isUrlValid = await fetch(url, { method: 'HEAD' });
+  const isUrlValid = await fetch(url, { method: 'HEAD' })
   if (!isUrlValid.status === 200) {
     return res.status(404).json({error: `URL ${url} is not valid`})  
   }

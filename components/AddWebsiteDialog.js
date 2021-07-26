@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Dialog, DialogOverlay } from '@reach/dialog'
 import VisuallyHidden from '@reach/visually-hidden'
 import dialogStyles from "../styles/dialog.module.css"
@@ -58,9 +58,6 @@ export function AddWebsiteDialog(props) {
   
   const open = () => setState({...state, showDialog: true})
   const close = async(afterAddSuccess) => {
-    if (state.website.image) {
-       deleteUnusedUploadedImage()
-    }
     localStorage.removeItem('amount')
     if (afterAddSuccess) {
       props.afterAddSuccess()
@@ -76,7 +73,6 @@ export function AddWebsiteDialog(props) {
   }
   const onWebsiteUrlChange = (event) => {
     event.target.value = event.target.value.replace(/\s/g, "");
-
     setState({
       ...state,
       fileTypeError: false,
@@ -84,6 +80,7 @@ export function AddWebsiteDialog(props) {
         ...state.website,
         [event.target.name]: event.target.value
       },
+      websiteValid: null,
       websiteValid: null,
       websiteAlreadyExist: false
     })
@@ -210,7 +207,17 @@ export function AddWebsiteDialog(props) {
     }
   }
 
+  const addWebsiteCallback = () => {
+    setState({...state, website: {...state.website, image: null } })
+  }
+
   const onVerifyWebsiteClick = async (event) => {
+    const urlRegExp = new RegExp(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)
+    const urlValid = state.website.url.match(urlRegExp)
+    if (!urlValid) {
+      setState({...state, websiteValid: false, invalidWebsiteText: `URL ${state.website.url} does not match valid URL pattern. Try again.` })
+      return
+    } 
     event.stopPropagation()
     event.preventDefault()
     toggleLoading(true)
@@ -252,7 +259,7 @@ export function AddWebsiteDialog(props) {
         ...state,
         websiteValid: false,
         websiteAlreadyExist: null,
-        invalidWebsiteText: `An error has occured. Try again`
+        invalidWebsiteText: `URL ${state.website.url} is not valid. Try again`
       })
     }
   }
@@ -298,12 +305,14 @@ export function AddWebsiteDialog(props) {
     return website
   }
 
-  // Handle when user uploads an image and then reloads the page
-  if (process.browser) {
-    window.addEventListener('unload', () => {
-      state.website.thumbnail.url !== WEBSITE.THUMBNAIL.DEFAULT && deleteUnusedUploadedImage()                  
-    })
-  }
+  // // Handle when user uploads an image and then reloads the page
+  // if (process.browser) {
+  //   window.addEventListener('unload', () => {
+  //     if (state.website.image) {
+  //       deleteUnusedUploadedImage()                  
+  //     }
+  //   })
+  // }
 
   const cellClasses = classNames({
       [tableStyles.emptyCell]: true
@@ -318,6 +327,7 @@ export function AddWebsiteDialog(props) {
     [utilStyles.dropZone]: true,
     [utilStyles.dropZoneDisabled]: state.step === 3
   })
+
   const showTitlePreview = (state.showTitle && state.step !== 1) && !state.imagePreviewHovered
   const showDescriptionPreview = (state.showDescription && state.step !== 1) && !state.imagePreviewHovered
   const nextButtonDisabled = state.step === 3 || !state.websiteValid || state.titleProfane || state.descriptionProfane
@@ -333,7 +343,7 @@ export function AddWebsiteDialog(props) {
           > 
           <Image
             priority
-            src={WEBSITE.THUMBNAIL.DEFAULT}
+            src={(!state.website.image && state.website.thumbnail.url) || WEBSITE.THUMBNAIL.DEFAULT}
             className={tableStyles.websiteImage}
             height={tableParams.rowHeight}
             width={tableParams.cellWidth}
@@ -378,7 +388,7 @@ export function AddWebsiteDialog(props) {
 
           {state.step === 3 && <p>That's it.  If you want to change any attribute, now is the time to back go to 
             <strong> previous step</strong>. <br/> <br/>
-            *After publishing <strong>site</strong>, it can not be modified or deleted by no one other then <strong>World in 2021</strong> admin. <br/>
+            *After publishing <strong>site</strong>, it can not be modified or deleted by no one other than <strong>World in 2021</strong> admin. <br/>
           </p>}
 
           <div>
@@ -454,13 +464,14 @@ export function AddWebsiteDialog(props) {
                     primary
                     onClick={() => onVerifyWebsiteClick(event)}
                     disabled={state.websiteValid || !state.website.url}
+                    className={dialogStyles.verifyButton}
                 >
                   Verify
                 </Button>
             </span>
           </div>
           {(!state.websiteValid && state.websiteValid !== null) && <span className={utilStyles.error}>{state.invalidWebsiteText}</span>}
-          {state.websiteAlreadyExist && <span className={utilStyles.warning}>Website with url <strong>{state.website.url}</strong> has been found. But, that's allright. If site is located 10 or more pages before/after it's current location, it can be added again.</span>}
+          {state.websiteAlreadyExist && <strong className={utilStyles.warning}>Website with url *{state.website.url}* has been found. But, If site is located 10 or more pages before/after it's nearest location, it can be added again.</strong>}
 
           <p id={dialogStyles.firstStepDescriptionText}>*This page is made for people of all age. To make it's surfing experience as safe as possible,
              all website pages are checked by  <strong><a href="https://cloud.google.com/web-risk" target="_blank">Google Web Risk</a></strong> for detecting adult, racy, violence, and other kind
@@ -619,7 +630,7 @@ export function AddWebsiteDialog(props) {
 
       {/* Third step */}
       {state.step === 3 && <FadeIn transitionDuration={500}>
-        <Payment close={close} toggleLoading={toggleLoading} getFormData={getFormData}/>
+        <Payment addWebsiteCallback={addWebsiteCallback} close={close} toggleLoading={toggleLoading} getFormData={getFormData}/>
         <div id={dialogStyles.stepButtonsWrapper}>
           <Button primary onClick={onPreviousStep} disabled={state.step === 1} className={dialogStyles.stepButton}>Previous Step</Button>
           <Button primary onClick={onNextStep} disabled={nextButtonDisabled} className={dialogStyles.stepButton}>Next Step</Button>

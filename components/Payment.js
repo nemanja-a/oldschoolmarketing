@@ -25,19 +25,14 @@ export function Payment(props) {
         body: JSON.stringify(websiteFormData),
         method: 'POST'
       })
-      if (websiteResponse.status === 500) {
-        showError('Could not add website. Try again.')
-        props.toggleLoading(false)  
-      }
       const data = await websiteResponse.json()
-      if (data.status === "Success") { 
-        const websiteAddSuccess = true
-        props.toggleLoading(false)
-        props.close(websiteAddSuccess)
-        return data
-      }
+      if (data.status !== "Success") { 
         showError('Could not add website. Try again.')
-        props.toggleLoading(false)  
+      }
+      props.addWebsiteCallback()
+      props.toggleLoading(false)
+      props.close()  
+      return data  
     }
 
     const onError = (message) => showError(message)
