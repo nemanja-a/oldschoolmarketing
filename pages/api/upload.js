@@ -49,7 +49,7 @@ const handler = nc()
     return res.status(417).json({uploaded: false, message: "An error occured during safe search detection."}) 
   }
   if (hasUnsafeContent(detections)) {
-    return res.status(200).json({uploaded: false, message: "Image upload failed because image might contain adult, violence, medical, racy or other disturbing content. Select another image and try again"}) 
+    return res.status(200).json({uploaded: false, message: "Image upload failed because image might contain adult, violence, medical, racy or other disturbing content."}) 
   }
 
   const file64 = formatBufferTo64(req.file)

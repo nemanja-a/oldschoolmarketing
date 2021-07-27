@@ -12,3 +12,7 @@
 #amountWrapper {
     padding: '1rem 0';
 }
+
+.input {
+    max-width: 6vw;
+}

@@ -15,6 +15,7 @@ export function RepeatableButton (props) {
                 repeatInterval={Repeatable.defaultProps.repeatInterval / 5}
                 repeatDelay={Repeatable.defaultProps.repeatDelay / 5}
                 onHold={props.onHold}
+                onClick={props.onClick}
                 {...props}
             />
     </div>

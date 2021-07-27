@@ -12,6 +12,7 @@ export function Payment(props) {
     const [amount, setAmount] = useState(2)
     
     const onAmountChange = () => { 
+      if (Number(event.target.value) < 2) return
       const amount = Number(event.target.value)
       localStorage.setItem('amount', amount) 
       setAmount(amount)
@@ -36,6 +37,9 @@ export function Payment(props) {
     }
 
     const onError = (message) => showError(message)
+    const inputClasses = {
+      element: [paymentStyles.input]
+    }
     
   return (
        <div id={dialogStyles.secondStep}>
@@ -46,7 +50,9 @@ export function Payment(props) {
                       name='amount'
                       type='number'
                       onChange={onAmountChange}
+                      min={2}
                       value={amount}
+                      classes={inputClasses}
                   />
                 <span className={utilStyles.footnote}>Spot for website costs 2€, but feel free to change it.</span>
                 </span> 

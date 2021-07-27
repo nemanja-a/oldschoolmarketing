@@ -60,3 +60,9 @@
     border-color: #ffaa4e transparent #ffaa4e transparent;
     animation: spinner 1.2s linear infinite;
   }
+  .text { 
+    position: absolute;
+    top: 55%;
+    right: 46%;
+    color: #ffaa4e;
+  }

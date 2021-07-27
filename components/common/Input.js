@@ -33,6 +33,9 @@ export function Input(props) {
     const onChange = (event) => { 
         let value = event.target.value
         event.target.value = event.target.value.replace(/[\e\+\-\.]/g, "")
+        if (event.target.value.charAt(0) === "0") {
+            event.target.value = event.target.value.substring(1);
+        }
         if (event.key < 31 && (event.key > 48 || event.key < 57)) return
         if (Number(value) < Number(props.min) || Number(value > Number(props.max))) {
             event.target.value = value.substring(0, value.length - 1);    
@@ -56,6 +59,10 @@ export function Input(props) {
     
     if (props.classes && props.classes.wrapper) {
         wrapperStyles =  `${wrapperStyles} ${props.classes.wrapper}`
+    }
+
+    if (props.classes && props.classes.element) {
+        inputClasses =  `${inputClasses} ${props.classes.element}`
     }
     
     const onKeyDown = (event) => { 

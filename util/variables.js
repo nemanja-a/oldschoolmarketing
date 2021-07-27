@@ -35,3 +35,5 @@ export const WEBSITE = {
 export const ALLOWED_FORMATS = 'image/jpeg, image/jpg, image/png'
 
 export const REFERER_HEADER_MAX_LENGTH = 2083
+
+export const LINKED_IN_PROFILE_URL = "https://www.linkedin.com/in/nemanja-apostolovic-9178a0156/"

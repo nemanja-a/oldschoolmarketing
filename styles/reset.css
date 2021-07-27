@@ -47,6 +47,10 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  cursor: pointer;
+}
+
 label {
   color: #979090;
 }
@@ -90,11 +94,16 @@ html,
   body {
     padding: 0;
     margin: 0;
-    font-family: 'Inter', serif;
+    font-family: 'Arial Rounded MT', serif;
     font-size: 13px;
     width: 100%;
     height: auto;
-    background: linear-gradient(0deg, #d8ddde 63%, #ffaa4e 94%);
+    /* background: linear-gradient(0deg, #d8ddde 63%, #ffaa4e 94%); */
+
+    background-color: #ffaa4e;
+    background-image: linear-gradient(45deg, hsla(0,0%,0%,.1) 50%, transparent 28%), linear-gradient(288deg, hsla(0,0%,0%,.1) 58%, transparent 50%);
+    background-size: .25em .25em;
+    box-shadow: inset 0 0 500px hsl(0deg 0% 0% / 50%);
 }
 
 /* Override class from react virtualized lib */

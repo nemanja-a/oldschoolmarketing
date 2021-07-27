@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
-import { Dialog, DialogOverlay } from '@reach/dialog'
+import {  useRef, useState } from 'react'
+import { Dialog } from '@reach/dialog'
 import VisuallyHidden from '@reach/visually-hidden'
 import dialogStyles from "../styles/dialog.module.css"
 import tableStyles from "../styles/table.module.css"
@@ -49,7 +49,7 @@ export function AddWebsiteDialog(props) {
     multiple: false,
     disabled: state.step === 3,
     onDropRejected: () => { 
-      setState({...state, fileTypeError: true})
+      setState({...state, imageError: 'Invalid file type. Try again.'})
     },
     onDrop: (acceptedFiles) => { 
       acceptedFiles[0] && onImageChange(acceptedFiles[0])
@@ -75,7 +75,7 @@ export function AddWebsiteDialog(props) {
     event.target.value = event.target.value.replace(/\s/g, "");
     setState({
       ...state,
-      fileTypeError: false,
+      imageError: false,
       website: {
         ...state.website,
         [event.target.name]: event.target.value
@@ -161,7 +161,7 @@ export function AddWebsiteDialog(props) {
   }
 
   const onImageChange = async(file) => {
-    toggleLoading(true)
+    toggleLoading(true, "Uploading image...")
     const formData = new FormData()
     if (!file && file.type.substr(0,5) !== "image") return
     if (state.website.image) {
@@ -177,13 +177,12 @@ export function AddWebsiteDialog(props) {
     })
     const uploadResponse = await uploadRequest.json()
     if (!uploadResponse.uploaded) {
+      toggleLoading(false)
       setState({
         ...state,
         imagePreviewHovered: false,
-        imageUnsafeText: uploadResponse.message
+        imageError: uploadResponse.message
       })
-      toggleLoading(false)
-      return
     } else {
       const reader = new FileReader()
       reader.readAsDataURL(file)
@@ -193,7 +192,7 @@ export function AddWebsiteDialog(props) {
            ...state,
            imageUnsafeText: '',
            imagePreviewHovered: false,
-           fileTypeError: false,
+           imageError: false,
            website: {
              ...state.website,
              thumbnail: { 
@@ -215,12 +214,12 @@ export function AddWebsiteDialog(props) {
     const urlRegExp = new RegExp(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)
     const urlValid = state.website.url.match(urlRegExp)
     if (!urlValid) {
-      setState({...state, websiteValid: false, invalidWebsiteText: `URL ${state.website.url} does not match valid URL pattern. Try again.` })
+      setState({...state, websiteValid: false, urlError: `URL ${state.website.url} does not match valid URL pattern. Try again.` })
       return
     } 
     event.stopPropagation()
     event.preventDefault()
-    toggleLoading(true)
+    toggleLoading(true, "Verifying URL...")
     const validateWebsiteURL = `${server}/api/validate?url=${state.website.url}&page=${state.website.page}`
     const websiteResponse = await fetch(validateWebsiteURL, {
       mode: 'no-cors'
@@ -242,7 +241,7 @@ export function AddWebsiteDialog(props) {
         ...state,
         websiteValid: false,
         websiteAlreadyExist: null,
-        invalidWebsiteText: data.error
+        urlError: data.error
       }) 
     } else if (websiteResponse.status === 200) {
       toggleLoading(false)
@@ -259,14 +258,21 @@ export function AddWebsiteDialog(props) {
         ...state,
         websiteValid: false,
         websiteAlreadyExist: null,
-        invalidWebsiteText: `URL ${state.website.url} is not valid. Try again`
+        urlError: `URL ${state.website.url} is not valid. Try again`
       })
     }
   }
-  const toggleLoading = (value) => { 
-    setState( {...state, loading: value} )
+  const toggleLoading = (value, text) => { 
+    setState( {...state, loading: value, loaderText: text} )
   }
-  const onNextStep = () => setState({...state, step: state.step + 1}) 
+  const onNextStep = () => setState({
+    ...state, 
+    step: state.step + 1,
+    urlError: null,
+    imageError: null,
+    websiteAlreadyExist: null,
+
+    }) 
   const onPreviousStep = () => { 
     localStorage.removeItem('amount')
     setState({...state, step: state.step - 1}) 
@@ -361,24 +367,24 @@ export function AddWebsiteDialog(props) {
           </button>
           <div className={dialogStyles.title}>Add website</div>
           {state.step === 1 && <div className={utilStyles.stepTitle}>URL and Image</div>}
-          {state.step === 2 && <div className={utilStyles.stepTitle}>Image appearance</div>}
+          {state.step === 2 && <div className={utilStyles.stepTitle}>Thumbnail appearance</div>}
           {state.step === 3 && <div className={utilStyles.stepTitle}>Payment</div>}
           
-          {state.loading && <ModalLoader/>}        
+          {state.loading && <ModalLoader text={state.loaderText}/>}        
 
-        <div id={dialogStyles.websitePreview}>
+        <div className={dialogStyles.websitePreview}>
           {/* Image preview */}
           {state.step === 1 && <p>
-          - <strong>Upload image</strong> by clicking on <strong>image</strong> field or by dropping file into drop area. Accepted
+          - <strong>Upload website thumbnail</strong> by clicking on <strong>image</strong> next to this text or by dropping file into drop area. Accepted
           image formats are <strong>JPG</strong>, <strong>JPEG</strong> and <strong>PNG</strong>. <br/>
-          - Enter <strong>URL</strong> of site. <br/>
-          - <strong>Verify</strong> that <strong>URL</strong> is not in the table already and that 
-          site's content is safe by clicking on <strong>verify</strong>.
+          - Enter <strong>URL</strong> of website. <br/>
+          - Once URL is entered, click on <strong>Verify</strong> to confirm that site does not contain innapropriate content <br/>
+          - Continue to Next Step to customize thumbnail appearance
           </p>}
 
           {state.step === 2 && <p>
             - <strong>Show/hide</strong> title or description <br/>
-            - Adjust their <strong>position</strong> <br/>
+            - Press and hold Position buttons to adjust their <strong>position</strong> <br/>
             - Add custom <strong>title/description</strong> text <br/>
             - Adjust <strong>opacity</strong> <br/>
             - Choose <strong>text color</strong> <br/>
@@ -386,12 +392,13 @@ export function AddWebsiteDialog(props) {
           </p>}
 
           {state.step === 3 && <p>That's it.  If you want to change any attribute, now is the time to back go to 
-            <strong> previous step</strong>. <br/> <br/>
-            *After publishing <strong>site</strong>, it can not be modified or deleted by no one other than <strong>World in 2021</strong> admin. <br/>
+            <strong> Previous Step</strong>. <br/> <br/>
+            *After publishing <strong>website</strong>, it can not be modified or deleted by no one other than <strong>World in 2021</strong> admin. <br/> <br/>
+            *Disclaimer: Websites with innapropriate content that somehow pass safety-content check will be removed afterward and no refund will be provided.
           </p>}
 
           <div>
-            <div id={dialogStyles.imagePreviewWrapper}
+            <div className={dialogStyles.imagePreviewWrapper}
              onMouseEnter={() => { state.step !== 3 && setState({...state, imagePreviewHovered: true })} }
              onMouseLeave={() => setState({...state, imagePreviewHovered: false})}
             >
@@ -425,8 +432,9 @@ export function AddWebsiteDialog(props) {
                   alt={WEBSITE.THUMBNAIL.NO_IMAGE_FOUND}
                 />   
               </div>
-              {state.fileTypeError && <span className={utilStyles.error}>Invalid file type. Try again.</span>}
+              {state.imageError && <span className={utilStyles.error}>{state.imageError}</span>}
             </div>
+
             {/* Image preview end*/}
           </div>
         </div>
@@ -469,7 +477,7 @@ export function AddWebsiteDialog(props) {
                 </Button>
             </span>
           </div>
-          {(!state.websiteValid && state.websiteValid !== null) && <span className={utilStyles.error}>{state.invalidWebsiteText}</span>}
+          {(!state.websiteValid && state.websiteValid !== null) && <span className={utilStyles.error}>{state.urlError}</span>}
           {state.websiteAlreadyExist && <strong className={utilStyles.warning}>Website with url *{state.website.url}* has been found. But, If site is located 10 or more pages before/after it's nearest location, it can be added again.</strong>}
 
           <p id={dialogStyles.firstStepDescriptionText}>*This page is made for people of all age. To make it's surfing experience as safe as possible,

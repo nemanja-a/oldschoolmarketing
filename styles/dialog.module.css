@@ -10,6 +10,15 @@
     padding: 2rem 3rem;
 }
 
+.startUpDialog { 
+    position: fixed;
+    left: 29%;
+}
+
+.startUpDialog p {
+    font-size: 15px;
+}
+
 #resetFormButton {
     border-radius: 15%;
 }
@@ -30,7 +39,7 @@
     .dialog {
         width: 50vw;
     }
-    #imagePreviewWrapper {
+    .imagePreviewWrapper {
         width: 18vw !important;
         height: 30vh !important;
     }
@@ -43,7 +52,7 @@
 }
 
 @media screen and (min-width: 1000px) and (max-width: 1200px) {
-    #imagePreviewWrapper {
+    .imagePreviewWrapper {
         width: 21vw !important;
         height: 27vh !important;
     }
@@ -132,13 +141,13 @@
     width: 15rem;
 }
 
-#websitePreview { 
+.websitePreview { 
     display: flex;
     justify-content: space-between;
     padding-bottom: 7vh;
 }
 
-#websitePreview p {
+.websitePreview p {
     padding-right: 1rem;
 }
 
@@ -148,19 +157,20 @@
     text-align: center;
     max-height: 5vh;
     width: 16vw;
+    word-break: break-word;
 }
 
 #websiteTitlePreview { 
     top: 40px;
 }
 
-#imagePreviewWrapper {
+.imagePreviewWrapper {
     position: relative;
     width: 16vw;
     height: 24vh;
 }
 
-#imagePreviewWrapper div {
+.imagePreviewWrapper div {
     position: unset !important;
 }
 
@@ -209,7 +219,6 @@
 
 #imageUploadOverlay { 
     position: absolute!important;
-    z-index: 6;
     height: 100%;
     width: 100%;
     cursor: pointer;
@@ -223,4 +232,8 @@
     border: 2px solid !important;
     border-style: dashed !important;
     transition: all 0.3s ease-in-out;
+}
+
+.welcomeText {
+    font-size: 15px;
 }
