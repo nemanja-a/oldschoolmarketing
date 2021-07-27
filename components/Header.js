@@ -8,7 +8,7 @@ export function Header() {
       <div id={styles.textContent}>
         <div id={styles.appName}>World in <span>2021</span></div>
         <div id={styles.appDescription}>Sites of 2021</div>
-        <div>Join for 2$</div>
+        <div>Join for 2€</div>
       </div>
     </div>
   )

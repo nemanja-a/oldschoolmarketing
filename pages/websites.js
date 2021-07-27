@@ -10,6 +10,7 @@ import { WelcomeDialog } from "../components/WelcomeDialog"
 import { useEffect } from "react"
 import Image from "next/image"
 import { LINKED_IN_PROFILE_URL } from "../util/variables"
+import { classNames } from "../lib/util"
 
 export default function Websites() {
   const [state, setState] = useState({
@@ -29,31 +30,40 @@ export default function Websites() {
   const onWelcomeDialogClose = () => {
     setState({showWelcomeDialog: false})
   }
+
+  const footerClassNames = classNames({
+    [utilStyles.displayFlex]: true,
+    [utilStyles.footer]: true
+  })
   
     return <div id="tableContainer" className={tableStyles.container}>
       {state.showWelcomeDialog && <WelcomeDialog onClose={onWelcomeDialogClose}></WelcomeDialog>}
       <Meta title="World in 2021" />
       <ToastContainer />
-      <div style={{margin: 'auto'}}>
+      <div style={{marginLeft: '9%'}}>
         <Header/>
         <MainContent />
-        <div id={utilStyles.tableBottom}/>
-        <div id={utilStyles.footer}>
-          <strong>*Disclaimer: Images on this page are copywright of their owners. I am not responsible for the content of external sites.</strong>
-          <strong className={utilStyles.displayFlex}>Copyright © World in 2021 ©
-           &nbsp; <a href={LINKED_IN_PROFILE_URL} target="_blank">Nemanja Apostolovic</a> &nbsp;
+        <div/>
+          <div className={footerClassNames}>
+            <strong>*Disclaimer: Images on this page are copywright of their owners. I am not responsible for the content of external sites.</strong>
+            <strong className={utilStyles.displayFlex}>Copyright © World in 2021 ©
+             <div id={utilStyles.linkedInWrapper}>
+              &nbsp; <a href={LINKED_IN_PROFILE_URL} target="_blank">Nemanja Apostolovic</a> &nbsp;         
               <Image
                 onClick={onLinkedInLogoClick}
                 priority
                 src='/images/In-Blue-Logo.png.original.png'
                 alt="LinkedIn Logo"
                 className={utilStyles.linkedInLogo}
+                layout="fixed"
                 width={25}
                 height={25}
-              />  
-            </strong>
-        </div>
+              />    
+            </div> 
+          </strong>           
+          </div>
+ 
+      </div>
 
       </div>
-  </div>
   }

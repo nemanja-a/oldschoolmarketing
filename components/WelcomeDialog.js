@@ -43,8 +43,8 @@ export function WelcomeDialog(props) {
             </div>
           </div>
         </div>
-        <p className={dialogStyles.welcomeText}>A lot of interesting things made year 2021 be remembered by. Music, movies, TV shows, books, education and self-care systems,
-           phones cars, buildings, online stores and whole lot of other things were made differently to make our daily lives much more fun and enjoyable. <br/> 
+        <p className={dialogStyles.welcomeText}>A lot of interesting things made year 2021 to be remembered by. Music, movies, TV shows, books, education and self-care systems,
+           phones, cars, buildings, online stores and whole lot of other things were made differently to make our daily lives much more fun and enjoyable. <br/> 
            This page is made to keep a memory of what we created and how we spent time in year 2021 - a little bit of everything at one place. <br/><br/>
            Posting a website here is a one-time deal, which means, unless the website does not have any innapropriate or disturbing content,
            it will be here forever. <br/><br/><br/>

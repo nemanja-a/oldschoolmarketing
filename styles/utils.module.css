@@ -3,45 +3,13 @@
     align-items: center;
 }
 
-.borderRounded {
-    border-radius: 10px;
-}
-
-.cursorPointer:hover {
-    cursor:pointer
-}
-
-.formButton {
-    display: flex;
-    margin: auto;
-}
-
 .formItemSpacing {
     margin-right: 1rem;
-}
-
-.required:after {
-    content:" *";
-    color: red;
 }
 
 .button { 
     margin: 0 1rem;
     padding: 0.2rem;
-}
-
-#footer {
-    padding-top: 7px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 80vw;
-}
-
-.footnote {
-    font-size: 0.9rem;
-    font-weight: 600;
-    padding: 1rem;
 }
 
 .closeButton {
@@ -59,12 +27,7 @@
 
 .closeButton:hover {
     cursor: pointer;
-    background: #a9a9a9;
-}
-
-.closeButton:disabled {
-    cursor: default;
-    background: #D8DDDE;
+    background: #ea730d;
 }
 
 .uploadButton {
@@ -137,24 +100,28 @@
     padding-bottom: 20px;
 }
 
+#linkedInWrapper { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.linkedInLogo, #linkedInWrapper div  { 
+    position: inherit !important;
+}
+
 .linkedInLogo:hover {
     cursor: pointer;
 }
 
-#tableBottom {
-    padding: 2rem 0.5rem 0.5rem 1.5rem;
-    box-shadow: 0px 5px 15px 1px grey;
-    width: 80vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
+.footer {
+    justify-content: space-between;
+    padding-top: 1vh;
 }
 
-#tableBottom a {
-    padding: 0 0.5rem;
-}
-
-#tableBottom a:hover {
-    cursor: pointer;
+@media screen and (max-width: 1350px) {
+    .footer {
+        max-width: fit-content;
+    }
+    
 }

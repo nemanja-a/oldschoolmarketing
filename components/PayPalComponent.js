@@ -17,10 +17,17 @@ const PayPalBtn = (props) => {
                 purchase_units: [{
                   amount: {
                     value: amount
-                  }
+                  },
+                  shipping: {
+                    address: {
+                      address_line_1: '29. november 17',      
+                      admin_area_2: 'Beograd',                      
+                      postal_code: '11224',
+                      country_code: 'RS'
+                    }
+                  },
                 }]
-              });
-              
+              });              
             },
             onApprove: async (data, actions) => {
               // This function captures the funds from the transaction.
@@ -44,3 +51,23 @@ const PayPalBtn = (props) => {
 }
 
 export default PayPalBtn
+
+
+// purchase_units: [
+//   {
+//     amount: {
+//       value: '15.00',
+//       currency_code: 'USD'
+//     },
+//     shipping: {
+//       address: {
+//         address_line_1: '2211 N First Street',
+//         address_line_2: 'Building 17',
+//         admin_area_2: 'San Jose',
+//         admin_area_1: 'CA',
+//         postal_code: '95131',
+//         country_code: 'US'
+//       }
+//     },
+//   }
+// ]
