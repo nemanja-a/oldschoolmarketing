@@ -1,4 +1,4 @@
-import {  useRef, useState } from 'react'
+import {  useEffect, useRef, useState } from 'react'
 import { Dialog } from '@reach/dialog'
 import VisuallyHidden from '@reach/visually-hidden'
 import dialogStyles from "../styles/dialog.module.css"
@@ -107,14 +107,16 @@ export function AddWebsiteDialog(props) {
     })
   }
 
-  const onTextInputChange = (event, control) => {
-    const filter = new BadWordsFilter()    
+  const onTextInputChange = (event, controlRef) => {
+    const filter = new BadWordsFilter()
+    const controlHeight = controlRef.current.clientHeight
+   
     setState({
       ...state,
       website: {
         ...state.website,
         [event.target.name]: event.target.value,
-        [event.target.name + "Height"]: control.current.clientHeight
+        [event.target.name + "Height"]: controlHeight,
       },
       [event.target.name + "Profane"]: filter.isProfane(event.target.value)
     })
@@ -131,23 +133,23 @@ export function AddWebsiteDialog(props) {
   }
 
   const onIncrementerUpClick = (control, currentValue) => { 
-    const position = getIncrementerValue(currentValue, 'up')
+    const position = getIncrementerValue(currentValue, state.website[control + 'Height'],'up')
     setState({
       ...state,
       website: {
         ...state.website,
-        [control]: position
+        [control + 'Position']: position
       }
     })
   }
 
   const onIncrementerDownClick = (control, currentValue) => { 
-    const position = getIncrementerValue(currentValue, 'down')
+    const position = getIncrementerValue(currentValue, state.website[control + 'Height'], 'down')
     setState({
       ...state,
       website: {
         ...state.website,
-        [control]: position
+        [control + 'Position']: position
       }
     })
   }
@@ -193,10 +195,10 @@ export function AddWebsiteDialog(props) {
            imageUnsafeText: '',
            imagePreviewHovered: false,
            imageError: false,
+           previewImageUrl: uploadResponse.url,
            website: {
              ...state.website,
-             thumbnail: { 
-               url: uploadResponse.url,
+             thumbnail: {                
                cloudinaryId: uploadResponse.cloudinaryId
              },
              image: file
@@ -289,7 +291,7 @@ export function AddWebsiteDialog(props) {
       page: Number(state.website.page),
       rowIndex: state.website.rowIndex,
       columnIndex: state.website.columnIndex,
-      thumbnail: state.website.thumbnail,
+      thumbnail: {...state.website.thumbnail, url: state.previewImageUrl},
       createdAt: new Date()
     } 
     if (state.showTitle) {
@@ -326,6 +328,7 @@ export function AddWebsiteDialog(props) {
 
   const imagePreviewClasses = classNames({
     [tableStyles.websiteImage]: true,
+    [tableStyles.previewImage]: true,
     [dialogStyles.imagePreviewHovered]: state.imagePreviewHovered
   })
 
@@ -347,7 +350,7 @@ export function AddWebsiteDialog(props) {
             className={tableStyles.emptyFieldWrapper}
           > 
           <Image
-            priority
+            priority            
             src={state.website.thumbnail.url || WEBSITE.THUMBNAIL.DEFAULT}
             className={tableStyles.websiteImage}
             height={tableParams.rowHeight}
@@ -375,26 +378,25 @@ export function AddWebsiteDialog(props) {
         <div className={dialogStyles.websitePreview}>
           {/* Image preview */}
           {state.step === 1 && <p>
-          - <strong>Upload website thumbnail</strong> by clicking on <strong>image</strong> next to this text or by dropping file into drop area. Accepted
-          image formats are <strong>JPG</strong>, <strong>JPEG</strong> and <strong>PNG</strong>. <br/>
-          - Enter <strong>URL</strong> of website. <br/>
-          - Once URL is entered, click on <strong>Verify</strong> to confirm that site does not contain innapropriate content <br/>
+          - Upload website thumbnail by clicking on image next to this text or by dropping file. Accepted
+          image formats are JPG, JPEG and PNG. <br/>
+          - Enter URL of website. <br/>
+          - Once URL is entered, click on Verify to confirm that site does not contain innapropriate content <br/>
           - Continue to Next Step to customize thumbnail appearance
           </p>}
 
           {state.step === 2 && <p>
-            - <strong>Show/hide</strong> title or description <br/>
-            - Press and hold Position buttons to adjust their <strong>position</strong> <br/>
-            - Add custom <strong>title/description</strong> text <br/>
-            - Adjust <strong>opacity</strong> <br/>
-            - Choose <strong>text color</strong> <br/>
-            - Choose <strong>background color</strong> <br/>
+            - Show/hide title or description <br/>
+            - Press and hold Position buttons to adjust their position <br/>
+            - Add custom title/description text <br/>
+            - Adjust opacity <br/>
+            - Choose text color <br/>
+            - Choose background color <br/>
           </p>}
 
-          {state.step === 3 && <p>That's it.  If you want to change any attribute, now is the time to back go to 
-            <strong> Previous Step</strong>. <br/> <br/>
-            *After publishing <strong>website</strong>, it can not be modified or deleted by no one other than <strong>World in 2021</strong> admin. <br/> <br/>
-            *Disclaimer: Websites with innapropriate content that somehow pass safety-content check will be removed afterward and no refund will be provided.
+          {state.step === 3 && <p>That's it.  If you want to change any attribute, now is the time to back go to Previous Step. <br/> <br/>
+            *After publishing website, it can not be modified by neither user or admin. <br/> <br/>
+            *Disclaimer: Websites with innapropriate content that manage to bypass safety-content check will be removed and no refund will be provided.
           </p>}
 
           <div>
@@ -426,7 +428,7 @@ export function AddWebsiteDialog(props) {
                 <div id={dialogStyles.imageUploadOverlay}>Drop or click here to upload</div>
                 <Image
                   priority
-                  src={state.website.thumbnail.url || WEBSITE.THUMBNAIL.DEFAULT}
+                  src={state.previewImageUrl || WEBSITE.THUMBNAIL.DEFAULT}
                   className={imagePreviewClasses}
                   layout="fill"
                   alt={WEBSITE.THUMBNAIL.NO_IMAGE_FOUND}
@@ -459,7 +461,7 @@ export function AddWebsiteDialog(props) {
                   maxLength={REFERER_HEADER_MAX_LENGTH}
                   ref={websiteUrlInputRef}
                 />
-                <strong>*Make sure that URL starts with https://</strong>
+                *Make sure that URL starts with https://
               </span>
             {state.websiteValid && <span className={dialogStyles.checkmark}>
                 <div className={dialogStyles.checkmarkStem}></div>
@@ -478,11 +480,11 @@ export function AddWebsiteDialog(props) {
             </span>
           </div>
           {(!state.websiteValid && state.websiteValid !== null) && <span className={utilStyles.error}>{state.urlError}</span>}
-          {state.websiteAlreadyExist && <strong className={utilStyles.warning}>Website with url *{state.website.url}* has been found. But, If site is located 10 or more pages before/after it's nearest location, it can be added again.</strong>}
+          {state.websiteAlreadyExist && <strong className={utilStyles.warning}>Website with url *{state.website.url}* has been found. But, If new website is located 10 or more pages before/after it's nearest location, it can be added again.</strong>}
 
           <p id={dialogStyles.firstStepDescriptionText}>*This page is made for people of all age. To make it's surfing experience as safe as possible,
-             all website pages are checked by  <strong><a href="https://cloud.google.com/web-risk" target="_blank">Google Web Risk</a></strong> for detecting adult, racy, violence, and other kind
-             of innapropriate content. Also, every image is checked by <strong><a href="https://cloud.google.com/vision" target="_blank">Google Cloud Vision</a></strong> in order to prevent advertising
+             all website pages are checked by <a href="https://cloud.google.com/web-risk" target="_blank">Google Web Risk</a> for detecting adult, racy, violence, and other kind
+             of innapropriate content. Also, every image is checked by <a href="https://cloud.google.com/vision" target="_blank">Google Cloud Vision</a> in order to prevent advertising
              of nudity, violence, criminal activities and other disturbing content.</p>
         </div>
         <div id={dialogStyles.stepButtonsWrapper}>
@@ -516,15 +518,15 @@ export function AddWebsiteDialog(props) {
             label='Title Position'
             disabled={!state.websiteValid || !state.showTitle}
             name='titlePosition'
-            onUpClick={() => onIncrementerUpClick('titlePosition', state.website.titlePosition)}
-            onDownClick={() => onIncrementerDownClick('titlePosition', state.website.titlePosition)}
+            onUpClick={() => onIncrementerUpClick('title', state.website.titlePosition)}
+            onDownClick={() => onIncrementerDownClick('title', state.website.titlePosition)}
           />
           <Incrementer 
             label='Description Position'
             disabled={!state.websiteValid || !state.showDescription}
             name='descriptionPosition'
-            onUpClick={() => onIncrementerUpClick('descriptionPosition', state.website.descriptionPosition)}
-            onDownClick={() => onIncrementerDownClick('descriptionPosition', state.website.descriptionPosition)}
+            onUpClick={() => onIncrementerUpClick('description', state.website.descriptionPosition)}
+            onDownClick={() => onIncrementerDownClick('description', state.website.descriptionPosition)}
           />
           </div>
           <div className={dialogStyles.row}>
@@ -540,7 +542,7 @@ export function AddWebsiteDialog(props) {
           </div>
           <div className={dialogStyles.row}>
             <div>
-              {state.website.title && (state.website.title.length === WEBSITE.TITLE_MAX_LENGTH) && <span>Maximum title character limit reached</span>}
+              {state.website.title && (state.website.title.length === WEBSITE.TITLE_MAX_LENGTH) && <span>Character limit reached</span>}
               {state.titleProfane && <span className={utilStyles.error}>Bad words are not allowed.</span>}
             </div>
           </div>
@@ -557,7 +559,7 @@ export function AddWebsiteDialog(props) {
           </div>
           <div className={dialogStyles.row}>
             <div>
-              {state.website.description && (state.website.description.length === WEBSITE.DESCRIPTION_MAX_LENGTH) && <span>That will do it. I can remember more than {WEBSITE.DESCRIPTION_MAX_LENGTH} characters, by the way, so this one is on the programmer </span>}
+              {state.website.description && (state.website.description.length === WEBSITE.DESCRIPTION_MAX_LENGTH) && <span>Character limit reached.</span>}
               {state.descriptionProfane && <span className={utilStyles.error}>Bad words are not allowed.</span>}
             </div>
           </div>

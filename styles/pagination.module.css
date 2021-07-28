@@ -36,6 +36,7 @@
 
 .goToPageInputWrapper label {
     margin: 0.5rem;
+    color: black;
 }
 
 .goToPageInputWrapper label:hover {

@@ -43,12 +43,12 @@ export function WelcomeDialog(props) {
             </div>
           </div>
         </div>
-        <p className={dialogStyles.welcomeText}>A lot of interesting things made year 2021 to be remembered by. Music, movies, TV shows, books, education and self-care systems,
-           phones, cars, buildings, online stores and whole lot of other things were made differently to make our daily lives much more fun and enjoyable. <br/> 
-           This page is made to keep a memory of what we created and how we spent time in year 2021 - a little bit of everything at one place. <br/><br/>
-           Posting a website here is a one-time deal, which means, unless the website does not have any innapropriate or disturbing content,
-           it will be here forever. <br/><br/><br/>
-           Enjoy!
+        <p className={dialogStyles.welcomeText}>
+          <span style={{textAlign: "center", marginLeft: "4vw"}}>Page that holds internet history of year 2021 at one place.</span> <br/><br/>
+          Buying a place for 2€ here means joining the internet history of year 2021 and having an advertisement forever. <br/><br/>
+          Want to join? Click on any place on the grid with World in 2021 logo to get started.
+          Otherwise, as all sort of websites are welcome here, hopefully you will find content of your interest on over 3000 pages. <br/><br/>
+          <span style={{textAlign: "center", marginLeft: "10vw"}}>Enjoy and don't stay too long!</span> 
         </p>
       </FadeIn>
       </Dialog>

@@ -6,7 +6,7 @@ export const DEFAULT_MODAL_WEBSITE_IMAGE = 'https://www.contentviewspro.com/wp-c
 
 export const WEBSITE = { 
     TITLE_MAX_LENGTH: 40,
-    DESCRIPTION_MAX_LENGTH: 70,
+    DESCRIPTION_MAX_LENGTH: 60,
     THUMBNAIL: {
         DEFAULT: '/images/Logo.jpg',
         NO_IMAGE_FOUND: '/images/no-image-found-360x260.png'
@@ -18,13 +18,13 @@ export const WEBSITE = {
         titleColor: "#fff",
         titleBackgroundColor: "#ffaa4e",
         titlePosition: 0,
-        DescriptionHeight: 19,
+        titleHeight: 19,
         description: 'Website description',
         descriptionOpacity: 10,
         descriptionColor: "#fff",
         descriptionBackgroundColor: "#ffaa4e",
-        descriptionPosition: 89,
-        DescriptionHeight: 19,
+        descriptionPosition: 90,
+        descriptionHeight: 19,
         image: null,
         thumbnail: { url: '/images/Logo.jpg' },
         imageWidth: 0,

@@ -153,7 +153,7 @@
     text-align: center;
     max-height: 5vh;
     width: 16vw;
-    word-break: break-word;
+    /* word-break: break-word; */
 }
 
 #websiteTitlePreview { 

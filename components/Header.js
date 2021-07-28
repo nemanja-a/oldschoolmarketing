@@ -7,8 +7,8 @@ export function Header() {
     <div id="header" className={utilStyles.displayFlex}>
       <div id={styles.textContent}>
         <div id={styles.appName}>World in <span>2021</span></div>
-        <div id={styles.appDescription}>Sites of 2021</div>
-        <div>From 2€ per spot</div>
+        <div id={styles.appDescription}>Websites of 2021</div>
+        <div>2€ per spot</div>
       </div>
     </div>
   )

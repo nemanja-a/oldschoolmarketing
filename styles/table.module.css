@@ -109,6 +109,11 @@
     min-height: unset !important;
 }
 
+.previewImage { 
+    height: 100% !important;
+    min-height: unset !important;
+}
+
 #mainContent {
     position: relative;
     width: 80vw;
