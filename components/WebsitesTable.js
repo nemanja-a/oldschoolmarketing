@@ -55,13 +55,13 @@ export function WebsitesTable ({ pageIndex }) {
           
           return cell.isEmpty ? <AddWebsiteDialog 
            tableParams={tableParams}
-           id={`r${cell.rowIndex}-c${cell.columnIndex}`} 
            website={cell} key={cell.columnIndex}
            afterAddSuccess={() => setAfterAddSuccess(true)}
            />
           : 
           <div
-           key={`r${cell.rowIndex}-c${cell.columnIndex}`} 
+           key={`r${cell.rowIndex}-c${cell.columnIndex}`}
+           id={`r${cell.rowIndex}-c${cell.columnIndex}`} 
            className={cellClasses}
            onClick={() => onWebsiteClick(cell.url)}
            >
