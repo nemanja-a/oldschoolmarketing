@@ -87,6 +87,9 @@ export function AddWebsiteDialog(props) {
   }
 
   const onInputChange = (event) => { 
+    if (event.target.value.length <= 1 && event.target.value.charAt(0) !== "#") {
+      event.target.value = "#"
+    }
     setState({
       ...state,
       website: {
@@ -542,7 +545,7 @@ export function AddWebsiteDialog(props) {
           </div>
           <div className={dialogStyles.row}>
             <div>
-              {state.website.title && (state.website.title.length === WEBSITE.TITLE_MAX_LENGTH) && <span>Character limit reached</span>}
+              {state.website.title && (state.website.title.length === WEBSITE.TITLE_MAX_LENGTH) && <span className={utilStyles.error}>Character limit reached</span>}
               {state.titleProfane && <span className={utilStyles.error}>Bad words are not allowed.</span>}
             </div>
           </div>
@@ -559,7 +562,7 @@ export function AddWebsiteDialog(props) {
           </div>
           <div className={dialogStyles.row}>
             <div>
-              {state.website.description && (state.website.description.length === WEBSITE.DESCRIPTION_MAX_LENGTH) && <span>Character limit reached.</span>}
+              {state.website.description && (state.website.description.length === WEBSITE.DESCRIPTION_MAX_LENGTH) && <span className={utilStyles.error}>Character limit reached.</span>}
               {state.descriptionProfane && <span className={utilStyles.error}>Bad words are not allowed.</span>}
             </div>
           </div>
