@@ -105,6 +105,8 @@
     -ms-transform: translateZ(0) !important; /* IE 9 */
     -webkit-transform: translateZ(0) !important; /* Chrome, Safari, Opera */
     transform: translateZ(0) !important;
+    height: 86.5% !important;
+    min-height: unset !important;
 }
 
 #mainContent {
@@ -131,7 +133,8 @@
     height: 100%;
     font-size: 4px;
     text-align: center;
-    max-height: max-content;
+    /* max-height: max-content; */
+    height: calc(max-content - 20%);
     height: auto;
     font-size: 3.25px;
 }

@@ -110,6 +110,7 @@ html,
 .ReactVirtualized__Table__Grid, .ReactVirtualized__Grid__innerScrollContainer {
   overflow: visible !important;
   width: 100% !important;
+  height: inherit !important;
 }
 
 input::-webkit-outer-spin-button,

@@ -89,7 +89,7 @@ export function WebsitesTable ({ pageIndex }) {
                 opacity: cell.descriptionOpacity < 10 ? `0.${cell.descriptionOpacity}` : 1,
                 color: cell.descriptionColor,
                 background: cell.descriptionBackgroundColor,
-                top: cell.descriptionPosition + 11 + "%",
+                top: cell.descriptionPosition + "%",
                 height: `${cell.descriptionHeight / 4}px`
               }}
             >
