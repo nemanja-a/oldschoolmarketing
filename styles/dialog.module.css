@@ -233,3 +233,8 @@
 .welcomeText {
     font-size: 15px;
 }
+
+.highlightedText {
+    color: #ffaa4e;
+    font-weight: 600;
+}
