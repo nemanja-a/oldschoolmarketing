@@ -55,7 +55,7 @@ export function WebsitesTable ({ pageIndex }) {
           
           return cell.isEmpty ? <AddWebsiteDialog 
            tableParams={tableParams}
-           website={cell} key={cell.columnIndex}
+           website={cell} key={index}
            afterAddSuccess={() => setAfterAddSuccess(true)}
            />
           : 

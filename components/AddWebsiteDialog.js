@@ -390,7 +390,7 @@ export function AddWebsiteDialog(props) {
 
           {state.step === 2 && <p>
             - Show/hide title or description <br/>
-            - Press and hold Position buttons to adjust their position <br/>
+            - Press and hold Position buttons to adjust positions <br/>
             - Add custom title/description text <br/>
             - Adjust opacity <br/>
             - Choose text color <br/>

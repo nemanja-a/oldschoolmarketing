@@ -80,11 +80,6 @@
     image-rendering: crisp-edges;
 }
 
-.cell div {
-    min-height: 6vh;
-    min-width: 4vw;
-    position: absolute !important;
-}
 .cell a:hover {
     border: none;
 }
@@ -96,17 +91,13 @@
     z-index: 1;
     opacity: 1;
     cursor: pointer;
-    position: relative;
-    bottom: 1vh;
 }
 
 .websiteImage {
     -webkit-backface-visibility: hidden !important; 
-    -ms-transform: translateZ(0) !important; /* IE 9 */
-    -webkit-transform: translateZ(0) !important; /* Chrome, Safari, Opera */
+    -ms-transform: translateZ(0) !important; 
+    -webkit-transform: translateZ(0) !important;
     transform: translateZ(0) !important;
-    height: 86.5% !important;
-    min-height: unset !important;
 }
 
 .previewImage { 
