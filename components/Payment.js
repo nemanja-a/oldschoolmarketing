@@ -30,9 +30,11 @@ export function Payment(props) {
       if (data.status !== "Success") { 
         showError('Could not add website. Try again.')
       }
+      const addSuccess = true
+      
       props.addWebsiteCallback()
       props.toggleLoading(false)
-      props.close()  
+      props.close(addSuccess)  
       return data  
     }
 

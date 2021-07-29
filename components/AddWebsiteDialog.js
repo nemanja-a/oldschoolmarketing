@@ -316,15 +316,6 @@ export function AddWebsiteDialog(props) {
     return website
   }
 
-  // // Handle when user uploads an image and then reloads the page
-  // if (process.browser) {
-  //   window.addEventListener('unload', () => {
-  //     if (state.website.image) {
-  //       deleteUnusedUploadedImage()                  
-  //     }
-  //   })
-  // }
-
   const cellClasses = classNames({
       [tableStyles.emptyCell]: true
   })
@@ -384,7 +375,7 @@ export function AddWebsiteDialog(props) {
           - Upload website thumbnail by clicking on image next to this text or by dropping file. Accepted
           image formats are JPG, JPEG and PNG. <br/>
           - Enter URL of website. <br/>
-          - Once URL is entered, click on Verify to confirm that site does not contain innapropriate content <br/>
+          - Once URL is entered, click on Verify to confirm that site does not contain inappropriate content <br/>
           - Continue to Next Step to customize thumbnail appearance
           </p>}
 
@@ -397,9 +388,9 @@ export function AddWebsiteDialog(props) {
             - Choose background color <br/>
           </p>}
 
-          {state.step === 3 && <p>That's it.  If you want to change any attribute, now is the time to back go to Previous Step. <br/> <br/>
-            *After publishing website, it can not be modified by neither user or admin. <br/> <br/>
-            *Disclaimer: Websites with innapropriate content that manage to bypass safety-content check will be removed and no refund will be provided.
+          {state.step === 3 && <p>That's it.  If you want to change anything, now is the time to back go to Previous Step. <br/> <br/>
+            *After publishing website, it can not be modified by neither user nor admin. Website can be removed by admin only. <br/> <br/>
+            *Disclaimer: Websites with inappropriate content that manage to bypass safety-content check will be removed and no refund will be provided.
           </p>}
 
           <div>
@@ -455,6 +446,7 @@ export function AddWebsiteDialog(props) {
                   style={{minWidth: '14vw'}}
                   className={urlInputClasses}
                   value={state.website.url}
+                  placeholder="Enter url..."
                   id="url" 
                   name="url"
                   onChange={onWebsiteUrlChange}
@@ -464,7 +456,7 @@ export function AddWebsiteDialog(props) {
                   maxLength={REFERER_HEADER_MAX_LENGTH}
                   ref={websiteUrlInputRef}
                 />
-                *Make sure that URL starts with https://
+                <span>*Make sure that URL starts with https://</span>
               </span>
             {state.websiteValid && <span className={dialogStyles.checkmark}>
                 <div className={dialogStyles.checkmarkStem}></div>
@@ -485,10 +477,10 @@ export function AddWebsiteDialog(props) {
           {(!state.websiteValid && state.websiteValid !== null) && <span className={utilStyles.error}>{state.urlError}</span>}
           {state.websiteAlreadyExist && <strong className={utilStyles.warning}>Website with url *{state.website.url}* has been found. But, If new website is located 10 or more pages before/after it's nearest location, it can be added again.</strong>}
 
-          <p id={dialogStyles.firstStepDescriptionText}>*This page is made for people of all age. To make it's surfing experience as safe as possible,
+          <p id={dialogStyles.firstStepDescriptionText}>*This page is made for people of all age. To make its surfing experience as safe as possible,
              all website pages are checked by <a href="https://cloud.google.com/web-risk" target="_blank">Google Web Risk</a> for detecting adult, racy, violence, and other kind
-             of innapropriate content. Also, every image is checked by <a href="https://cloud.google.com/vision" target="_blank">Google Cloud Vision</a> in order to prevent advertising
-             of nudity, violence, criminal activities and other disturbing content.</p>
+             of inappropriate content. Every image is checked by <a href="https://cloud.google.com/vision" target="_blank">Google Cloud Vision</a> in order to prevent advertising
+            nudity, violence, criminal activities and other disturbing content.</p>
         </div>
         <div id={dialogStyles.stepButtonsWrapper}>
             <Button primary onClick={onPreviousStep} disabled={state.step === 1} className={dialogStyles.stepButton}>Previous Step</Button>
@@ -538,6 +530,7 @@ export function AddWebsiteDialog(props) {
               label='Title'
               disabled={!state.websiteValid || !state.showTitle}
               name='title'
+              placeholder="Enter title..."
               value={state.website.title}
               onChange={(event) => onTextInputChange(event, titlePreviewRef)}
               maxLength={WEBSITE.TITLE_MAX_LENGTH}
@@ -553,6 +546,7 @@ export function AddWebsiteDialog(props) {
               <Input 
                 maxWidth
                 label='Description'
+                placeholder="Enter description..."
                 disabled={!state.websiteValid || !state.showDescription}
                 name='description'
                 value={state.website.description}              
@@ -598,7 +592,7 @@ export function AddWebsiteDialog(props) {
             <ColorPicker
               label='Title Color'
               disabled={!state.websiteValid || !state.showTitle}
-              name='titleColor'
+              name='titleColor'              
               value={state.website.titleColor}
               onChange={onColorPickerChange}
               onInputChange={onInputChange}

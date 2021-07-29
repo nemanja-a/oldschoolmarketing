@@ -20,7 +20,7 @@ export function WebsitesTable ({ pageIndex }) {
   })
 
     tableParams = (tableContainer && !tableParams) && getTableParams(tableContainer)
-    let { data, error } = useSWR(tableParams ? `/api/websites?page=${Number(pageIndex)}` : null, fetcher) 
+    let { data, mutate, error } = useSWR(tableParams ? `/api/websites?page=${Number(pageIndex)}` : null, fetcher) 
     
     if (!data) return <TableLoader/>
     loading = false
@@ -56,7 +56,7 @@ export function WebsitesTable ({ pageIndex }) {
           return cell.isEmpty ? <AddWebsiteDialog 
            tableParams={tableParams}
            website={cell} key={index}
-           afterAddSuccess={() => setAfterAddSuccess(true)}
+           afterAddSuccess={mutate}
            />
           : 
           <div

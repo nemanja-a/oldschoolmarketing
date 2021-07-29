@@ -11,4 +11,7 @@ module.exports = {
     images: {
       domains: ["res.cloudinary.com"]
     },
+    env: {
+      apiSecret: '42istheanswer'
+    }
   }

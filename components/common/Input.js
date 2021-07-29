@@ -24,7 +24,7 @@ export function Input(props) {
         props.onChange({name: props.name, value: props.value - 1})
     }
 
-    const onKeyPress = (event) => { 
+    const onNumberInputKeyPress = (event) => { 
         if (event.which != 8 && event.which != 0 && event.which < 48 || event.which > 57) {
             event.preventDefault()
         }
@@ -65,7 +65,7 @@ export function Input(props) {
         inputClasses =  `${inputClasses} ${props.classes.element}`
     }
     
-    const onKeyDown = (event) => { 
+    const onNumberInputKeyDown = (event) => { 
         let value = event.target.value
         props.onKeyDown && props.onKeyDown({name: props.name, value: Number(value), eventKey: event.key})
     }
@@ -90,6 +90,7 @@ export function Input(props) {
                 id={props.name}
                 onChange={onChange}
                 name={props.name}
+                placeholder={props.placeholder}
                 type="number"
                 value={props.value}
                 required={props.required}
@@ -97,8 +98,8 @@ export function Input(props) {
                 max={props.max}
                 maxLength={props.maxLength}
                 className={inputClasses}
-                onKeyDown={onKeyDown}
-                onKeyPress={onKeyPress}
+                onKeyDown={onNumberInputKeyDown}
+                onKeyPress={onNumberInputKeyPress}
             />
                 {props.withIncrement && <RepeatableButton 
                     style={{background: '#ffaa4e', borderRadius: '0 5px 5px 0'}}
@@ -119,9 +120,11 @@ export function Input(props) {
                 name={props.name}
                 type={'text'}
                 value={props.value}
+                placeholder={props.placeholder}
                 required={props.required}
                 min={props.min}
                 max={props.max}
+                onKeyDown={props.onKeyDown}
                 maxLength={props.maxLength}
                 className={inputClasses}
             />}      

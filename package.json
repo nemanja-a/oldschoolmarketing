@@ -14,6 +14,7 @@
     "bad-words": "^3.0.4",
     "cloudinary": "^1.26.2",
     "cross-env": "^7.0.3",
+    "crypto": "^1.0.1",
     "datauri": "^3.0.0",
     "googleapis": "^80.1.0",
     "gunzip-file": "^0.1.1",

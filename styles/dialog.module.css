@@ -10,11 +10,6 @@
     padding: 2rem 3rem;
 }
 
-.startUpDialog { 
-    position: fixed;
-    left: 29%;
-}
-
 .startUpDialog p {
     font-size: 15px;
 }
@@ -231,7 +226,7 @@
 }
 
 .welcomeText {
-    font-size: 2.5vh;
+    font-size: 2vh;
 }
 
 .highlightedText {

@@ -41,16 +41,16 @@ const handler = nc()
   .post( async (req,res) => {    
   const projectId = process.env.GOOGLE_PROJECT_ID
   const credentials = getGSACredentials()
-  // Check if image has innapropriate content
-  const visionClient = new ImageAnnotatorClient({projectId, credentials})
-  const [result] = await visionClient.safeSearchDetection(req.file.buffer)
-  const detections = result.safeSearchAnnotation;
-  if (!detections) {
-    return res.status(417).json({uploaded: false, message: "An error occured during safe search detection."}) 
-  }
-  if (hasUnsafeContent(detections)) {
-    return res.status(200).json({uploaded: false, message: "Image upload failed because image might contain adult, violence, medical, racy or other disturbing content."}) 
-  }
+  // Check if image has inappropriate content
+  // const visionClient = new ImageAnnotatorClient({projectId, credentials})
+  // const [result] = await visionClient.safeSearchDetection(req.file.buffer)
+  // const detections = result.safeSearchAnnotation;
+  // if (!detections) {
+  //   return res.status(417).json({uploaded: false, message: "An error occured during safe search detection."}) 
+  // }
+  // if (hasUnsafeContent(detections)) {
+  //   return res.status(200).json({uploaded: false, message: "Image upload failed because image might contain adult, violence, medical, racy or other disturbing content."}) 
+  // }
 
   const file64 = formatBufferTo64(req.file)
   const uploadResult = await cloudinaryUpload(file64.content)

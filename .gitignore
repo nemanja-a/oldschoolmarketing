@@ -32,3 +32,4 @@ yarn-error.log*
 /pages/api/db-clear.js
 /pages/api/seed.js
 /pages/api/deletesite.js
+/pages/niagarafalls.js
