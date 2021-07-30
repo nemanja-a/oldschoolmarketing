@@ -43,16 +43,16 @@ export function GettingStartedDialog() {
             </div>
           </div>
         </div>
-        <p className={dialogStyles.welcomeText}>
+        {/* <p className={dialogStyles.welcomeText}>
           Online libary of websites of 2021. To add a website, click on any place on the table with <span className={dialogStyles.highlightedText}>World in 2021 logo</span>,
           add the URL to your website and custom image of your choice, which describes your website the best.  
-        </p>
-        {/* <p className={dialogStyles.welcomeText}>
-          <span>Page meant to hold <span className={dialogStyles.highlightedText}>internet history of the year 2021</span> at one place.</span> <br/><br/>
+        </p> */}
+        <p className={dialogStyles.welcomeText}>
+          <span>Page meant to represent <span className={dialogStyles.highlightedText}>internet history of the year 2021</span>.</span> <br/><br/>        
           Buying a place for <span className={dialogStyles.highlightedText}>2€</span> means joining the <span className={dialogStyles.highlightedText}>internet history of year 2021</span> and having an advertisement <span className={dialogStyles.highlightedText}>forever</span>. <br/><br/>
           <span className={dialogStyles.highlightedText}>Want to join?</span> Click on any place on the table with <span className={dialogStyles.highlightedText}>World in 2021 logo</span> to get started.
           If you are here for surfing, as <span className={dialogStyles.highlightedText}>ALL</span> kinds of websites are welcome here, hopefully you will find websites with content of your interest on over <span className={dialogStyles.highlightedText}>3000</span> pages. Enjoy! <br/><br/>      
-        </p> */}
+        </p>
       </FadeIn>
       </Dialog>
     </div>
