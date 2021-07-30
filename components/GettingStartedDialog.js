@@ -48,10 +48,12 @@ export function GettingStartedDialog() {
           add the URL to your website and custom image of your choice, which describes your website the best.  
         </p> */}
         <p className={dialogStyles.welcomeText}>
-          <span>Page meant to represent <span className={dialogStyles.highlightedText}>internet history of the year 2021</span>.</span> <br/><br/>        
-          Buying a place for <span className={dialogStyles.highlightedText}>2€</span> means joining the <span className={dialogStyles.highlightedText}>internet history of year 2021</span> and having an advertisement <span className={dialogStyles.highlightedText}>forever</span>. <br/><br/>
-          <span className={dialogStyles.highlightedText}>Want to join?</span> Click on any place on the table with <span className={dialogStyles.highlightedText}>World in 2021 logo</span> to get started.
-          If you are here for surfing, as <span className={dialogStyles.highlightedText}>ALL</span> kinds of websites are welcome here, hopefully you will find websites with content of your interest on over <span className={dialogStyles.highlightedText}>3000</span> pages. Enjoy! <br/><br/>      
+          <span>Page meant to represent <span className={dialogStyles.highlightedText}>internet history of the year 2021</span> and everyone is welcome to join.</span> <br/><br/>        
+          By clicking on any place available on the table marked with <span className={dialogStyles.highlightedText}>World In 2021 logo</span>, you will be able to upload image of your choice, customize its appearance, provide a URL and select category of your website.
+          Once everything is done, website will stay at that very spot forever. <br/><br/>
+
+          This is the place where you will have advertising of your website forever, but also you will give your contribution in creating internet history of 2021.
+          If you are here for surfing, have fun visiting websites that will one day remind us of year 2021. 
         </p>
       </FadeIn>
       </Dialog>

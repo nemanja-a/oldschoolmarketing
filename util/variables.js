@@ -56,7 +56,8 @@ export const WEBSITE = {
         {value: 21, displayValue: "Science and Technology"},
         {value: 22, displayValue: "Fashion"},
         {value: 23, displayValue: "Cars"},
-        {value: 24, displayValue: "Advertising"}
+        {value: 24, displayValue: "Advertising"},
+        {value: 25, displayValue: "Architecture"}
     ]
 }
 
