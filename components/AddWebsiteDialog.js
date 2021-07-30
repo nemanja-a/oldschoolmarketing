@@ -21,6 +21,7 @@ import { server } from '../config'
 import { classNames } from '../lib/util'
 import { ModalLoader } from './ModalLoader'
 import { useDropzone } from 'react-dropzone'
+import { Select } from './common/Select'
 
 export function AddWebsiteDialog(props) {
   const websiteUrlInputRef = useRef()
@@ -270,14 +271,20 @@ export function AddWebsiteDialog(props) {
   const toggleLoading = (value, text) => { 
     setState( {...state, loading: value, loaderText: text} )
   }
-  const onNextStep = () => setState({
-    ...state, 
-    step: state.step + 1,
-    urlError: null,
-    imageError: null,
-    websiteAlreadyExist: null,
+  const onNextStep = () => { 
+    if (state.step === 2 && !state.website.categories.length) {
+      setState({...state, validationError: true})
+    } else {
+      setState({
+        ...state, 
+        step: state.step + 1,
+        urlError: null,
+        imageError: null,
+        websiteAlreadyExist: null,
+        }) 
+    }
+  }
 
-    }) 
   const onPreviousStep = () => { 
     localStorage.removeItem('amount')
     setState({...state, step: state.step - 1}) 
@@ -288,14 +295,26 @@ export function AddWebsiteDialog(props) {
     [formStyles.input]: true
   })
 
+  const onSelect = (selectedList) => {
+    setState({...state, validationError: false, website: {...state.website, categories: selectedList}} )
+  }
+
+  const onRemove = (selectedList) => {
+    setState({...state, website: {...state.website, categories: selectedList}} )
+  }
+
   const getFormData = () => {
+    const categories = state.website.categories.map(category => { 
+      return category.value
+    })
     let website = {
       url: state.website.url,
       page: Number(state.website.page),
       rowIndex: state.website.rowIndex,
       columnIndex: state.website.columnIndex,
       thumbnail: {...state.website.thumbnail, url: state.previewImageUrl},
-      createdAt: new Date()
+      createdAt: new Date(),
+      categories
     } 
     if (state.showTitle) {
       website.title = state.website.title
@@ -331,9 +350,16 @@ export function AddWebsiteDialog(props) {
     [utilStyles.dropZoneDisabled]: state.step === 3
   })
 
+  const categoriesSelectStyle = {
+    chips: {
+      background: "#ffaa4e",
+      color: "black"
+    }  
+  }
+
   const showTitlePreview = (state.showTitle && state.step !== 1) && !state.imagePreviewHovered
   const showDescriptionPreview = (state.showDescription && state.step !== 1) && !state.imagePreviewHovered
-  const nextButtonDisabled = state.step === 3 || !state.websiteValid || state.titleProfane || state.descriptionProfane
+  const nextButtonDisabled = state.step === 3 || !state.websiteValid || state.titleProfane || state.descriptionProfane 
   return (
     <div className={cellClasses} id={props.id}>
       {/* Collapsed grid cell  */}
@@ -624,6 +650,25 @@ export function AddWebsiteDialog(props) {
               onInputChange={onInputChange}
             />
           </div>
+
+          <div className={dialogStyles.row}>
+            <Select
+              required            
+              maxWidth
+              showCheckbox
+              label='Categories'
+              placeholder="Select website categories"                                                                 
+              options={WEBSITE.CATEGORIES}
+              onSelect={onSelect}
+              onRemove={onRemove}              
+              selectedValues={state.website.categories}
+              style={categoriesSelectStyle}
+            />                        
+          </div>
+          {state.validationError && <div className={dialogStyles.row}>
+             <span className={utilStyles.error}>This field is required</span>
+          </div>}
+          
 
         </section>
         </form>

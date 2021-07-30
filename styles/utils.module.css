@@ -123,5 +123,32 @@
     .footer {
         max-width: fit-content;
     }
-    
+}
+
+.categoriesSection {
+    min-height: 98vh;
+    padding: 0 0.5vw;
+    padding-top: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.categoriesSection label {
+    color: black;
+}
+
+.categoriesListWrapper {
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.categoriesListWrapper label:hover, .categoriesListWrapper input:hover {
+    cursor: pointer;
+}
+
+.applyFiltersButton {
+    margin-top: 2vh;
 }

@@ -6,7 +6,7 @@ import tableStyles from '../styles/table.module.css'
 import { classNames } from "../lib/util"
 import { Input } from "./common/Input"
 
-export function MainContent () {
+export function MainContent (props) {
     const [ state, setState ] = useState({
       pageIndex: 0,
       pageRangeStart: 0,
@@ -69,7 +69,7 @@ export function MainContent () {
           />        
         </div>
       </div>
-      <WebsitesTable pageIndex={state.pageIndex}/>
+      <WebsitesTable applyFilters={props.applyFilters} categories={props.categories} pageIndex={state.pageIndex}/>
     </div>
 }
 

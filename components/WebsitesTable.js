@@ -8,11 +8,11 @@ import { Table } from "react-virtualized"
 import { ROWS_PER_PAGE, WEBSITE } from "../util/variables"
 import { TableLoader } from "./TableLoader"
 
-export function WebsitesTable ({ pageIndex }) {
+export function WebsitesTable ({ pageIndex, applyFilters, categories }) {
   let tableParams;
   const [ tableContainer, setTableContainer ] = useState('')
   const [ afterAddSuccess, setAfterAddSuccess ] = useState(false)
-  let loading = true;
+  let loading = true
 
   useEffect(() => {
     const container = document.getElementById("tableContainer")
@@ -20,14 +20,19 @@ export function WebsitesTable ({ pageIndex }) {
   })
 
     tableParams = (tableContainer && !tableParams) && getTableParams(tableContainer)
-    let { data, mutate, error } = useSWR(tableParams ? `/api/websites?page=${Number(pageIndex)}` : null, fetcher) 
-    
-    if (!data) return <TableLoader/>
-    loading = false
+    const fetcher = (...args) => fetch(...args).then(res => res.json()) 
+
+    const getWebsitesURL = `/api/websites?page=${Number(pageIndex)}&categories=${categories}`
+    // const shouldFetchWebsites = tableParams && applyFilters
+    const shouldFetchWebsites = tableParams
+    const { data, error, mutate } = useSWR(shouldFetchWebsites ? getWebsitesURL : null, fetcher)
+
+    if (error) return <div>An error has occured</div>
+    loading = data && false
+    if (loading) return <TableLoader/>
 
     const rowGetter = ({index}) => { 
       if(!data) return {}
-
       const rowData = data.websites.filter(website => {
         return website.rowIndex === index
       })
@@ -100,7 +105,6 @@ export function WebsitesTable ({ pageIndex }) {
        </div>
     }
   
-    // return  <div id={tableStyles.tableWrapper}>
     return  <div>
         {tableParams && <Table
             width={tableParams.tableWidth}
