@@ -9,53 +9,44 @@ import utilStyles from "../styles/utils.module.css"
 import Image from "next/image"
 import { LINKED_IN_PROFILE_URL, WEBSITE } from "../util/variables"
 import { classNames } from "../lib/util"
-import { Button } from "../components/common/Button"
+import { FilterList } from "../components/FilterList"
 
+
+// TODO: Show page number above filter section
 export default function Websites() {
-  const [applyFilters, setApplyFilters] = useState(false)
-  let [selectedCategories, setSelectedCategories] = useState([])
-
+  const [category, setCategory] = useState({})
+  const [country, setCountry] = useState({})
+  const [page, setPage] = useState(0)
   const onLinkedInLogoClick = () => { 
     window.open(LINKED_IN_PROFILE_URL)
-  }
+  } 
 
   const footerClassNames = classNames({
     [utilStyles.displayFlex]: true,
     [utilStyles.footer]: true
   })
 
-  const onApplyFiltersClick = () => { 
-    setApplyFilters(true)
-  }
-
-  const onCategoryClicked = (category) => { 
-    if (selectedCategories.includes(category.value)) {
-      selectedCategories = selectedCategories.filter(selectedCategory => {
-        return selectedCategory !== category.value
-      })
-    } else { 
-      selectedCategories.push(category.value)
-    }
-  }
+  const onCategoryChange = (category) => setCategory(category)  
+  const onCountryChange = (country) => setCountry(country)
   
     return <div id="tableContainer" className={tableStyles.container}>
       <Meta title="World in 2021" />
       <ToastContainer />
-      <section className={utilStyles.categoriesSection}>
-        <div style={{color: "white", paddingBottom: "1vh"}}>FIlter by categories:</div>
-        <div className={utilStyles.categoriesListWrapper}>
-          {WEBSITE.CATEGORIES.map((category, index) => { 
-            return <div key={index}>
-              <label htmlFor={category.displayValue}>{category.displayValue}</label>
-              <input type="checkbox" onChange={() => onCategoryClicked(category)} id={category.displayValue} key={index} value={category.value} />
-            </div>
-          })}
-        </div>
-         <Button primary onClick={onApplyFiltersClick} className={utilStyles.applyFiltersButton} >Apply Filters</Button>
+      {/* Filter section */}
+      <section className={utilStyles.filterSection}>
+          <div style={{color: "white", paddingBottom: "1vh"}}>Filter websites on page {page}: <br/> 
+              - Choose one country <br/>
+              - Choose one category
+          </div>
+          <FilterList id="categoryFilterList" title="Categories" items={WEBSITE.CATEGORIES} onChange={onCategoryChange}/>
+          <FilterList id="countryFilterList" title="Countries" items={WEBSITE.COUNTRIES} onChange={onCountryChange}/>   
       </section>
-      <div>
+      {/* Filter section */}
+                   
+      {/* Table section */}
+      <section>
         <Header/>
-        <MainContent applyFilters={applyFilters} categories={selectedCategories} />
+        <MainContent category={category} country={country} />
         <div/>
           <div className={footerClassNames}>
             <strong>*Disclaimer: Images on this page are copyright of their owners. I am not responsible for the content of external websites.</strong>
@@ -75,6 +66,19 @@ export default function Websites() {
             </div> 
           </strong>           
           </div>
-      </div>
+      </section>
+      {/* Table section */}
+
+      {/* Description section */}
+      <section id={utilStyles.descriptionSection}>
+        <p>
+        *This page is made for people of all age. To make its surfing experience as safe as possible,
+             all website pages are checked by <a href="https://cloud.google.com/web-risk" target="_blank">Google Web Risk</a> for detecting adult, racy, violence, and other kind
+             of inappropriate content. Every image is checked by <a href="https://cloud.google.com/vision" target="_blank">Google Cloud Vision</a> in order to prevent advertising
+            nudity, violence, criminal activities and other disturbing content.
+        </p>
+      </section>
+      {/* Description section */}
+
       </div>
   }

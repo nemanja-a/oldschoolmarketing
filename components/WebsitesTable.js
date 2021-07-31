@@ -1,18 +1,17 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import useSWR from "swr"
-import { classNames, fetcher, getTableParams } from "../lib/util"
+import { classNames, getTableParams } from "../lib/util"
 import tableStyles from "../styles/table.module.css"
 import { AddWebsiteDialog } from "./AddWebsiteDialog"
 import Image from "next/image"
 import { Table } from "react-virtualized"
 import { ROWS_PER_PAGE, WEBSITE } from "../util/variables"
 import { TableLoader } from "./TableLoader"
+import { server } from "../config"
 
-export function WebsitesTable ({ pageIndex, applyFilters, categories }) {
+export function WebsitesTable ({ pageIndex, category }) {
   let tableParams;
   const [ tableContainer, setTableContainer ] = useState('')
-  const [ afterAddSuccess, setAfterAddSuccess ] = useState(false)
-  let loading = true
 
   useEffect(() => {
     const container = document.getElementById("tableContainer")
@@ -20,16 +19,18 @@ export function WebsitesTable ({ pageIndex, applyFilters, categories }) {
   })
 
     tableParams = (tableContainer && !tableParams) && getTableParams(tableContainer)
-    const fetcher = (...args) => fetch(...args).then(res => res.json()) 
 
-    const getWebsitesURL = `/api/websites?page=${Number(pageIndex)}&categories=${categories}`
-    // const shouldFetchWebsites = tableParams && applyFilters
+    const fetcher = () => {
+      const getWebsitesQueryParams = category.value ? `?page=${Number(pageIndex)}&category=${category.value}` : `?page=${Number(pageIndex)}`
+      return fetch(`${server}/api/websites${getWebsitesQueryParams}`).then(res => res.json())
+    } 
+    const getWebsitesURL = 'api/websites'
     const shouldFetchWebsites = tableParams
     const { data, error, mutate } = useSWR(shouldFetchWebsites ? getWebsitesURL : null, fetcher)
+    // category && mutate(getWebsitesURL)
 
     if (error) return <div>An error has occured</div>
-    loading = data && false
-    if (loading) return <TableLoader/>
+    if (!data) return <TableLoader/>
 
     const rowGetter = ({index}) => { 
       if(!data) return {}
@@ -46,19 +47,14 @@ export function WebsitesTable ({ pageIndex, applyFilters, categories }) {
     const rowRenderer = (props) => {
       if (!Object.keys(props.rowData).length) return false
 
-      loading = true
       return <div key={props.index} className={tableStyles.row}>
         {props.rowData.map((cell, index) => {
           const cellClasses = classNames({
             [tableStyles.cell]: true,
-            [tableStyles.firstCellInRow]: !cell.columnIndex
           })
           cell.page = pageIndex
-          if (props.rowData.length === index) {
-            loading = false
-          }
-          
           return cell.isEmpty ? <AddWebsiteDialog 
+           id={`r${cell.rowIndex}-c${cell.columnIndex}`} 
            tableParams={tableParams}
            website={cell} key={index}
            afterAddSuccess={mutate}

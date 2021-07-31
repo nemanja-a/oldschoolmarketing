@@ -24,18 +24,18 @@ export default async (req, res) => {
 
   // Case 3
   // Check if website has adult, medical, racy or any kind of disturbing content
-  const projectId = process.env.GOOGLE_PROJECT_ID
-  const credentials = getGSACredentials()
+  // const projectId = process.env.GOOGLE_PROJECT_ID
+  // const credentials = getGSACredentials()
 
-  const webRiskclient = new WebRiskServiceClient({projectId, credentials});
-  const googleWebRiskRequest = {
-    uri: url,
-    threatTypes: ['MALWARE', 'SOCIAL_ENGINEERING', 'UNWANTED_SOFTWARE'],
-  };
+  // const webRiskclient = new WebRiskServiceClient({projectId, credentials});
+  // const googleWebRiskRequest = {
+  //   uri: url,
+  //   threatTypes: ['MALWARE', 'SOCIAL_ENGINEERING', 'UNWANTED_SOFTWARE'],
+  // };
 
-  const {threat} = (await webRiskclient.searchUris(googleWebRiskRequest))[0];
-  threat ? res.json({ok: false, msg: "The URL is marked as unsafe by Google Web Risk"}) : res.json({ok: true})
+  // const {threat} = (await webRiskclient.searchUris(googleWebRiskRequest))[0];
+  // threat ? res.json({ok: false, msg: "The URL is marked as unsafe by Google Web Risk"}) : res.json({ok: true})
   // Case 3 end
 
-  // res.json({ok: true})
+  res.json({ok: true})
 }

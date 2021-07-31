@@ -69,7 +69,7 @@ export function MainContent (props) {
           />        
         </div>
       </div>
-      <WebsitesTable applyFilters={props.applyFilters} categories={props.categories} pageIndex={state.pageIndex}/>
+      <WebsitesTable category={props.category} pageIndex={state.pageIndex}/>
     </div>
 }
 

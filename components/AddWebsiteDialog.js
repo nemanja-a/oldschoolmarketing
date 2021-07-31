@@ -137,6 +137,7 @@ export function AddWebsiteDialog(props) {
   }
 
   const onIncrementerUpClick = (control, currentValue) => { 
+    debugger
     const position = getIncrementerValue(currentValue, state.website[control + 'Height'],'up')
     setState({
       ...state,
@@ -502,11 +503,6 @@ export function AddWebsiteDialog(props) {
           </div>
           {(!state.websiteValid && state.websiteValid !== null) && <span className={utilStyles.error}>{state.urlError}</span>}
           {state.websiteAlreadyExist && <strong className={utilStyles.warning}>Website with url *{state.website.url}* has been found. But, If new website is located 10 or more pages before/after it's nearest location, it can be added again.</strong>}
-
-          <p id={dialogStyles.firstStepDescriptionText}>*This page is made for people of all age. To make its surfing experience as safe as possible,
-             all website pages are checked by <a href="https://cloud.google.com/web-risk" target="_blank">Google Web Risk</a> for detecting adult, racy, violence, and other kind
-             of inappropriate content. Every image is checked by <a href="https://cloud.google.com/vision" target="_blank">Google Cloud Vision</a> in order to prevent advertising
-            nudity, violence, criminal activities and other disturbing content.</p>
         </div>
         <div id={dialogStyles.stepButtonsWrapper}>
             <Button primary onClick={onPreviousStep} disabled={state.step === 1} className={dialogStyles.stepButton}>Previous Step</Button>

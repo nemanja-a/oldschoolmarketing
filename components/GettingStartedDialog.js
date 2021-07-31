@@ -10,7 +10,7 @@ import tableStyles from "../styles/table.module.css"
 import Image from 'next/image'
 
 export function GettingStartedDialog() {
-  const [showDialog, setShowDIalog] = useState(false)
+  const [showDialog, setShowDIalog] = useState(true)
   const close = () => { setShowDIalog(false) }
   const open = () => { setShowDIalog(true) }
 

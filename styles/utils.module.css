@@ -125,30 +125,55 @@
     }
 }
 
-.categoriesSection {
-    min-height: 98vh;
-    padding: 0 0.5vw;
+.filterSection {
+    min-height: 93vh;
     padding-top: 56px;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
 }
 
-.categoriesSection label {
+.filterSection label {
     color: black;
 }
 
-.categoriesListWrapper {
+.filterListWrapper {
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    max-height: 30vh;
 }
 
-.categoriesListWrapper label:hover, .categoriesListWrapper input:hover {
+.filterItem, .subcategory {
+    padding: 5px 0;
+    text-align: center;
+    width: 100%;
+}
+
+.filterItem span{
+    display: block;
+}
+
+.subcategory {
+    padding-left: 10px
+}
+
+.category:hover, .subcategory:hover { 
+    background: red;
+}
+
+.filterListWrapper span:hover {
     cursor: pointer;
+}
+
+.activeFilter {
+    background: red;
 }
 
 .applyFiltersButton {
     margin-top: 2vh;
+}
+
+#descriptionSection {
+    padding: 57px 10px 0 10px;
+    max-width: 10vw;
 }

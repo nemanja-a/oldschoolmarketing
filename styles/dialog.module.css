@@ -76,10 +76,6 @@
     }
 }
 
-#firstStepDescriptionText {
-    padding: 5vh 0 7vh 0;
-}
-
 #websiteInputWrapper {
     display: flex;
     align-items: center;
