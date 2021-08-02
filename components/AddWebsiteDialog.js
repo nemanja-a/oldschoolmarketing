@@ -296,16 +296,19 @@ export function AddWebsiteDialog(props) {
     [formStyles.input]: true
   })
 
-  const onSelect = (selectedList) => {
-    setState({...state, validationError: false, website: {...state.website, categories: selectedList}} )
+  const onSelect = (selectedList, controlName) => {
+    setState({...state, validationError: false, website: {...state.website, [controlName]: selectedList}} )
   }
 
-  const onRemove = (selectedList) => {
-    setState({...state, website: {...state.website, categories: selectedList}} )
+  const onRemove = (selectedList, controlName ) => {
+    setState({...state, website: {...state.website, [controlName]: selectedList}} )
   }
 
   const getFormData = () => {
     const categories = state.website.categories.map(category => { 
+      return category.value
+    })
+    const countries = state.website.countries && state.website.countries.map(category => { 
       return category.value
     })
     let website = {
@@ -315,8 +318,11 @@ export function AddWebsiteDialog(props) {
       columnIndex: state.website.columnIndex,
       thumbnail: {...state.website.thumbnail, url: state.previewImageUrl},
       createdAt: new Date(),
-      categories
+      categories,
     } 
+    if (countries) {
+      website.countries = countries
+    }
     if (state.showTitle) {
       website.title = state.website.title
       website.titleOpacity = state.website.titleOpacity
@@ -337,7 +343,8 @@ export function AddWebsiteDialog(props) {
   }
 
   const cellClasses = classNames({
-      [tableStyles.emptyCell]: true
+      [tableStyles.emptyCell]: true,
+      [tableStyles.cellDisabled]: props.filterActive
   })
 
   const imagePreviewClasses = classNames({
@@ -351,7 +358,7 @@ export function AddWebsiteDialog(props) {
     [utilStyles.dropZoneDisabled]: state.step === 3
   })
 
-  const categoriesSelectStyle = {
+  const selectStyles = {
     chips: {
       background: "#ffaa4e",
       color: "black"
@@ -655,10 +662,25 @@ export function AddWebsiteDialog(props) {
               label='Categories'
               placeholder="Select website categories"                                                                 
               options={WEBSITE.CATEGORIES}
-              onSelect={onSelect}
-              onRemove={onRemove}              
+              onSelect={(selectedList) => onSelect(selectedList, 'categories')}
+              onRemove={(selectedList) => onRemove(selectedList, 'categories')}          
               selectedValues={state.website.categories}
-              style={categoriesSelectStyle}
+              style={selectStyles}
+            />                        
+          </div>
+          <div className={dialogStyles.row}>
+            <Select
+              required            
+              maxWidth
+              showCheckbox
+              label='Countries'
+              placeholder="Select website country"                                                                 
+              options={WEBSITE.COUNTRIES}
+              onSelect={(selectedList) => onSelect(selectedList, 'countries')}
+              onRemove={(selectedList) => onRemove(selectedList, 'countries')}
+              onRemove={onRemove}              
+              selectedValues={state.website.country}
+              style={selectStyles}
             />                        
           </div>
           {state.validationError && <div className={dialogStyles.row}>

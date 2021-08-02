@@ -26,15 +26,16 @@ export default function Websites() {
     [utilStyles.footer]: true
   })
 
-  const onCategoryChange = (category) => setCategory(category)  
-  const onCountryChange = (country) => setCountry(country)
+  const onCategoryChange = (category) => { setCategory(category) } 
+  const onCountryChange = (country) => { setCountry(country) }
+  const onPageChange = (page) => { setPage(page) }
   
     return <div id="tableContainer" className={tableStyles.container}>
       <Meta title="World in 2021" />
       <ToastContainer />
       {/* Filter section */}
       <section className={utilStyles.filterSection}>
-          <div style={{color: "white", paddingBottom: "1vh"}}>Filter websites on page {page}: <br/> 
+          <div style={{paddingBottom: "1vh"}}>Filter websites on page {page}: <br/> 
               - Choose one country <br/>
               - Choose one category
           </div>
@@ -46,7 +47,7 @@ export default function Websites() {
       {/* Table section */}
       <section>
         <Header/>
-        <MainContent category={category} country={country} />
+        <MainContent category={category} country={country} onPageChange={onPageChange}/>
         <div/>
           <div className={footerClassNames}>
             <strong>*Disclaimer: Images on this page are copyright of their owners. I am not responsible for the content of external websites.</strong>

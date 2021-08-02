@@ -9,7 +9,7 @@ import { ROWS_PER_PAGE, WEBSITE } from "../util/variables"
 import { TableLoader } from "./TableLoader"
 import { server } from "../config"
 
-export function WebsitesTable ({ pageIndex, category }) {
+export function WebsitesTable ({ pageIndex, category, country }) {
   let tableParams;
   const [ tableContainer, setTableContainer ] = useState('')
 
@@ -20,17 +20,25 @@ export function WebsitesTable ({ pageIndex, category }) {
 
     tableParams = (tableContainer && !tableParams) && getTableParams(tableContainer)
 
-    const fetcher = () => {
-      const getWebsitesQueryParams = category.value ? `?page=${Number(pageIndex)}&category=${category.value}` : `?page=${Number(pageIndex)}`
-      return fetch(`${server}/api/websites${getWebsitesQueryParams}`).then(res => res.json())
-    } 
+    const fetcher = async(url) => fetch(url).then(res => res.json())      
+    
     const getWebsitesURL = 'api/websites'
+    let getWebsitesQueryParams
     const shouldFetchWebsites = tableParams
-    const { data, error, mutate } = useSWR(shouldFetchWebsites ? getWebsitesURL : null, fetcher)
-    // category && mutate(getWebsitesURL)
+    if (country.value !== undefined && category.value !== undefined) {
+      getWebsitesQueryParams = `${getWebsitesURL}?page=${Number(pageIndex)}&category=${category.value}&country=${country.value}`
+    } else if (country.value !== undefined) {
+      getWebsitesQueryParams = `${getWebsitesURL}?page=${Number(pageIndex)}&country=${country.value}`
+    } else if (category.value !== undefined) {
+      getWebsitesQueryParams = `${getWebsitesURL}?page=${Number(pageIndex)}&category=${category.value}`
+    } else {
+      getWebsitesQueryParams = `${getWebsitesURL}?page=${Number(pageIndex)}`
+    }
+    const { data, error, mutate } = useSWR(shouldFetchWebsites ? getWebsitesQueryParams : null, fetcher)
 
     if (error) return <div>An error has occured</div>
     if (!data) return <TableLoader/>
+    const filterActive = country.value !== undefined || category.value !== undefined
 
     const rowGetter = ({index}) => { 
       if(!data) return {}
@@ -43,7 +51,6 @@ export function WebsitesTable ({ pageIndex, category }) {
     const onWebsiteClick = (websiteUrl) => {
       window.open(websiteUrl, '_blank')
     }
-
     const rowRenderer = (props) => {
       if (!Object.keys(props.rowData).length) return false
 
@@ -58,6 +65,7 @@ export function WebsitesTable ({ pageIndex, category }) {
            tableParams={tableParams}
            website={cell} key={index}
            afterAddSuccess={mutate}
+           filterActive={filterActive}
            />
           : 
           <div

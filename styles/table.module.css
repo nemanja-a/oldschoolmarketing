@@ -10,6 +10,9 @@
     width: 80vw;
     background: white;
     border-radius: 5px;
+    background: url("../public/images/Logo.jpg");
+    background-size: cover;
+    background-position: center;
 }
 
 #rightSide {
@@ -71,13 +74,19 @@
     height: 5.5vh;
 }
 
-.cell, .emptyCell {
+.cell, .emptyCell, .cellDisabled {
     display: flex;
     justify-content: space-between;
     min-width: 4vw;
     position: relative;
     transition: transform 0.1s;
     image-rendering: crisp-edges;
+}
+
+.cellDisabled {
+    opacity: 0;
+    pointer-events: none;
+    border: none;    
 }
 
 .cell a:hover {
@@ -110,7 +119,10 @@
     width: 80vw;
     height: 81.5vh;
     box-shadow: 0px 0px 10px 1px grey;
-    background: white;
+    /* background: white; */
+    background: url("../public/images/Logo.jpg");
+    background-size: cover;
+    background-position: center;
 }
 
 #websiteTitle { 

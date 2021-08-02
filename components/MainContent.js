@@ -14,11 +14,15 @@ export function MainContent (props) {
 
     const handleGoToPageEnterKey = (control) => { 
       if (control.eventKey === 'Enter') {
+        let pageRangeStart, pageIndex
         if (control.value >= TOTAL_PAGE_COUNT - NAVIGATION_BUTTONS_COUNT && control.value <= TOTAL_PAGE_COUNT) {
-          setState({...state, pageRangeStart: TOTAL_PAGE_COUNT - NAVIGATION_BUTTONS_COUNT, pageIndex: TOTAL_PAGE_COUNT - (TOTAL_PAGE_COUNT - control.value) })
+          pageRangeStart = TOTAL_PAGE_COUNT - NAVIGATION_BUTTONS_COUNT
+          pageIndex = TOTAL_PAGE_COUNT - (TOTAL_PAGE_COUNT - control.value)          
         } else if (control.value <= TOTAL_PAGE_COUNT) {
-          setState({...state, pageRangeStart: control.value, pageIndex: control.value})
+          pageRangeStart = pageIndex = control.value          
         }
+        setState({...state, pageRangeStart, pageIndex})
+        props.onPageChange(pageIndex)
       }
     }
 
@@ -36,13 +40,27 @@ export function MainContent (props) {
       return <button 
         id={buttonIndex} 
         className={pageIndex === state.pageIndex ? paginationStyles.activePage : null} 
-        onClick={() => setState({...state, pageIndex})}>{pageIndex}
+        onClick={() => onNavigationButtonClicked(pageIndex)}>{pageIndex}
       </button>
     }
+    const onNavigationButtonClicked = (pageIndex) => { 
+      setState({...state, pageIndex})
+      props.onPageChange(pageIndex)
+    }
+
     const rangeButton = (text, disabled, onClick) => <button disabled={disabled} onClick={onClick}>{text}</button> 
-    const onFirstPageClicked = () => setState({loading: true, pageRangeStart: 0, pageIndex: 0})
-    const onRangeButtonClicked = (pageRangeStart) => { setState({loading: true, pageRangeStart, pageIndex: pageRangeStart}) }
-    const onLastPageClicked = () => setState({loading: true, pageRangeStart: TOTAL_PAGE_COUNT - NAVIGATION_BUTTONS_COUNT, pageIndex: TOTAL_PAGE_COUNT})
+    const onFirstPageClicked = () => {
+      setState({loading: true, pageRangeStart: 0, pageIndex: 0})
+      props.onPageChange(0)
+    }
+    const onRangeButtonClicked = (pageRangeStart) => { 
+      setState({loading: true, pageRangeStart, pageIndex: pageRangeStart}) 
+      props.onPageChange(pageRangeStart)
+    }
+    const onLastPageClicked = () => { 
+      setState({loading: true, pageRangeStart: TOTAL_PAGE_COUNT - NAVIGATION_BUTTONS_COUNT, pageIndex: TOTAL_PAGE_COUNT})
+      props.onPageChange(TOTAL_PAGE_COUNT)
+    }
 
     return <div id={tableStyles.mainContent}>
       <div id={paginationStyles.pagination}>
@@ -69,7 +87,7 @@ export function MainContent (props) {
           />        
         </div>
       </div>
-      <WebsitesTable category={props.category} pageIndex={state.pageIndex}/>
+      <WebsitesTable category={props.category} country={props.country} pageIndex={state.pageIndex}/>
     </div>
 }
 

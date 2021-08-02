@@ -11,10 +11,6 @@
     font-size: 2rem;
 }
 
-#appName span, #appDescription span {
-    color: #fff;
-}
-
 #appDescription { 
     margin: auto;
     font-size: 1.5rem;

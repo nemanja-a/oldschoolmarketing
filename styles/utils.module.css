@@ -127,7 +127,7 @@
 
 .filterSection {
     min-height: 93vh;
-    padding-top: 56px;
+    padding-top: 55px;
     display: flex;
     flex-direction: column;
 }
@@ -144,7 +144,6 @@
 }
 
 .filterItem, .subcategory {
-    padding: 5px 0;
     text-align: center;
     width: 100%;
 }
@@ -157,8 +156,8 @@
     padding-left: 10px
 }
 
-.category:hover, .subcategory:hover { 
-    background: red;
+.filterItem:hover, .subcategory:hover { 
+    background: #ececec;
 }
 
 .filterListWrapper span:hover {
@@ -166,7 +165,7 @@
 }
 
 .activeFilter {
-    background: red;
+    background: #ececec;
 }
 
 .applyFiltersButton {
