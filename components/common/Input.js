@@ -1,7 +1,6 @@
 import { classNames } from "../../lib/util"
 import styles from "../../styles/form.module.css"
 import utilStyles from "../../styles/utils.module.css"
-import { RepeatableButton } from "./RepeatableButton"
 
 export function Input(props) {
 
@@ -10,6 +9,7 @@ export function Input(props) {
       [styles.inputNumber]: props.type === 'number',
       [styles.incrementerInput]: props.withIncrement,
       [styles.fullWidth]: props.maxWidth,
+      [props.className]: true
     })
 
     const inputNumberwrapperClasses = classNames({
@@ -70,21 +70,12 @@ export function Input(props) {
         props.onKeyDown && props.onKeyDown({name: props.name, value: Number(value), eventKey: event.key})
     }
     return <div className={wrapperStyles}>
-            <label
-                className={labelStyles}
-                htmlFor={props.name}>{props.label}
-                {props.required ? '*' : null}
+            <label className={labelStyles} htmlFor={props.name}>
+                    {props.required ? '*' : null}
+                    {props.label}
             </label>
             {/* Input type number */}
             {props.type === 'number' && <div className={inputNumberwrapperClasses}>
-                {props.withIncrement && <RepeatableButton
-                    style={{background: '#ffaa4e', borderRadius: '5px 0 0 5px'}}
-
-                     disabled={props.disabled}
-                     onPress={onDecrement}
-                     onHold={onDecrement}>
-                         -
-                </RepeatableButton>}
             <input
                 disabled={props.disabled}
                 id={props.name}
@@ -101,13 +92,6 @@ export function Input(props) {
                 onKeyDown={onNumberInputKeyDown}
                 onKeyPress={onNumberInputKeyPress}
             />
-                {props.withIncrement && <RepeatableButton 
-                    style={{background: '#ffaa4e', borderRadius: '0 5px 5px 0'}}
-                    disabled={props.disabled}
-                    onPress={onIncrement}
-                    onHold={onIncrement}>
-                    +
-                </RepeatableButton>}
             </div>
             }
             {/* Input type number */}

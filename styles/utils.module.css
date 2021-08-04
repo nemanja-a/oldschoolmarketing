@@ -73,6 +73,7 @@
 }
 
 .error {
+    padding-left: 5px;
     color: red;
     word-break: break-word;
 }
@@ -81,15 +82,11 @@
     position: absolute;
     cursor: pointer;
     height: 100%;
+    width: 100%;
 }
 
 .dropZoneDisabled:hover { 
     cursor: default;
-}
-
-.dropZone div:last-child{
-    width: 0 !important;
-    height: 0 !important;
 }
 
 .stepTitle {
@@ -148,12 +145,14 @@
     width: 100%;
 }
 
-.filterItem span{
+.filterItem, .filterItem span{
     display: block;
+    box-shadow: 0px 0px 5px 0px #aaaaaa;
 }
 
 .subcategory {
-    padding-left: 10px
+    display: block;
+    background: #b0adad;
 }
 
 .filterItem:hover, .subcategory:hover { 
@@ -175,4 +174,12 @@
 #descriptionSection {
     padding: 57px 10px 0 10px;
     max-width: 10vw;
+}
+
+.formControlError div div{
+    border: 1px solid red !important;
+}
+
+.inputError {
+    border-bottom: 2px solid red !important;
 }

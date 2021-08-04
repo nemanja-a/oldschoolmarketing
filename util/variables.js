@@ -6,7 +6,7 @@ export const DEFAULT_MODAL_WEBSITE_IMAGE = 'https://www.contentviewspro.com/wp-c
 
 export const WEBSITE = { 
     TITLE_MAX_LENGTH: 40,
-    DESCRIPTION_MAX_LENGTH: 60,
+    DESCRIPTION_MAX_LENGTH: 80,
     THUMBNAIL: {
         DEFAULT: '/images/Logo.jpg',
         NO_IMAGE_FOUND: '/images/no-image-found-360x260.png'
@@ -19,7 +19,7 @@ export const WEBSITE = {
         titleBackgroundColor: "#ffaa4e",
         titlePosition: 0,
         titleHeight: 19,
-        description: 'Website description',
+        description: '',
         descriptionOpacity: 10,
         descriptionColor: "#fff",
         descriptionBackgroundColor: "#ffaa4e",
@@ -40,6 +40,7 @@ export const WEBSITE = {
         {value: 5, displayValue: "Personal"},
         {value: 6, displayValue: "Entertainment"},
         {value: 7, displayValue: "News"},
+        {value: 38, displayValue: "Magazine"},
         {value: 8, displayValue: "Media"},
         {value: 9, displayValue: "Political"},
         {value: 10, displayValue: "Educational"},
@@ -59,13 +60,26 @@ export const WEBSITE = {
         {value: 24, displayValue: "Advertising"},
         {value: 25, displayValue: "Architecture"},
         {value: 26, displayValue: "Portfolio", subcategories: [
-            {value: 27, displayValue: "Design Portfolio"},
-            {value: 28, displayValue: "Software Developer Portfolio"},                                    
+            {value: 27, displayValue: "Photographer Portfolio"},
+            {value: 28, displayValue: "Designer Portfolio"},
+            {value: 41, displayValue: "Filmmaker Portfolio"},
+            {value: 42, displayValue: "Artist Portfolio"},
+            {value: 43, displayValue: "Software Developer Portfolio"},
         ]},        
         {value: 29, displayValue: "Fashion"},
+        {value: 30, displayValue: "Sport"},
+        {value: 31, displayValue: "Art"},
+        {value: 32, displayValue: "Other"},
+        {value: 33, displayValue: "Music"},
+        {value: 34, displayValue: "Movies/TV Shows"},
+        {value: 35, displayValue: "Board Games"},
+        {value: 36, displayValue: "Gaming"},
+        {value: 37, displayValue: "Digital Marketing"},
+        {value: 39, displayValue: "Community Forum"},
+        {value: 40, displayValue: "Photo-sharing"},
+        {value: 41, displayValue: "Animals"},
     ],
-    // TODO: Pronaci koje fale sa
-    // https://www.worldometers.info/geography/alphabetical-list-of-countries/
+
     COUNTRIES: [
             { value: 0, displayValue: "Afghanistan" },
             { value: 1, displayValue: "Albania" },

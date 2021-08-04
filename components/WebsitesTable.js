@@ -2,23 +2,45 @@ import React, { useEffect, useState } from "react"
 import useSWR from "swr"
 import { classNames, getTableParams } from "../lib/util"
 import tableStyles from "../styles/table.module.css"
-import { AddWebsiteDialog } from "./AddWebsiteDialog"
 import Image from "next/image"
 import { Table } from "react-virtualized"
 import { ROWS_PER_PAGE, WEBSITE } from "../util/variables"
 import { TableLoader } from "./TableLoader"
-import { server } from "../config"
+import { AddWebsiteDialog } from "./AddWebsiteDialog"
 
 export function WebsitesTable ({ pageIndex, category, country }) {
   let tableParams;
-  const [ tableContainer, setTableContainer ] = useState('')
+  const [ state, setState ] = useState({
+    columnIndex: 0,
+    rowIndex: 0,
+    showDialog: false,
+    container: null
+  })
 
   useEffect(() => {
     const container = document.getElementById("tableContainer")
-    setTableContainer(container)
+    !state.container && setState({...state, container})
   })
 
-    tableParams = (tableContainer && !tableParams) && getTableParams(tableContainer)
+  const open = () => setShowDialog(true)
+  const close = async(afterAddSuccess) => {
+    // prevent closing on ESC press
+    if (event && event.keyCode && event.keyCode === 27) return 
+    localStorage.removeItem('amount')
+    afterAddSuccess && mutate()
+    setState({...state, showDialog: false})
+  }
+
+  const onEmptyCellClick = (event) => { 
+    const columnIndex = Number(event.currentTarget.getAttribute("data-columnindex"))
+    const rowIndex = Number(event.currentTarget.getAttribute("data-rowindex"))
+    const website = data.websites.find(website => { 
+      return website.rowIndex === columnIndex && website.columnIndex === rowIndex
+    })
+    setState({columnIndex, rowIndex, website, showDialog: true })  
+  }
+
+    tableParams = (state.container && !state.tableParams) && getTableParams(state.container)
 
     const fetcher = async(url) => fetch(url).then(res => res.json())      
     
@@ -42,9 +64,16 @@ export function WebsitesTable ({ pageIndex, category, country }) {
 
     const rowGetter = ({index}) => { 
       if(!data) return {}
+      
       const rowData = data.websites.filter(website => {
         return website.rowIndex === index
       })
+      if (index >= ROWS_PER_PAGE - 5) {
+        rowData.map(website => { 
+          website.bottomRow = true
+          return website
+        })
+      }
       return rowData
     }
 
@@ -53,20 +82,35 @@ export function WebsitesTable ({ pageIndex, category, country }) {
     }
     const rowRenderer = (props) => {
       if (!Object.keys(props.rowData).length) return false
-
       return <div key={props.index} className={tableStyles.row}>
+        
         {props.rowData.map((cell, index) => {
-          const cellClasses = classNames({
+          let cellClasses = classNames({
             [tableStyles.cell]: true,
-          })
+            [tableStyles.transformOriginCenter]: cell.bottomRow
+          })                            
+      
           cell.page = pageIndex
-          return cell.isEmpty ? <AddWebsiteDialog 
-           id={`r${cell.rowIndex}-c${cell.columnIndex}`} 
-           tableParams={tableParams}
-           website={cell} key={index}
-           afterAddSuccess={mutate}
-           filterActive={filterActive}
-           />
+
+          return cell.isEmpty ? <a 
+            onClick={onEmptyCellClick}
+            style={{'width': tableParams.cellWidth, 'height': tableParams.rowHeight }}
+            key={`r${cell.rowIndex}-c${cell.columnIndex}`}
+            className={tableStyles.emptyCell}
+            data-columnindex={cell.columnIndex}
+            data-rowindex={cell.rowIndex}
+            id={`r${cell.rowIndex}-c${cell.columnIndex}`}
+          > 
+          <Image
+            priority  
+            src={WEBSITE.THUMBNAIL.DEFAULT}
+            className={tableStyles.websiteImage}
+            layout="fill"
+            // height={tableParams.rowHeight}
+            // width={tableParams.cellWidth}
+            alt="No image found"
+          />
+        </a>
           : 
           <div
            key={`r${cell.rowIndex}-c${cell.columnIndex}`}
@@ -80,31 +124,18 @@ export function WebsitesTable ({ pageIndex, category, country }) {
               layout="fill"
               alt='No image found'
             />
-            <span             
-              id={tableStyles.websiteTitle}
-              style={{
-                opacity: cell.titleOpacity < 10 ? `0.${cell.titleOpacity}` : 1,
-                color: cell.titleColor,
-                background: cell.titleBackgroundColor,              
-                top: `${cell.titlePosition}%`,
-                height: `${cell.titleHeight / 4}px`
-              }} 
-            >
-            {cell.title ? cell.title : null}</span>
+            <div className={tableStyles.imageInfo}>
+              <div className={tableStyles.imageInfoRow}>
+                <span>URL</span>
+                <strong>{cell.url}</strong>
+              </div>
+              <div className={tableStyles.imageInfoRow}>
+                <span>Description</span>
+                <strong>{cell.description}</strong>
+              </div> 
+            </div>
 
-              <span                    
-              id={tableStyles.websiteDescription}
-              style={{          
-                opacity: cell.descriptionOpacity < 10 ? `0.${cell.descriptionOpacity}` : 1,
-                color: cell.descriptionColor,
-                background: cell.descriptionBackgroundColor,
-                top: cell.descriptionPosition + "%",
-                height: `${cell.descriptionHeight / 4}px`
-              }}
-            >
-              {cell.description ? cell.description : null}</span>
-          </div>
-          
+          </div>          
         })}
        </div>
     }
@@ -122,5 +153,8 @@ export function WebsitesTable ({ pageIndex, category, country }) {
             disableHeader={true}
           >
           </Table>}
+          {state.showDialog && 
+            <AddWebsiteDialog columnIndex={state.columnIndex} rowIndex={state.rowIndex} 
+            website={state.website} close={close}/>}
       </div>
 }

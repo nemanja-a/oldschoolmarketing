@@ -1,4 +1,4 @@
-import {  useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { Dialog } from '@reach/dialog'
 import VisuallyHidden from '@reach/visually-hidden'
 import dialogStyles from "../styles/dialog.module.css"
@@ -9,10 +9,6 @@ import Image from "next/image"
 import 'react-toastify/dist/ReactToastify.css';
 import { ALLOWED_FORMATS, REFERER_HEADER_MAX_LENGTH, WEBSITE } from '../util/variables'
 import { Input } from './common/Input'
-import { ColorPicker } from './common/ColorPicker'
-import { Incrementer } from './common/Incrementer'
-import { Checkbox } from './common/Checkbox'
-import { getIncrementerValue } from '../lib/util'
 import BadWordsFilter from 'bad-words'
 import { Button } from './common/Button'
 import FadeIn from 'react-fade-in';
@@ -22,18 +18,16 @@ import { classNames } from '../lib/util'
 import { ModalLoader } from './ModalLoader'
 import { useDropzone } from 'react-dropzone'
 import { Select } from './common/Select'
+import { showError } from '../lib/toast'
 
 export function AddWebsiteDialog(props) {
-  const websiteUrlInputRef = useRef()
-  const titlePreviewRef = useRef()
-  const descriptionPreviewRef = useRef()
-  const { tableParams } = props
   let defaultWebsite = WEBSITE.DEFAULT
-  defaultWebsite.page = props.website.page
-  defaultWebsite.rowIndex = props.website.rowIndex
-  defaultWebsite.columnIndex = props.website.columnIndex
+  if (props.website) {
+    defaultWebsite.page = props.website.page
+    defaultWebsite.rowIndex = props.website.rowIndex
+    defaultWebsite.columnIndex = props.website.columnIndex
+  }
   const defaultState = {
-    showDialog: false,
     websiteValid: null,
     websiteAlreadyExist: false,
     step: 1,
@@ -50,21 +44,14 @@ export function AddWebsiteDialog(props) {
     multiple: false,
     disabled: state.step === 3,
     onDropRejected: () => { 
-      setState({...state, imageError: 'Invalid file type. Try again.'})
+      showError("Invalid file type. Try again", 5000)
     },
     onDrop: (acceptedFiles) => { 
       acceptedFiles[0] && onImageChange(acceptedFiles[0])
      }
   })
-  
-  const open = () => setState({...state, showDialog: true})
-  const close = async(afterAddSuccess) => {
-    localStorage.removeItem('amount')
-    if (afterAddSuccess) {
-      props.afterAddSuccess()
-    }
-    setState({...defaultState, showDialog: false})
-  }
+
+
 
   const deleteUnusedUploadedImage = async() => { 
     return await fetch(
@@ -87,83 +74,17 @@ export function AddWebsiteDialog(props) {
     })
   }
 
-  const onInputChange = (event) => { 
-    if (event.target.value.length <= 1 && event.target.value.charAt(0) !== "#") {
-      event.target.value = "#"
-    }
-    setState({
-      ...state,
-      website: {
-        ...state.website,
-        [event.target.name]: event.target.value
-      }
-    })
-  }
-
-  const onNumberInputChange = (control) => {     
-    if (control.value > 10 || control.value < 0) return
-    setState({
-      ...state,
-      website: {
-        ...state.website,
-        [control.name]: control.value
-      }
-    })
-  }
-
-  const onTextInputChange = (event, controlRef) => {
+  const onDescriptionChange = (event) => {
     const filter = new BadWordsFilter()
-    const controlHeight = controlRef.current.clientHeight
    
     setState({
       ...state,
+      validationError: false,
       website: {
         ...state.website,
         [event.target.name]: event.target.value,
-        [event.target.name + "Height"]: controlHeight,
       },
       [event.target.name + "Profane"]: filter.isProfane(event.target.value)
-    })
-  }
-
-  const onColorPickerChange = (target, value) => {
-    setState({
-      ...state,
-      website: {
-        ...state.website,
-        [target]: value
-      }
-    })
-  }
-
-  const onIncrementerUpClick = (control, currentValue) => { 
-    debugger
-    const position = getIncrementerValue(currentValue, state.website[control + 'Height'],'up')
-    setState({
-      ...state,
-      website: {
-        ...state.website,
-        [control + 'Position']: position
-      }
-    })
-  }
-
-  const onIncrementerDownClick = (control, currentValue) => { 
-    const position = getIncrementerValue(currentValue, state.website[control + 'Height'], 'down')
-    setState({
-      ...state,
-      website: {
-        ...state.website,
-        [control + 'Position']: position
-      }
-    })
-  }
-
-  const onCheckboxChange = (event) => { 
-    const value = event.target.value === 'true' ? false : true
-    setState({
-      ...state,
-      [event.target.name]: value
     })
   }
 
@@ -190,6 +111,7 @@ export function AddWebsiteDialog(props) {
         imagePreviewHovered: false,
         imageError: uploadResponse.message
       })
+      showError(uploadResponse.message)
     } else {
       const reader = new FileReader()
       reader.readAsDataURL(file)
@@ -273,11 +195,12 @@ export function AddWebsiteDialog(props) {
     setState( {...state, loading: value, loaderText: text} )
   }
   const onNextStep = () => { 
-    if (state.step === 2 && !state.website.categories.length) {
+    if (state.step === 2 && (!state.website.categories.length || !state.website.description.length || !state.website.countries.length)) {
       setState({...state, validationError: true})
     } else {
       setState({
-        ...state, 
+        ...state,
+        validationError: false, 
         step: state.step + 1,
         urlError: null,
         imageError: null,
@@ -300,46 +223,31 @@ export function AddWebsiteDialog(props) {
     setState({...state, validationError: false, website: {...state.website, [controlName]: selectedList}} )
   }
 
+
   const onRemove = (selectedList, controlName ) => {
     setState({...state, website: {...state.website, [controlName]: selectedList}} )
   }
 
   const getFormData = () => {
+    console.log(`Before save: Row Index: ${props.website.rowIndex} \\ COlumn index: ${props.website.columnIndex}`)
     const categories = state.website.categories.map(category => { 
       return category.value
     })
     const countries = state.website.countries && state.website.countries.map(category => { 
       return category.value
     })
-    let website = {
+    return {
       url: state.website.url,
-      page: Number(state.website.page),
-      rowIndex: state.website.rowIndex,
-      columnIndex: state.website.columnIndex,
+      page: Number(props.website.page),
+      rowIndex: props.website.rowIndex,
+      columnIndex: props.website.columnIndex,
       thumbnail: {...state.website.thumbnail, url: state.previewImageUrl},
       createdAt: new Date(),
       categories,
+      countries,
+      description: state.website.description
     } 
-    if (countries) {
-      website.countries = countries
-    }
-    if (state.showTitle) {
-      website.title = state.website.title
-      website.titleOpacity = state.website.titleOpacity
-      website.titleColor = state.website.titleColor
-      website.titleBackgroundColor = state.website.titleBackgroundColor
-      website.titlePosition = state.website.titlePosition,
-      website.titleHeight = state.website.titleHeight
-    } 
-    if (state.showDescription) {
-      website.description = state.website.description
-      website.descriptionOpacity = state.website.descriptionOpacity
-      website.descriptionColor = state.website.descriptionColor
-      website.descriptionBackgroundColor = state.website.descriptionBackgroundColor
-      website.descriptionPosition = state.website.descriptionPosition
-      website.descriptionHeight = state.website.descriptionHeight
-    }
-    return website
+    
   }
 
   const cellClasses = classNames({
@@ -365,34 +273,21 @@ export function AddWebsiteDialog(props) {
     }  
   }
 
-  const showTitlePreview = (state.showTitle && state.step !== 1) && !state.imagePreviewHovered
-  const showDescriptionPreview = (state.showDescription && state.step !== 1) && !state.imagePreviewHovered
+  const categorySelectClasses = classNames({
+    [utilStyles.formControlError]: state.validationError && !state.website.categories.length
+  })
+
+  const descriptionInputClasses = classNames({
+    [utilStyles.inputError]: state.validationError && !state.website.description.length
+  })
+
   const nextButtonDisabled = state.step === 3 || !state.websiteValid || state.titleProfane || state.descriptionProfane 
   return (
     <div className={cellClasses} id={props.id}>
-      {/* Collapsed grid cell  */}
-        <a
-            onClick={open}
-            key={state.website.columnIndex}
-            style={{'width': tableParams.cellWidth, 'height': tableParams.rowHeight }}
-            className={tableStyles.emptyFieldWrapper}
-          > 
-          <Image
-            priority            
-            src={state.website.thumbnail.url || WEBSITE.THUMBNAIL.DEFAULT}
-            className={tableStyles.websiteImage}
-            height={tableParams.rowHeight}
-            width={tableParams.cellWidth}
-            alt={state.website.url}
-          />
-
-        </a>
-      {/* Collapsed grid cell  */}
-
       {/* Dialog */}
-      <Dialog className={dialogStyles.dialog} aria-label="add-website-dialog" isOpen={state.showDialog} onDismiss={close}>
+      <Dialog className={dialogStyles.dialog} aria-label="add-website-dialog" isOpen={state.showDialog} onDismiss={props.close}>
         <FadeIn transitionDuration={500}>
-          <button className={utilStyles.closeButton} onClick={close}>
+          <button className={utilStyles.closeButton} onClick={props.close}>
             <VisuallyHidden>Close</VisuallyHidden>
             <span aria-hidden>×</span>
           </button>
@@ -431,38 +326,31 @@ export function AddWebsiteDialog(props) {
             <div className={dialogStyles.imagePreviewWrapper}
              onMouseEnter={() => { state.step !== 3 && setState({...state, imagePreviewHovered: true })} }
              onMouseLeave={() => setState({...state, imagePreviewHovered: false})}
-            >
-              {showTitlePreview && <FadeIn transitionDuration={50}>
-                <span ref={titlePreviewRef} id={dialogStyles.websiteTitlePreview}
-                style={{
-                  opacity: state.website.titleOpacity < 10 ? `0.${state.website.titleOpacity}` : 1,
-                  color: state.website.titleColor,
-                  background: state.website.titleBackgroundColor,
-                  top: `${state.website.titlePosition}%`
-                }} 
-              >{state.website.title}</span> </FadeIn>}
-                  {showDescriptionPreview && <FadeIn transitionDuration={50}>
-                  <span ref={descriptionPreviewRef} id={dialogStyles.websiteDescriptionPreview}
-                  style={{
-                    opacity: state.website.descriptionOpacity < 10 ? `0.${state.website.descriptionOpacity}` : 1,
-                    color: state.website.descriptionColor,                
-                    background: state.website.descriptionBackgroundColor,
-                    top: `${state.website.descriptionPosition}%`
-                  }}
-              >{state.website.description}</span> </FadeIn>}
-              
+            > 
               <div {...getRootProps({className: dropZoneClasses})}>
                 <input {...getInputProps()} />                          
                 <div id={dialogStyles.imageUploadOverlay}>Drop or click here to upload</div>
+                
+                {state.step !== 1 && <div className={dialogStyles.imagePreviewInfo}>
+                  <div className={dialogStyles.previewInfoRow}>
+                    <span>URL</span>
+                    <strong>{state.website.url || "www.exampleurl.com"}</strong>
+                  </div>
+                  <div className={dialogStyles.previewInfoRow}>
+                    <span>Description</span>
+                    <strong>{state.website.description || "Description goes here"}</strong>
+                  </div>   
+                </div>}   
+
                 <Image
                   priority
                   src={state.previewImageUrl || WEBSITE.THUMBNAIL.DEFAULT}
                   className={imagePreviewClasses}
                   layout="fill"
                   alt={WEBSITE.THUMBNAIL.NO_IMAGE_FOUND}
-                />   
-              </div>
-              {state.imageError && <span className={utilStyles.error}>{state.imageError}</span>}
+                />
+
+              </div>              
             </div>
 
             {/* Image preview end*/}
@@ -488,7 +376,6 @@ export function AddWebsiteDialog(props) {
                   type="text"
                   autoComplete="url"
                   maxLength={REFERER_HEADER_MAX_LENGTH}
-                  ref={websiteUrlInputRef}
                 />
                 <span>*Make sure that URL starts with https://</span>
               </span>
@@ -522,156 +409,56 @@ export function AddWebsiteDialog(props) {
       {state.step === 2 && <FadeIn transitionDuration={500}>
       <form>
         <section id={dialogStyles.attributesSection}>
-
-          <div className={dialogStyles.row}>
-          <Checkbox 
-            label='Show Title'
-            disabled={!state.websiteValid}
-            name='showTitle'
-            onChange={onCheckboxChange}
-            value={state.showTitle}
-          />
-          <Checkbox 
-            label='Show Description'
-            disabled={!state.websiteValid}
-            name='showDescription'
-            onChange={onCheckboxChange}
-            value={state.showDescription}
-          />
-          <Incrementer 
-            label='Title Position'
-            disabled={!state.websiteValid || !state.showTitle}
-            name='titlePosition'
-            onUpClick={() => onIncrementerUpClick('title', state.website.titlePosition)}
-            onDownClick={() => onIncrementerDownClick('title', state.website.titlePosition)}
-          />
-          <Incrementer 
-            label='Description Position'
-            disabled={!state.websiteValid || !state.showDescription}
-            name='descriptionPosition'
-            onUpClick={() => onIncrementerUpClick('description', state.website.descriptionPosition)}
-            onDownClick={() => onIncrementerDownClick('description', state.website.descriptionPosition)}
-          />
-          </div>
-          <div className={dialogStyles.row}>
-            <Input 
-              maxWidth
-              label='Title'
-              disabled={!state.websiteValid || !state.showTitle}
-              name='title'
-              placeholder="Enter title..."
-              value={state.website.title}
-              onChange={(event) => onTextInputChange(event, titlePreviewRef)}
-              maxLength={WEBSITE.TITLE_MAX_LENGTH}
-              />
-          </div>
-          <div className={dialogStyles.row}>
-            <div>
-              {state.website.title && (state.website.title.length === WEBSITE.TITLE_MAX_LENGTH) && <span className={utilStyles.error}>Character limit reached</span>}
-              {state.titleProfane && <span className={utilStyles.error}>Bad words are not allowed.</span>}
-            </div>
-          </div>
           <div className={dialogStyles.row}>
               <Input 
+                required
                 maxWidth
                 label='Description'
-                placeholder="Enter description..."
-                disabled={!state.websiteValid || !state.showDescription}
+                placeholder={`Enter maximum of ${WEBSITE.DESCRIPTION_MAX_LENGTH} characters...`}
+                disabled={!state.websiteValid}
                 name='description'
                 value={state.website.description}              
-                onChange={(event) => onTextInputChange(event, descriptionPreviewRef)}
+                onChange={(event) => onDescriptionChange(event)}
                 maxLength={WEBSITE.DESCRIPTION_MAX_LENGTH}
+                className={descriptionInputClasses}
               />
           </div>
+          {state.validationError && !state.website.description.length && <div className={dialogStyles.row}>
+            <span className={utilStyles.error}>Description is required</span>
+          </div>}
           <div className={dialogStyles.row}>
             <div>
               {state.website.description && (state.website.description.length === WEBSITE.DESCRIPTION_MAX_LENGTH) && <span className={utilStyles.error}>Character limit reached.</span>}
               {state.descriptionProfane && <span className={utilStyles.error}>Bad words are not allowed.</span>}
             </div>
           </div>
-          <div className={dialogStyles.row}>                  
-              <Input 
-                withIncrement
-                label='Title Opacity'
-                disabled={!state.websiteValid || !state.showTitle}
-                type="number"
-                name='titleOpacity'
-                min="0"
-                max="10"
-                value={state.website.titleOpacity}
-                onChange={onNumberInputChange}
-                onIncrement={() => onNumberInputChange(event, 'increment')}
-                onDecrement={() => onNumberInputChange(event, 'decrement')}
-              />
-              <Input 
-                withIncrement
-                label='Description Opacity'
-                disabled={!state.websiteValid || !state.showDescription}
-                type="number"
-                name='descriptionOpacity'
-                min="0"
-                max="10"
-                value={state.website.descriptionOpacity}
-                onChange={onNumberInputChange}
-                onIncrement={() => onNumberInputChange(event, 'increment')}
-                onDecrement={() => onNumberInputChange(event, 'decrement')}
-              />
-          </div>
           <div className={dialogStyles.row}>
-            <ColorPicker
-              label='Title Color'
-              disabled={!state.websiteValid || !state.showTitle}
-              name='titleColor'              
-              value={state.website.titleColor}
-              onChange={onColorPickerChange}
-              onInputChange={onInputChange}
-            />
-            <ColorPicker
-              label='Description Color'
-              disabled={!state.websiteValid || !state.showDescription}
-              name='descriptionColor'
-              value={state.website.descriptionColor}
-              onChange={onColorPickerChange}
-              onInputChange={onInputChange}
-            />
-          </div>
-          <div className={dialogStyles.row}>
-            <ColorPicker
-                label='Title Background Color'
-                disabled={!state.websiteValid || !state.showTitle}
-                name='titleBackgroundColor'
-                value={state.website.titleBackgroundColor}
-                onChange={onColorPickerChange}
-                onInputChange={onInputChange}
-              />
-            <ColorPicker
-              label='Description Background Color'
-              disabled={!state.websiteValid || !state.showDescription}
-              name='descriptionBackgroundColor'
-              value={state.website.descriptionBackgroundColor}
-              onChange={onColorPickerChange}
-              onInputChange={onInputChange}
-            />
-          </div>
+            {/* <Categories ref={categorySelectRef} selectedValues={state.website.categories}
+             style={selectStyles} classes={categorySelectClasses}/> */}
 
-          <div className={dialogStyles.row}>
             <Select
               required            
               maxWidth
               showCheckbox
+              id="categoriesSelect"
               label='Categories'
               placeholder="Select website categories"                                                                 
               options={WEBSITE.CATEGORIES}
               onSelect={(selectedList) => onSelect(selectedList, 'categories')}
-              onRemove={(selectedList) => onRemove(selectedList, 'categories')}          
+              onRemove={(selectedList) => onRemove(selectedList, 'categories')}
               selectedValues={state.website.categories}
               style={selectStyles}
+              className={categorySelectClasses}
             />                        
           </div>
+          {state.validationError && !state.website.categories.length && <div className={dialogStyles.row}>
+             <span className={utilStyles.error}>Select one or more categories</span>
+          </div>}
           <div className={dialogStyles.row}>
-            <Select
-              required            
+            <Select  
+              required          
               maxWidth
+              id="countriesSelect"
               showCheckbox
               label='Countries'
               placeholder="Select website country"                                                                 
@@ -683,10 +470,9 @@ export function AddWebsiteDialog(props) {
               style={selectStyles}
             />                        
           </div>
-          {state.validationError && <div className={dialogStyles.row}>
-             <span className={utilStyles.error}>This field is required</span>
+          {state.validationError && !state.website.countries.length && <div className={dialogStyles.row}>
+             <span className={utilStyles.error}>Select one or more countries</span>
           </div>}
-          
 
         </section>
         </form>
@@ -699,7 +485,7 @@ export function AddWebsiteDialog(props) {
 
       {/* Third step */}
       {state.step === 3 && <FadeIn transitionDuration={500}>
-        <Payment addWebsiteCallback={addWebsiteCallback} close={close} toggleLoading={toggleLoading} getFormData={getFormData}/>
+        <Payment addWebsiteCallback={addWebsiteCallback} close={props.close} toggleLoading={toggleLoading} getFormData={getFormData}/>
         <div id={dialogStyles.stepButtonsWrapper}>
           <Button primary onClick={onPreviousStep} disabled={state.step === 1} className={dialogStyles.stepButton}>Previous Step</Button>
           <Button primary onClick={onNextStep} disabled={nextButtonDisabled} className={dialogStyles.stepButton}>Next Step</Button>

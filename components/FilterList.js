@@ -1,13 +1,15 @@
 import utilStyles from "../styles/utils.module.css"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
-export function FilterList({onChange, items, title}) {
+export function FilterList({onChange, items, title, id}) {
     const searchInputRef = useRef()
     const filteredItems = JSON.parse(JSON.stringify(items)) 
     const defaultState = {
       item: {},
+      activeGroupItem: {},
       filteredItems
     }
+
     const [state, setState] = useState(defaultState)
 
     const onItemClicked = (selectedItem, event) => {   
@@ -32,10 +34,22 @@ export function FilterList({onChange, items, title}) {
         onChange(selectedItem)
       }
 
+      const onGroupItemClicked = (groupItem) => { 
+        if (groupItem.value !== state.activeGroupItem.value) {
+          state.activeDOMElement && state.activeDOMElement.classList.remove([utilStyles.activeFilter])
+          const newActiveDOMElement = event.target
+          newActiveDOMElement.classList.add([utilStyles.activeFilter])
+          setState({...state, activeGroupItem: groupItem, activeDOMElement: newActiveDOMElement})
+        } else { 
+          state.activeDOMElement.classList.remove([utilStyles.activeFilter])
+          setState({defaultState})
+        }
+      }
+
       const onInput = (event) => {
         if (!event.currentTarget.value) {
           state.activeDOMElement && state.activeDOMElement.classList.remove([utilStyles.activeFilter])
-          setState({defaultState})          
+          setState({test: "This is test"})          
           onChange({})
         }  }
     
@@ -44,12 +58,17 @@ export function FilterList({onChange, items, title}) {
       }
     
       const renderFilterItems = () => { 
-        return state.filteredItems.map((item, index) => {      
-          return <span key={index} id={item.value} className={utilStyles.filterItem}
+        return state.filteredItems.map((item, index) => {     
+          return !item.subcategories ? <span key={index} id={item.value} className={utilStyles.filterItem}
                   onClick={(event) => onItemClicked(item, event)}>    
-              <span>{item.subcategories ? `${item.displayValue} +` : item.displayValue}</span>
-              {(item.active && item.showSubcategories) && <span>{renderSubcategories(item)}</span>}
-            </span>                                                         
+              <span>{item.displayValue}</span>
+            </span>
+             :
+            <span key={index} id={item.value}
+              onClick={(event) => onGroupItemClicked(item,event)}>
+              <span className={utilStyles.filterItem}>{item.displayValue} +</span> 
+              {(state.activeGroupItem.value === item.value) && <span>{renderSubcategories(item)}</span>}
+            </span>                                                        
           })
       }
 
@@ -58,7 +77,7 @@ export function FilterList({onChange, items, title}) {
         state.filteredItems = items.filter(item => { 
           return item.displayValue.includes(value)
         })
-        setState({...state, filteredItems: state.filteredItems})
+        setState({...defaultState, filteredItems: state.filteredItems})
       }
     
       const renderSubcategories = (item) => { 
@@ -69,9 +88,11 @@ export function FilterList({onChange, items, title}) {
        })
       }
 
-  return ( <div style={{border: "1px solid lightgrey", borderRadius: "5px", boxShadow: "0px 0px 5px 0px"}}>
+  return ( <div id={id} style={{border: "1px solid lightgrey", borderRadius: "5px", boxShadow: "0px 0px 5px 0px"}}>
             <div>{title}: {state.item.displayValue ? state.item.displayValue : 'All'}</div>
-            <input ref={searchInputRef} type="search" onInput={onInput} placeholder={`Search  ${title}`} value={state.searchString} onChange={onSearchChange} />
+            <input ref={searchInputRef} type="search" onInput={onInput}
+             placeholder={`Search  ${title}`} value={state.searchString} onChange={onSearchChange} 
+             />
             <div className={utilStyles.filterListWrapper}>{renderFilterItems()}</div>
         </div>
   )

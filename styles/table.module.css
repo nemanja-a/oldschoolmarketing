@@ -53,16 +53,6 @@
     cursor: pointer;
 }
 
-.emptyFieldWrapper div {
-    height: 100%;
-}
-
-.emptyFieldWrapper:hover { 
-    cursor: pointer;
-    z-index: 1;
-    border: 1px dashed gray;
-}
-
 .ReactVirtualized__Table__headerColumn, .ReactVirtualized__Table__rowColumn {
     margin-right: 0 !important;
 }
@@ -72,6 +62,15 @@
     justify-content: space-between;
     width: 77vw;
     height: 5.5vh;
+}
+
+.transformOriginCenter {
+    overflow: hidden;
+}
+
+.transformOriginCenter:hover {
+    transform-origin: center 65px;    
+    overflow: visible;    
 }
 
 .cell, .emptyCell, .cellDisabled {
@@ -102,11 +101,42 @@
     cursor: pointer;
 }
 
+.emptyCell:hover {
+    cursor: pointer;
+    z-index: 1;
+    border: 1px dashed gray;
+}
+
 .websiteImage {
     -webkit-backface-visibility: hidden !important; 
     -ms-transform: translateZ(0) !important; 
     -webkit-transform: translateZ(0) !important;
     transform: translateZ(0) !important;
+    border-radius: 3px 3px 0 0;
+    animation-fill-mode: forwards;
+}
+
+.imageInfo {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 99%;
+    background: #ebecec;
+    width: 100%;
+    border-radius: 0 0 3px 3px;
+    font-size: 3.3px;
+    height: 4.5vh;
+    justify-content: space-around;
+}
+
+.imageInfoRow {
+    padding: 0 1.5px;
+    word-break: break-word;
+    display: grid;
+}
+.imageInfoRow strong {
+    font-size: 2.7px;
 }
 
 .previewImage { 

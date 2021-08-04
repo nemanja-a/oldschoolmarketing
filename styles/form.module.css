@@ -53,23 +53,6 @@
     width: 100%;
 }
 
-.repeatableButton button {
-    text-align: center;
-    width: 1.8rem;
-    
-}
-
-.repeatableButton button:hover {
-    cursor: pointer;
-    background: #ea730d !important;
-    
-}
-
-.repeatableButton button:disabled {
-    cursor: default !important;
-    background: #ffaa4e !important;
-}
-
 .formControl { 
     position: relative;
     min-width: 30%;

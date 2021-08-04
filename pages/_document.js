@@ -1,7 +1,22 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-
+import { useEffect } from 'react'
 class MyDocument extends Document {
   render() {
+    // TODO: Don't close AddDialog modal when select dropdown is active and ESC pressed
+    const handleKeydown = (event) => { 
+      console.log(event)
+      if (event.keyCode === 27) {
+        "Pritisnuo si ESC!"
+      }
+    }
+
+    useEffect(() => {
+      document.addEventListener('keydown', handleKeydown)
+      return ()=>{
+       document.removeEventListener('keydown', handleKeydown)
+      }
+  }, [])
+
     return (
       <Html>
         <Head>        

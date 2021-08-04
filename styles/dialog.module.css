@@ -10,7 +10,7 @@
     padding: 2rem 3rem;
 }
 
-.startUpDialog p {
+.startUpDialog {
     font-size: 15px;
 }
 
@@ -19,6 +19,31 @@
     font-size: 4vh;
     padding-top: 0.5rem;
     font-size: 28px;
+}
+
+.imagePreviewInfo {
+    text-align: center;
+    height: max-content;    
+    position: relative !important;
+    top: 100%;
+    background: #ebecec;
+    width: 100%;
+    border-radius: 0 0 12px 12px;
+    font-size: 14px;
+    height: 20vh;
+    max-height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.previewInfoRow {
+    padding: 5px;
+    word-break: break-word;
+    display: grid;
+}
+.previewInfoRow strong {
+    font-size: 12px;
 }
 
 @media screen and (min-width: 1200px) and (max-width: 1400px){
@@ -81,6 +106,7 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 0.4rem;
+    padding-top: 4rem;
 }
 
 .checkmark {
@@ -135,6 +161,8 @@
 }
 
 .websitePreview p {
+    font-size: 12px;
+    font-style: italic;
     padding-right: 1rem;
 }
 
@@ -157,9 +185,6 @@
     height: 24vh;
 }
 
-.imagePreviewWrapper div {
-    position: unset !important;
-}
 
 .fieldGroup { 
     min-width: 19vw;
@@ -186,10 +211,11 @@
     -moz-box-pack: justify;
     justify-content: space-between;
     bottom: 1rem;
+    padding-top: 4rem;
 }
 
 #attributesSection { 
-    padding-bottom: 10vh;
+    padding-top: 10vh;
 }
 
 .stepButton {

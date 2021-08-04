@@ -55,7 +55,9 @@ const handler = nc()
   const file64 = formatBufferTo64(req.file)
   const uploadResult = await cloudinaryUpload(file64.content)
 
-  res.json({uploaded: true, cloudinaryId: uploadResult.public_id, url: uploadResult.secure_url})
+ res.json({uploaded: true, cloudinaryId: uploadResult.public_id, url: uploadResult.secure_url})
+// res.status(200).json({uploaded: false, message: "Image upload failed because image might contain adult, violence, medical, racy or other disturbing content."}) 
+
   })
 
 export const config = {

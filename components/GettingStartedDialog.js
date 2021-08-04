@@ -20,7 +20,7 @@ export function GettingStartedDialog() {
 
   return (
     <div className={wrapperClasses}>
-      First time here? Read <a href="#" onClick={open}>getting started</a> 
+      <a href="#" onClick={open}>About this page</a> 
       {/* Dialog */}
       <Dialog className={dialogStyles.dialog} aria-label="add-website-dialog" isOpen={showDialog} onDismiss={close}>
         <FadeIn transitionDuration={500}>

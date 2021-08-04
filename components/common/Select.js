@@ -1,6 +1,7 @@
 import { classNames } from "../../lib/util"
 import styles from "../../styles/form.module.css"
-import Multiselect from 'multiselect-react-dropdown';
+import utilStyles from "../../styles/utils.module.css"
+import Multiselect from 'multiselect-react-dropdown'
 
 export function Select(props) {
         const labelStyles = classNames({
@@ -10,10 +11,11 @@ export function Select(props) {
 
     let wrapperStyles = classNames({
         [styles.input]: true,
-        [styles.fullWidth]: props.maxWidth
+        [styles.fullWidth]: props.maxWidth,
+        [props.className]: true
     })
 
-    return <div className={wrapperStyles}>
+    return <div className={wrapperStyles} id={props.id}>
             <label className={labelStyles} htmlFor={props.name}>
                 {props.required ? '*' : null}
                 {props.label}            
@@ -31,6 +33,7 @@ export function Select(props) {
                 avoidHighlightFirstOption={true}
                 hidePlaceholder={true}
                 showArrow={true}
+                className={utilStyles.formControllError}                
             />
         </div>
 }

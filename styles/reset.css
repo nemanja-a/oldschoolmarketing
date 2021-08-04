@@ -103,6 +103,7 @@ html,
     /* font-family: 'Source Sans Pro', sans-serif; */
     font-size: 1.9vh;
     /* font-weight: 600; */
+    background: lightgray;
     width: 100%;
     height: auto;
 
@@ -132,8 +133,8 @@ input[type=number] {
 
 /* Customize scrollbars */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar
