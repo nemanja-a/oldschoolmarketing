@@ -140,10 +140,10 @@ input[type=search]:focus {
 ::-webkit-scrollbar
 
 ::-webkit-scrollbar-track {
-  background: lightgrey;
+  background: #0a66c2;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: grey;
+  background: #0a66c2;
   border-radius: 10px;
 }
