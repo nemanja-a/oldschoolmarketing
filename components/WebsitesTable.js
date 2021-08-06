@@ -58,7 +58,7 @@ export function WebsitesTable ({ pageIndex, category, country }) {
       }  
     const { data, error, mutate } = useSWR(shouldFetchWebsites ? getWebsitesQueryParams : null, fetcher)  
 
-    if (error) return <div>An error has occured</div>
+    if (error) return <div className={tableStyles.noData}>An error has occured</div>
     if (!data) return <TableLoader/> 
     const filterActive = country.value !== undefined || category.value !== undefined
     if (data) {

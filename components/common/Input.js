@@ -74,6 +74,27 @@ export function Input(props) {
                     {props.required ? '*' : null}
                     {props.label}
             </label>
+            {/* Input type number */}
+            {props.type === 'number' && <div className={inputNumberwrapperClasses}>
+            <input
+                disabled={props.disabled}
+                id={props.name}
+                onChange={onChange}
+                name={props.name}
+                placeholder={props.placeholder}
+                type="number"
+                value={props.value}
+                required={props.required}
+                min={props.min}
+                max={props.max}
+                maxLength={props.maxLength}
+                className={inputClasses}
+                onKeyDown={onNumberInputKeyDown}
+                onKeyPress={onNumberInputKeyPress}
+            />
+            </div>
+            }
+            {/* Input type number */}
 
             {/* Input type text */}
             {!props.type && <input

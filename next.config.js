@@ -12,6 +12,6 @@ module.exports = {
       domains: ["res.cloudinary.com", "i.pinimg.com"]
     },
     env: {
-      apiSecret: '42istheanswer'
+      apiSecret: 'howdidyouknowthattheansweris42?'
     }
   }
