@@ -44,7 +44,7 @@
 }
 
 .transformOriginCenter:hover {
-    transform-origin: center 65px;    
+    transform-origin: center 9vh;    
     overflow: visible;    
     border-radius: 5px;
 }
@@ -105,18 +105,18 @@
     background: #ebecec;
     width: 100%;
     border-radius: 0 0 3px 3px;
-    font-size: 3.3px;
+    font-size: 0.55vh;
     height: 4.5vh;
     justify-content: space-around;
 }
 
 .imageInfoRow {
     padding: 0 1.5px;
-    word-break: break-all;
+    word-break: break-word;
     display: grid;
 }
 .imageInfoRow strong {
-    font-size: 2.7px;
+    font-size: 0.43vh;
 }
 
 .previewImage { 
