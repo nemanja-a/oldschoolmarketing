@@ -18,6 +18,8 @@ export default async (req, res) => {
   const isUrlValid = await fetch(url, { method: 'HEAD' })
   if (!isUrlValid.status === 200) {
     return res.status(404).json({error: `URL ${url} is not valid`})  
+  } else {
+    return res.json({ok: true})
   }
   // Case 2 end
 
