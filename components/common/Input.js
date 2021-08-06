@@ -9,20 +9,11 @@ export function Input(props) {
       [styles.inputNumber]: props.type === 'number',
       [styles.incrementerInput]: props.withIncrement,
       [styles.fullWidth]: props.maxWidth,
-      [props.className]: true
     })
 
     const inputNumberwrapperClasses = classNames({
         [utilStyles.displayFlex]: true,
     })
-
-    const onIncrement = () => { 
-        props.onChange({name: props.name, value: props.value + 1})
-    }
-
-    const onDecrement = () => { 
-        props.onChange({name: props.name, value: props.value - 1})
-    }
 
     const onNumberInputKeyPress = (event) => { 
         if (event.which != 8 && event.which != 0 && event.which < 48 || event.which > 57) {
@@ -70,9 +61,10 @@ export function Input(props) {
         props.onKeyDown && props.onKeyDown({name: props.name, value: Number(value), eventKey: event.key})
     }
     return <div className={wrapperStyles}>
-            <label className={labelStyles} htmlFor={props.name}>
-                    {props.required ? '*' : null}
-                    {props.label}
+            <label
+                className={labelStyles}
+                htmlFor={props.name}>{props.label}
+                {props.required ? '*' : null}
             </label>
             {/* Input type number */}
             {props.type === 'number' && <div className={inputNumberwrapperClasses}>
@@ -92,8 +84,7 @@ export function Input(props) {
                 onKeyDown={onNumberInputKeyDown}
                 onKeyPress={onNumberInputKeyPress}
             />
-            </div>
-            }
+            </div>}
             {/* Input type number */}
 
             {/* Input type text */}

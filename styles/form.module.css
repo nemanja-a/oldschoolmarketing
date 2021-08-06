@@ -28,6 +28,13 @@
     padding-left: 5px;
 }
 
+.inputNumber {
+    width: 4vw;
+    border-width: 1px;
+    text-align: center;
+    height: 25px;
+    border-radius: 5px;
+}
 
 .inputWrapper input {
     margin: 0.2rem 0;

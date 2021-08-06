@@ -3,8 +3,6 @@ import { WebRiskServiceClient } from "@google-cloud/web-risk"
 import { getGSACredentials, websiteExistInNearbyPages } from "../../lib/util"
 
 export default async (req, res) => {
-
-  res.json({ok: true})
   const { db } = await connectToDatabase();
   const { url, page } = req.query
 
