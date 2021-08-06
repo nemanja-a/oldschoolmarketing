@@ -98,9 +98,7 @@ html,
   body {
     padding: 0;
     margin: 0;
-    /* font-family: 'Rubik', sans-serif; */
-    font-family: 'Noto Serif', serif;
-    /* font-family: 'Source Sans Pro', sans-serif; */
+    font-family: 'Noto Serif', serif;    
     font-size: 1.9vh;
     background: ghostwhite;
     width: 100%;

@@ -75,7 +75,6 @@ export function MainContent (props) {
           {navigationButton(state.pageRangeStart + 5, 6)}
           {rangeButton('Next >>', nextButtonDisabled, onRangeButtonClicked.bind(this, state.pageIndex + 1))}
           {rangeButton('Last', nextButtonDisabled, onLastPageClicked)}
-          
           <Input 
             label='Go To Page'
             type="number"

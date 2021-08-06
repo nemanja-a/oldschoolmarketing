@@ -15,7 +15,7 @@ const Meta = ({ title, keywords, description }) => {
 
 Meta.defaultProps = {
     title: 'World In 2021',
-    keywords: 'world, 2021, website, advertising',
+    keywords: 'world, 2021, internet history, websites, advertising',
     description: 'World In 2021 is created for showing variety of websites of 2021 at one place'
 }
 

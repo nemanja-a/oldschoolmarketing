@@ -1,5 +1,5 @@
 import styles from "../styles/filterlist.module.css"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { classNames } from "../lib/util"
 
 export const FilterList = React.forwardRef((props, ref) => {
@@ -12,12 +12,6 @@ export const FilterList = React.forwardRef((props, ref) => {
   }
 
   const [state, setState] = useState(defaultState)
-
-  const onClearFilters = () => { 
-    state.activeDOMElement && state.activeDOMElement.classList.remove([styles.activeFilter])
-    state.activesubcategoryDOMElement && state.activesubcategoryDOMElement.classList.remove([styles.activeFilter])
-    setState(defaultState)
-  }
 
   const onItemClicked = (selectedItem, event) => {   
       if (selectedItem.value !== state.item.value) {

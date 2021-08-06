@@ -46,27 +46,27 @@ export function Payment(props) {
     
   return (
        <div id={dialogStyles.secondStep}>
-            <div className={paymentStyles.content}>
-              <span>
-                *After publishing website, it <strong>can not</strong> be modified by neither <strong> user</strong> nor <strong> admin </strong>. Website can only be <strong> removed </strong> by <strong> admin</strong>. <br/> <br/>
-                <strong>*Disclaimer:</strong> Websites with <strong>inappropriate content</strong> that manage to bypass safety-content check will be <strong>removed</strong> and <strong>no refund</strong> will be provided.
-              </span>
-                <span id={paymentStyles.amountWrapper}>
-                  <Input 
-                      label='Amount in EUR(€)'
-                      name='amount'
-                      type='number'
-                      onChange={onAmountChange}
-                      min={2}
-                      value={amount}
-                      classes={inputClasses}
-                  />
+          <div className={paymentStyles.content}>
+            <span>
+              *After publishing website, it <strong>can not</strong> be modified by neither <strong> user</strong> nor <strong> admin </strong>. Website can only be <strong> removed </strong> by <strong> admin</strong>. <br/> <br/>
+              <strong>*Disclaimer:</strong> Websites with <strong>inappropriate content</strong> that manage to bypass safety-content check will be <strong>removed</strong> and <strong>no refund</strong> will be provided.
+            </span>
+              <span id={paymentStyles.amountWrapper}>
+                <Input 
+                    label='Amount in EUR(€)'
+                    name='amount'
+                    type='number'
+                    onChange={onAmountChange}
+                    min={2}
+                    value={amount}
+                    classes={inputClasses}
+                />
                 <span className={utilStyles.footnote}>Spot for website costs 2€, but feel free to change it.</span>
-                </span> 
-                <span id={dialogStyles.payPalComponentWrapper}>
-                    <PayPalComponent addWebsite={addWebsite} onError={onError}/>
-                </span>
-            </div>
+              </span> 
+              <span id={dialogStyles.payPalComponentWrapper}>
+                  <PayPalComponent addWebsite={addWebsite} onError={onError}/>
+              </span>
+          </div>
         </div>
   )
 }

@@ -21,7 +21,7 @@ export function GettingStartedDialog() {
   return (
     <div className={wrapperClasses}>
       <div>2€ per spot | &nbsp; </div>
-      <a href="#" onClick={open}> About this page</a> 
+      <a href="#" onClick={open}>Introduction</a> 
       {/* Dialog */}
       <Dialog className={dialogStyles.dialog} aria-label="add-website-dialog" isOpen={showDialog} onDismiss={close}>
         <FadeIn transitionDuration={500}>
@@ -46,11 +46,11 @@ export function GettingStartedDialog() {
         </div>
         <p className={dialogStyles.welcomeText}>
           <span>
-          - <strong>Browse websites </strong> - Hover over any <strong>image</strong> other than <strong>World in 2021 logo</strong> on the table to see larger <strong>image</strong>, <strong>URL</strong> and <strong>description</strong> of a website.
-           Click on image will open the link in new tab. <br/>
-           Choose <strong>page</strong> by clicking on any option from <strong>pagination</strong> above the table. <br/>
+          - <strong>Browse websites </strong> - Hover over any <strong>image</strong> other than <strong>World in 2021 logo</strong> to see larger <strong>image</strong>, <strong>URL</strong> and <strong>description</strong> of a website.
+           Click on image will open the link in new tab. <br/> <br/>
+           Choose <strong>page</strong> by clicking on any <strong>pagination</strong> button above the table. <br/>
            Selecting <strong>country</strong> or <strong>category</strong> from <strong>filter section</strong> on the left allows
-           viewing only websites related to selected category. Filters are applied only for <strong>active page</strong>  <br/> <br/>
+           viewing only websites related to selected category. Filters are applied only for <strong>active page</strong>. <br/> <br/>
 
           - <strong>Add website</strong> - If no <strong>filter</strong> is active, click on any available spot with <strong>World in 2021 logo </strong> 
           and complete the steps to add your website. <br/> 

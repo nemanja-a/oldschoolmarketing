@@ -7,11 +7,6 @@
     margin-right: 1rem;
 }
 
-.button { 
-    margin: 0 1rem;
-    padding: 0.2rem;
-}
-
 .closeButton {
     float: right;
     background: #0a66c2;
@@ -29,15 +24,6 @@
 .closeButton:hover {
     cursor: pointer;
     background: #00478e;
-}
-
-.uploadButton {
-    width: 15vw;
-    padding: 0.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0.2rem 0;
 }
 
 .buttonPrimary {

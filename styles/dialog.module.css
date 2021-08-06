@@ -67,9 +67,6 @@
     .stepButton {
         width: max-content !important;
     }
-    #websiteTitlePreview, #websiteDescriptionPreview {
-        width: 18vw !important;
-    }
 }
 
 @media screen and (min-width: 1000px) and (max-width: 1200px) {
@@ -82,9 +79,6 @@
     }
     .stepButton {
         width: max-content !important;
-    }
-    #websiteTitlePreview, #websiteDescriptionPreview {
-        width: 21vw !important;
     }
 }
 
@@ -100,9 +94,6 @@
     }
     .stepButton {
         width: max-content !important;
-    }
-    #websiteTitlePreview, #websiteDescriptionPreview {
-        width: 18vw !important;
     }
 }
 
@@ -150,11 +141,6 @@
     justify-content: space-around;
 }
 
-.buttonWrapper {
-    display: flex;
-    justify-content: space-between;
-}
-
 #payPalComponentWrapper {
     width: 15rem;
 }
@@ -171,44 +157,10 @@
     padding-right: 1rem;
 }
 
-#websiteTitlePreview, #websiteDescriptionPreview {
-    z-index: 1;
-    position: absolute;
-    text-align: center;
-    max-height: 5vh;
-    width: 16vw;
-    /* word-break: break-word; */
-}
-
-#websiteTitlePreview { 
-    top: 40px;
-}
-
 .imagePreviewWrapper {
     position: relative;
     width: 16vw;
     height: 24vh;
-}
-
-
-.fieldGroup { 
-    min-width: 19vw;
-}
-
-.confirmationDialog { 
-    width: 25vw;
-    height: 20vh;
-    margin: 25vh auto;
-    z-index: 1;
-}
-
-.confirmationDialog div {
-    text-align: center;
-}
-
-.confirmationDialogButtons {
-    display: flex;
-    justify-content: center;
 }
 
 #stepButtonsWrapper {
@@ -257,9 +209,4 @@
 
 .welcomeText span {
     text-align: center;
-}
-
-.highlightedText {
-    color: #ffaa4e;
-    font-weight: 600;
 }

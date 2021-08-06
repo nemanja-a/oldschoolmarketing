@@ -7,7 +7,7 @@ import utilStyles from "../styles/utils.module.css"
 import formStyles from "../styles/form.module.css"
 import Image from "next/image"
 import 'react-toastify/dist/ReactToastify.css';
-import { ALLOWED_FORMATS, REFERER_HEADER_MAX_LENGTH, WEBSITE } from '../util/variables'
+import { ALLOWED_FORMATS, WEBSITE } from '../util/variables'
 import { Input } from './common/Input'
 import BadWordsFilter from 'bad-words'
 import { Button } from './common/Button'
@@ -50,8 +50,6 @@ export function AddWebsiteDialog(props) {
       acceptedFiles[0] && onImageChange(acceptedFiles[0])
      }
   })
-
-
 
   const deleteUnusedUploadedImage = async() => { 
     return await fetch(
@@ -162,9 +160,6 @@ export function AddWebsiteDialog(props) {
       return
     } else if (websiteResponse.status === 404) {
       let data = await websiteResponse.json()
-      if (data.error.length > 650) {
-        data.error = data.error.slice(0, 650) + '... is not valid.'
-      }
       toggleLoading(false)
       setState({
         ...state,
@@ -298,29 +293,6 @@ export function AddWebsiteDialog(props) {
           {state.loading && <ModalLoader text={state.loaderText}/>}        
 
         <div className={dialogStyles.websitePreview}>
-          {/* Image preview */}
-          {/* {state.step === 1 && <p>
-          - Upload website thumbnail by clicking on image next to this text or by dropping file. Accepted
-          image formats are JPG, JPEG and PNG. <br/>
-          - Enter URL of website. <br/>
-          - Once URL is entered, click on Verify to confirm that site does not contain inappropriate content <br/>
-          - Continue to Next Step to customize thumbnail appearance
-          </p>} */}
-
-          {/* {state.step === 2 && <p>
-            - Show/hide title or description <br/>
-            - Press and hold Position buttons to adjust positions <br/>
-            - Add custom title/description text <br/>
-            - Adjust opacity <br/>
-            - Choose text color <br/>
-            - Choose background color <br/>
-          </p>} */}
-
-          {/* {state.step === 3 && <p>That's it.  If you want to change anything, now is the time to back go to Previous Step. <br/> <br/>
-            *After publishing website, it can not be modified by neither user nor admin. Website can be removed by admin only. <br/> <br/>
-            *Disclaimer: Websites with inappropriate content that manage to bypass safety-content check will be removed and no refund will be provided.
-          </p>} */}
-
           <div>
             {state.step !== 3 && <div style={{fontStyle: "italic"}}>Drop or click on image to upload</div>}
             <div className={dialogStyles.imagePreviewWrapper}
@@ -435,9 +407,6 @@ export function AddWebsiteDialog(props) {
             </div>
           </div>
           <div className={dialogStyles.row}>
-            {/* <Categories ref={categorySelectRef} selectedValues={state.website.categories}
-             style={selectStyles} classes={categorySelectClasses}/> */}
-
             <Select
               required            
               maxWidth

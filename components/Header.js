@@ -7,10 +7,8 @@ export function Header() {
   return (
     <div id="header" className={utilStyles.displayFlex}>
       <div id={styles.textContent}>
-        <div id={styles.appName}>World in 2021</div>
+        <div id={styles.appName}>World in <span style={{color: "white"}}>2021</span></div>
         <div id={styles.appDescription}>Websites of 2021</div>
-
-        {/* <div id={styles.appDescription}>Websites of 2021 | <GettingStartedDialog /></div>         */}
         <div id={styles.gettingStartedWrapper}>
           <div style={{fontSize: "medium"}}><GettingStartedDialog/></div>
         </div>

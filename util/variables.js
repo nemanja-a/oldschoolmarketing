@@ -3,7 +3,6 @@ export const COLUMNS_PER_ROW = 19
 export const TOTAL_PAGE_COUNT = 3333
 export const NAVIGATION_BUTTONS_COUNT = 5
 export const CONTAINER_PADDING = 11
-export const DEFAULT_MODAL_WEBSITE_IMAGE = 'https://www.contentviewspro.com/wp-content/uploads/2017/07/default_image.png'
 
 export const WEBSITE = { 
     URL_MAX_LENGTH: 80,
@@ -14,22 +13,9 @@ export const WEBSITE = {
     },
     DEFAULT: {
         url: '',
-        title: 'Website title',
-        titleOpacity: 10,
-        titleColor: "#fff",
-        titleBackgroundColor: "#ffaa4e",
-        titlePosition: 0,
-        titleHeight: 19,
         description: '',
-        descriptionOpacity: 10,
-        descriptionColor: "#fff",
-        descriptionBackgroundColor: "#ffaa4e",
-        descriptionPosition: 90,
-        descriptionHeight: 19,
         image: null,
         thumbnail: { url: '/images/Logo.jpg' },
-        imageWidth: 0,
-        imageHeight: 0,
         categories: [],
         countries: []
     },
@@ -131,7 +117,6 @@ export const WEBSITE = {
             { value: 42, displayValue: "Cuba" },
             { value: 43, displayValue: "Cyprus" },
             { value: 44, displayValue: "Czech Republic" },
-            // Democratic Republic of Congo ?
             { value: 45, displayValue: "Denmark" },
             { value: 46, displayValue: "Djibouti" },
             { value: 47, displayValue: "Dominica" },
@@ -284,7 +269,4 @@ export const WEBSITE = {
 }
 
 export const ALLOWED_FORMATS = 'image/jpeg, image/jpg, image/png'
-
-export const REFERER_HEADER_MAX_LENGTH = 2083
-
 export const LINKED_IN_PROFILE_URL = "https://www.linkedin.com/in/nemanja-apostolovic-9178a0156/"

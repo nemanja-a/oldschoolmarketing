@@ -27,7 +27,6 @@
 }
 
 .filterItem:hover, .subcategory:hover { 
-    /* background: #8b8b8b; */
     background: #0a66c2;
     color: white;
 }
@@ -55,7 +54,6 @@
 }
 
 .activeFilter {
-    /* background: #8b8b8b; */
     background: #0a66c2;
     color: white;
 }
