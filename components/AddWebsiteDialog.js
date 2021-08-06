@@ -51,6 +51,13 @@ export function AddWebsiteDialog(props) {
      }
   })
 
+  const close = () => { 
+    if (state.website.image) {
+      deleteUnusedUploadedImage()
+    }
+    props.close()
+  }
+
   const deleteUnusedUploadedImage = async() => { 
     return await fetch(
       `${server}/api/deleteimage?filename=${state.website.thumbnail.cloudinaryId}`, {
@@ -279,9 +286,9 @@ export function AddWebsiteDialog(props) {
   return (
     <div className={cellClasses} id={props.id}>
       {/* Dialog */}
-      <Dialog className={dialogStyles.dialog} aria-label="add-website-dialog" isOpen={state.showDialog} onDismiss={props.close}>
+      <Dialog className={dialogStyles.dialog} aria-label="add-website-dialog" isOpen={state.showDialog} onDismiss={close}>
         <FadeIn transitionDuration={500}>
-          <button className={utilStyles.closeButton} onClick={props.close}>
+          <button className={utilStyles.closeButton} onClick={close}>
             <VisuallyHidden>Close</VisuallyHidden>
             <span aria-hidden>×</span>
           </button>
@@ -293,7 +300,7 @@ export function AddWebsiteDialog(props) {
           {state.loading && <ModalLoader text={state.loaderText}/>}        
 
         <div className={dialogStyles.websitePreview}>
-          <div>
+          <div style={{maxWidth: "16vw", textAlign: "center"}}>
             {state.step !== 3 && <div style={{fontStyle: "italic"}}>Drop or click on image to upload</div>}
             <div className={dialogStyles.imagePreviewWrapper}
              onMouseEnter={() => { state.step !== 3 && setState({...state, imagePreviewHovered: true })} }
