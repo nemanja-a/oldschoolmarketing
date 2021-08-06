@@ -36,6 +36,4 @@ export default async (req, res) => {
   const {threat} = (await webRiskclient.searchUris(googleWebRiskRequest))[0];
   threat ? res.json({ok: false, msg: "The URL is marked as unsafe by Google Web Risk"}) : res.json({ok: true})
   // Case 3 end
-
-  res.json({ok: true})
 }
