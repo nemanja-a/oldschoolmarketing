@@ -8,10 +8,11 @@ export function Header() {
     <div id="header" className={utilStyles.displayFlex}>
       <div id={styles.textContent}>
         <div id={styles.appName}>World in 2021</div>
-        <div id={styles.appDescription}>Websites of 2021</div>        
+        <div id={styles.appDescription}>Websites of 2021</div>
+
+        {/* <div id={styles.appDescription}>Websites of 2021 | <GettingStartedDialog /></div>         */}
         <div id={styles.gettingStartedWrapper}>
           <div style={{fontSize: "medium"}}><GettingStartedDialog/></div>
-          <div>2€ per spot</div>
         </div>
       </div>
     </div>

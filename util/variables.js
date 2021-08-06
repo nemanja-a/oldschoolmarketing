@@ -2,11 +2,12 @@ export const ROWS_PER_PAGE = 14
 export const COLUMNS_PER_ROW = 19
 export const TOTAL_PAGE_COUNT = 3333
 export const NAVIGATION_BUTTONS_COUNT = 5
+export const CONTAINER_PADDING = 11
 export const DEFAULT_MODAL_WEBSITE_IMAGE = 'https://www.contentviewspro.com/wp-content/uploads/2017/07/default_image.png'
 
 export const WEBSITE = { 
-    TITLE_MAX_LENGTH: 40,
-    DESCRIPTION_MAX_LENGTH: 80,
+    URL_MAX_LENGTH: 80,
+    DESCRIPTION_MAX_LENGTH: 60,
     THUMBNAIL: {
         DEFAULT: '/images/Logo.jpg',
         NO_IMAGE_FOUND: '/images/no-image-found-360x260.png'
@@ -29,7 +30,8 @@ export const WEBSITE = {
         thumbnail: { url: '/images/Logo.jpg' },
         imageWidth: 0,
         imageHeight: 0,
-        categories: []
+        categories: [],
+        countries: []
     },
     CATEGORIES: [
         {value: 0, displayValue: "Business"},
@@ -67,7 +69,10 @@ export const WEBSITE = {
             {value: 43, displayValue: "Software Developer Portfolio"},
         ]},        
         {value: 29, displayValue: "Fashion"},
-        {value: 30, displayValue: "Sport"},
+        {value: 30, displayValue: "Sport", subcategories: [
+            {value: 44, displayValue: "Football"},
+            {value: 45, displayValue: "Basketball"},
+        ]},
         {value: 31, displayValue: "Art"},
         {value: 32, displayValue: "Other"},
         {value: 33, displayValue: "Music"},
@@ -80,7 +85,7 @@ export const WEBSITE = {
         {value: 41, displayValue: "Animals"},
     ],
 
-    COUNTRIES: [
+    COUNTRIES: [            
             { value: 0, displayValue: "Afghanistan" },
             { value: 1, displayValue: "Albania" },
             { value: 2, displayValue: "Algeria" },

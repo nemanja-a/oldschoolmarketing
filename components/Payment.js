@@ -21,6 +21,7 @@ export function Payment(props) {
     const addWebsite = async () => {
       props.toggleLoading(true)
       const websiteFormData = props.getFormData()
+      console.log(websiteFormData)
       const addWebsiteURL = `${server}/api/addwebsite`
       const websiteResponse = await fetch(addWebsiteURL, {
         body: JSON.stringify(websiteFormData),
@@ -46,6 +47,10 @@ export function Payment(props) {
   return (
        <div id={dialogStyles.secondStep}>
             <div className={paymentStyles.content}>
+              <span>
+                *After publishing website, it <strong>can not</strong> be modified by neither <strong> user</strong> nor <strong> admin </strong>. Website can only be <strong> removed </strong> by <strong> admin</strong>. <br/> <br/>
+                <strong>*Disclaimer:</strong> Websites with <strong>inappropriate content</strong> that manage to bypass safety-content check will be <strong>removed</strong> and <strong>no refund</strong> will be provided.
+              </span>
                 <span id={paymentStyles.amountWrapper}>
                   <Input 
                       label='Amount in EUR(€)'

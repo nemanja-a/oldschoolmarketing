@@ -25,6 +25,7 @@ export function Select(props) {
                 selectedValues={props.selectedValues}
                 placeholder={props.placeholder}
                 onSelect={props.onSelect}
+                name={props.name}
                 onRemove={props.onRemove}            
                 displayValue="displayValue"
                 showCheckbox={props.showCheckbox}

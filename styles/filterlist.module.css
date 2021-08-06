@@ -1,0 +1,80 @@
+.container {
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0;
+    margin-bottom: 17px;
+}
+
+.header { 
+    border-radius: 5px;
+    background: #0a66c2;
+    text-align: center;
+}
+
+.header div {
+    color: white;
+}
+
+
+.filterItem, .subcategory {
+    text-align: center;
+    width: 100%;
+}
+
+.filterItem, .filterItem span{
+    display: block;
+    box-shadow: 0px 0px 5px 0px #aaaaaa;
+}
+
+.filterItem:hover, .subcategory:hover { 
+    /* background: #8b8b8b; */
+    background: #0a66c2;
+    color: white;
+}
+
+.subcategory {
+    display: block;
+    background: #b0adad;
+}
+
+.filterListWrapper {
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    max-height: 24vh;
+}
+
+.filterListWrapper span:hover {
+    cursor: pointer;
+}
+
+.activeFilterHeader {
+    background: #00478e;
+    display: flex;
+    justify-content: space-between;
+}
+
+.activeFilter {
+    /* background: #8b8b8b; */
+    background: #0a66c2;
+    color: white;
+}
+
+.clearFilterButton { 
+    background: white;
+    color: #0a66c2;
+    padding: 0 5px;
+    margin-right: 5px;
+    border-radius: 5px;
+    height: 2.5vh;
+    display: flex;
+    align-items: flex-end;
+}
+
+.clearFilterButton:hover {
+    cursor: pointer;
+}
+
+.activeHeaderTitle {
+    padding-left: 20px
+}

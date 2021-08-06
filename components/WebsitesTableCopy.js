@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react"
-import useSWR from "swr"
-import { classNames, getTableParams } from "../lib/util"
+import { classNames } from "../lib/util"
 import tableStyles from "../styles/table.module.css"
 import Image from "next/image"
 import { Table } from "react-virtualized"
 import { ROWS_PER_PAGE, WEBSITE } from "../util/variables"
 import { TableLoader } from "./TableLoader"
 import { AddWebsiteDialog } from "./AddWebsiteDialog"
+import { server } from "../config"
 
 export function WebsitesTable ({ pageIndex, category, country }) {
   let tableParams;
@@ -14,13 +14,22 @@ export function WebsitesTable ({ pageIndex, category, country }) {
     columnIndex: 0,
     rowIndex: 0,
     showDialog: false,
-    container: null
-  })
+    shouldFetchWebsites: true,
+    websites: []
+    })
 
   useEffect(() => {
-    const container = document.getElementById("tableContainer")
-    !state.container && setState({...state, container})
-  })
+    async function fetchWebsites() {
+      const websitesRequest = await fetch(`${server}/api/websites`)
+      const [ websites ] = await websitesRequest.json()
+
+      setState({...state, websites, shouldFetchWebsites: false})
+    }
+    
+    if (state.shouldFetchWebsites) {
+      fetchWebsites()
+    } 
+  }, []);
 
   const open = () => setShowDialog(true)
   const close = async(afterAddSuccess) => {
@@ -35,45 +44,26 @@ export function WebsitesTable ({ pageIndex, category, country }) {
     const columnIndex = Number(event.currentTarget.getAttribute("data-columnindex"))
     const rowIndex = Number(event.currentTarget.getAttribute("data-rowindex"))
     const website = data.websites.find(website => { 
-      return website.rowIndex === rowIndex && website.columnIndex === columnIndex
+      return website.rowIndex === columnIndex && website.columnIndex === rowIndex
     })
     setState({columnIndex, rowIndex, website, showDialog: true })  
   }
 
-    tableParams = (state.container && !state.tableParams) && getTableParams(state.container)
-
-    const fetcher = async(url) => fetch(url).then(res => res.json())      
-
     const getWebsitesURL = 'api/websites'
-      let getWebsitesQueryParams
-      const shouldFetchWebsites = tableParams
-      if (country.value !== undefined && category.value !== undefined) {
-        getWebsitesQueryParams = `${getWebsitesURL}?page=${Number(pageIndex)}&category=${category.value}&country=${country.value}`
-      } else if (country.value !== undefined) {
-        getWebsitesQueryParams = `${getWebsitesURL}?page=${Number(pageIndex)}&country=${country.value}`
-      } else if (category.value !== undefined) {
-        getWebsitesQueryParams = `${getWebsitesURL}?page=${Number(pageIndex)}&category=${category.value}`
-      } else {
-        getWebsitesQueryParams = `${getWebsitesURL}?page=${Number(pageIndex)}`
-      }  
-    const { data, error, mutate } = useSWR(shouldFetchWebsites ? getWebsitesQueryParams : null, fetcher)  
-
-    if (error) return <div>An error has occured</div>
-    if (!data) return <TableLoader/> 
-    const filterActive = country.value !== undefined || category.value !== undefined
-    if (data) {
-      const hasData = data.websites.find(website => { 
-        if (!website.isEmpty) return true
-      })
-      if (!hasData && filterActive) {
-        return <div className={tableStyles.noData}>No data found</div>
-      }
+    let getWebsitesQueryParams
+    const shouldFetchWebsites = tableParams
+    if (country.value !== undefined && category.value !== undefined) {
+      getWebsitesQueryParams = `?page=${Number(pageIndex)}&category=${category.value}&country=${country.value}`
+    } else if (country.value !== undefined) {
+      getWebsitesQueryParams = `?page=${Number(pageIndex)}&country=${country.value}`
+    } else if (category.value !== undefined) {
+      getWebsitesQueryParams = `?page=${Number(pageIndex)}&category=${category.value}`
+    } else {
+      getWebsitesQueryParams = `?page=${Number(pageIndex)}`
     }
-    const emptyCellClasses = classNames ({
-      [tableStyles.emptyCell]: true,
-      [tableStyles.cellDisabled]: filterActive
-    })
-    
+
+    const filterActive = country.value !== undefined || category.value !== undefined
+
     const rowGetter = ({index}) => { 
       if(!data) return {}
       
@@ -106,9 +96,8 @@ export function WebsitesTable ({ pageIndex, category, country }) {
 
           return cell.isEmpty ? <a 
             onClick={onEmptyCellClick}
-            style={{'width': tableParams.cellWidth, 'height': tableParams.rowHeight }}
             key={`r${cell.rowIndex}-c${cell.columnIndex}`}
-            className={emptyCellClasses}
+            className={tableStyles.emptyCell}
             data-columnindex={cell.columnIndex}
             data-rowindex={cell.rowIndex}
             id={`r${cell.rowIndex}-c${cell.columnIndex}`}
@@ -129,7 +118,6 @@ export function WebsitesTable ({ pageIndex, category, country }) {
            onClick={() => onWebsiteClick(cell.url)}
            >
             <Image
-              priority
               src={cell.thumbnail.url || WEBSITE.THUMBNAIL.DEFAULT}
               className={tableStyles.websiteImage}
               layout="fill"
@@ -145,25 +133,22 @@ export function WebsitesTable ({ pageIndex, category, country }) {
                 <strong>{cell.description}</strong>
               </div> 
             </div>
-
           </div>          
         })}
        </div>
     }
   
     return  <div>
-        {tableParams && <Table
-            width={tableParams.tableWidth}
-            height={tableParams.tableHeight}
+          <Table                                  
             headerHeight={0}            
-            rowHeight={tableParams.rowHeight}
+            rowHeight={50}
             rowGetter={rowGetter}
             rowRenderer={rowRenderer}
             rowCount={ROWS_PER_PAGE}
             className={tableStyles.table}
             disableHeader={true}
           >
-          </Table>}
+          </Table>
           {state.showDialog && 
             <AddWebsiteDialog columnIndex={state.columnIndex} rowIndex={state.rowIndex} 
             website={state.website} close={close}/>}

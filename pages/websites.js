@@ -11,12 +11,13 @@ import { LINKED_IN_PROFILE_URL, WEBSITE } from "../util/variables"
 import { classNames } from "../lib/util"
 import { FilterList } from "../components/FilterList"
 
-
-// TODO: Show page number above filter section
 export default function Websites() {
-  const [category, setCategory] = useState({})
-  const [country, setCountry] = useState({})
-  const [page, setPage] = useState(0)
+  const defaultState = {
+    category: {},
+    country: {}, 
+    page: 0
+  }
+  const [ state, setState ] = useState(defaultState)
   const onLinkedInLogoClick = () => { 
     window.open(LINKED_IN_PROFILE_URL)
   } 
@@ -26,28 +27,49 @@ export default function Websites() {
     [utilStyles.footer]: true
   })
 
-  const onCategoryChange = (category) => { setCategory(category) } 
-  const onCountryChange = (country) => { setCountry(country) }
-  const onPageChange = (page) => { setPage(page) }
-  
+  const onCategoryChange = (category) => { setState({...state, category}) } 
+  const onCountryChange = (country) => { setState({...state, country}) }
+  const onPageChange = (page) => { setState({...state, page}) }
+  const categories = JSON.parse(JSON.stringify(WEBSITE.CATEGORIES))
+  const countries = JSON.parse(JSON.stringify(WEBSITE.COUNTRIES))
+
+  countries.unshift({displayValue: "All"})
+  categories.unshift({displayValue: "All"})
+    
     return <div id="tableContainer" className={tableStyles.container}>
       <Meta title="World in 2021" />
       <ToastContainer />
       {/* Filter section */}
       <section className={utilStyles.filterSection}>
-          <div style={{paddingBottom: "1vh"}}>Filter websites on page {page}: <br/> 
-              - Choose one country <br/>
-              - Choose one category
-          </div>
-          <FilterList id="categoryFilterList" title="Categories" items={WEBSITE.CATEGORIES} onChange={onCategoryChange}/>
-          <FilterList id="countryFilterList" title="Countries" items={WEBSITE.COUNTRIES} onChange={onCountryChange}/>   
+          <div style={{paddingBottom: "3vh", fontStyle: "italic"}}>
+            <div style={{display: "block", background: "#0a66c2", color: "white", borderRadius: "5px 5px 0 0"}} > 
+             Filters are applied for <strong>current</strong> page only
+            </div>
+            <div style={{color: "white", background: "#00478e", borderRadius: "0 0 5px 5px"}}>Current page: {state.page}</div>
+            <br/>
+
+          </div>          
+          <FilterList
+             id="categoryFilterList"
+             title="Category"
+             searchPlaceholder="Search categories..." 
+             items={categories}
+             onChange={onCategoryChange}
+          />
+          <FilterList
+             id="countryFilterList"
+             title="Country"
+             searchPlaceholder="Search countries..."
+             items={countries}
+             onChange={onCountryChange}
+          />   
       </section>
       {/* Filter section */}
                    
       {/* Table section */}
       <section>
         <Header/>
-        <MainContent category={category} country={country} onPageChange={onPageChange}/>
+        <MainContent category={state.category} country={state.country} onPageChange={onPageChange}/>
         <div/>
           <div className={footerClassNames}>
             <strong>*Disclaimer: Images on this page are copyright of their owners. I am not responsible for the content of external websites.</strong>
@@ -74,8 +96,8 @@ export default function Websites() {
       <section id={utilStyles.descriptionSection}>
         <p>
         *This page is made for people of all age. To make its surfing experience as safe as possible,
-             all website pages are checked by <a href="https://cloud.google.com/web-risk" target="_blank">Google Web Risk</a> for detecting adult, racy, violence, and other kind
-             of inappropriate content. Every image is checked by <a href="https://cloud.google.com/vision" target="_blank">Google Cloud Vision</a> in order to prevent advertising
+             all website pages are checked by <a href="https://cloud.google.com/web-risk" target="_blank"><strong>Google Web Risk</strong></a> for detecting adult, racy, violence, and other kind
+             of inappropriate content. Every image is checked by <a href="https://cloud.google.com/vision" target="_blank"><strong>Google Cloud Vision</strong></a> in order to prevent advertising
             nudity, violence, criminal activities and other disturbing content.
         </p>
       </section>

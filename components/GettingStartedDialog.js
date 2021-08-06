@@ -15,12 +15,13 @@ export function GettingStartedDialog() {
   const open = () => { setShowDIalog(true) }
 
   const wrapperClasses = classNames({
-      [dialogStyles.startUpDialog]: true
+      [dialogStyles.headerText]: true
   })
 
   return (
     <div className={wrapperClasses}>
-      <a href="#" onClick={open}>About this page</a> 
+      <div>2€ per spot | &nbsp; </div>
+      <a href="#" onClick={open}> About this page</a> 
       {/* Dialog */}
       <Dialog className={dialogStyles.dialog} aria-label="add-website-dialog" isOpen={showDialog} onDismiss={close}>
         <FadeIn transitionDuration={500}>
@@ -43,17 +44,21 @@ export function GettingStartedDialog() {
             </div>
           </div>
         </div>
-        {/* <p className={dialogStyles.welcomeText}>
-          Online libary of websites of 2021. To add a website, click on any place on the table with <span className={dialogStyles.highlightedText}>World in 2021 logo</span>,
-          add the URL to your website and custom image of your choice, which describes your website the best.  
-        </p> */}
         <p className={dialogStyles.welcomeText}>
-          <span>Page meant to represent <span className={dialogStyles.highlightedText}>internet history of the year 2021</span> and everyone is welcome to join.</span> <br/><br/>        
-          By clicking on any place available on the table marked with <span className={dialogStyles.highlightedText}>World In 2021 logo</span>, you will be able to upload image of your choice, customize its appearance, provide a URL and select category of your website.
-          Once everything is done, website will stay at that very spot forever. <br/><br/>
+          <span>
+          - <strong>Browse websites </strong> - Hover over any <strong>image</strong> other than <strong>World in 2021 logo</strong> on the table to see larger <strong>image</strong>, <strong>URL</strong> and <strong>description</strong> of a website.
+           Click on image will open the link in new tab. <br/>
+           Choose <strong>page</strong> by clicking on any option from <strong>pagination</strong> above the table. <br/>
+           Selecting <strong>country</strong> or <strong>category</strong> from <strong>filter section</strong> on the left allows
+           viewing only websites related to selected category. Filters are applied only for <strong>active page</strong>  <br/> <br/>
 
-          This is the place where you will have advertising of your website forever, but also you will give your contribution in creating internet history of 2021.
-          If you are here for surfing, have fun visiting websites that will one day remind us of year 2021. 
+          - <strong>Add website</strong> - If no <strong>filter</strong> is active, click on any available spot with <strong>World in 2021 logo </strong> 
+          and complete the steps to add your website. <br/> 
+          <strong>ALL</strong> types of websites are welcome and once the website is added, it remains at the very spot <strong>FOREVER</strong>.
+          <br/>
+
+          In other words, for adding website once you get advertisement <strong>forever</strong> and your page becomes a part of <strong>internet history of 2021</strong>.  
+          </span>
         </p>
       </FadeIn>
       </Dialog>

@@ -11,7 +11,12 @@
 }
 
 .startUpDialog {
-    font-size: 15px;
+    border: 3px solid #ffaa4e;
+
+}
+.headerText {
+    display: flex;
+    font-size: 1.5rem;
 }
 
 .title {
@@ -39,11 +44,11 @@
 
 .previewInfoRow {
     padding: 5px;
-    word-break: break-word;
+    word-break: break-all;
     display: grid;
 }
 .previewInfoRow strong {
-    font-size: 12px;
+    font-size: 12px;    
 }
 
 @media screen and (min-width: 1200px) and (max-width: 1400px){
@@ -137,7 +142,7 @@
 }
 
 .verifyButton {
-    margin: 0 1.5rem;
+    margin-left: 5%;
 }
 
 #buttons {
@@ -156,7 +161,7 @@
 
 .websitePreview { 
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding-bottom: 7vh;
 }
 
@@ -208,14 +213,12 @@
 
 #stepButtonsWrapper {
     display: flex;
-    -moz-box-pack: justify;
-    justify-content: space-between;
     bottom: 1rem;
     padding-top: 4rem;
 }
 
 #attributesSection { 
-    padding-top: 10vh;
+    padding-top: 15vh;
 }
 
 .stepButton {
@@ -248,7 +251,12 @@
 }
 
 .welcomeText {
+    width: 100%;
     font-size: 2vh;
+}
+
+.welcomeText span {
+    text-align: center;
 }
 
 .highlightedText {
