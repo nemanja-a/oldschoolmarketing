@@ -19,6 +19,7 @@
 .filterItem, .subcategory {
     text-align: center;
     width: 100%;
+    box-shadow: 0 0 5px 0 #646262;
 }
 
 .filterItem, .filterItem span{
@@ -33,7 +34,7 @@
 
 .subcategory {
     display: block;
-    background: #b0adad;
+    background: #f3f3f3;
 }
 
 .filterListWrapper {
