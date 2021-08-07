@@ -19,6 +19,7 @@ import { ModalLoader } from './ModalLoader'
 import { useDropzone } from 'react-dropzone'
 import { Select } from './common/Select'
 import { showError } from '../lib/toast'
+import { getSelectOptions } from '../lib/util'
 
 export function AddWebsiteDialog(props) {
   let defaultWebsite = WEBSITE.DEFAULT
@@ -283,6 +284,10 @@ export function AddWebsiteDialog(props) {
   })
 
   const nextButtonDisabled = !state.websiteValid || state.titleProfane || state.descriptionProfane 
+
+  const countryOptions = getSelectOptions(WEBSITE.COUNTRIES)
+  const categoryOptions = getSelectOptions(WEBSITE.CATEGORIES)
+ 
   return (
     <div className={cellClasses} id={props.id}>
       {/* Dialog */}
@@ -422,7 +427,7 @@ export function AddWebsiteDialog(props) {
               label="Categories"
               placeholder="Select website categories..."   
               name="categories"                                                              
-              options={WEBSITE.CATEGORIES}
+              options={categoryOptions}
               onSelect={(selectedList) => onSelect(selectedList, 'categories')}
               onRemove={(selectedList) => onRemove(selectedList, 'categories')}
               selectedValues={state.website.categories}
@@ -441,7 +446,7 @@ export function AddWebsiteDialog(props) {
               showCheckbox
               label="Countries"
               placeholder="Select website countries..."                                                                 
-              options={WEBSITE.COUNTRIES}
+              options={countryOptions}
               name="countries"
               onSelect={(selectedList) => onSelect(selectedList, 'countries')}
               onRemove={(selectedList) => onRemove(selectedList, 'countries')}

@@ -59,16 +59,18 @@ export const WEBSITE = {
             {value: 36, displayValue: "Software Developer Portfolio"},
         ]},            
         {value: 37, displayValue: "Science"},
-        {value: 38, displayValue: "Social Media"},
-        {value: 39, displayValue: "Sport", subcategories: [
-            {value: 40, displayValue: "Football"},
-            {value: 41, displayValue: "Basketball"},
+        {value: 38, displayValue: "Shopping"},
+        {value: 39, displayValue: "Social Media"},
+        {value: 40, displayValue: "Sport", subcategories: [
+            {value: 41, displayValue: "Football"},
+            {value: 42, displayValue: "Basketball"},
         ]},
-        {value: 42, displayValue: "Streaming"},
-        {value: 43, displayValue: "Technology"}, 
-        {value: 44, displayValue: "Traveling"},
-        {value: 45, displayValue: "Web portal"}, 
-        {value: 46, displayValue: "Other"},
+        {value: 43, displayValue: "Streaming"},
+        {value: 44, displayValue: "Technology"}, 
+        {value: 45, displayValue: "Traveling"},
+        {value: 46, displayValue: "Web Design"},
+        {value: 47, displayValue: "Web portal"}, 
+        {value: 48, displayValue: "Other"},
     ],
 
     COUNTRIES: [            
