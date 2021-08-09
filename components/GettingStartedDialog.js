@@ -52,12 +52,8 @@ export function GettingStartedDialog() {
            Selecting <strong>country</strong> or <strong>category</strong> from <strong>filter section</strong> on the left allows
            viewing only websites related to chosen filter. Filters are applied only for <strong>active page</strong>. <br/> <br/>
 
-          - <strong>Add website</strong> - If no <strong>filter</strong> is active, click on any available spot with <strong>World in 2021 logo </strong> 
-          and complete the steps to add your website. <br/> 
-          <strong>ALL</strong> types of websites are welcome and once the website is added, it remains at the very spot <strong>FOREVER</strong>.
-          <br/>
-
-          In other words, adding website once you get advertisement <strong>forever</strong> and your page becomes a part of <strong>internet history of 2021</strong>.  
+          - <strong>Add website</strong> - when there is no <strong>active filter</strong>, click on any available spot with <strong>World in 2021 logo </strong> 
+          and complete the steps to add your website.
           </span>
         </p>
       </FadeIn>
