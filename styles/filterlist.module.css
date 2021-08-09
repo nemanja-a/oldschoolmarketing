@@ -7,7 +7,7 @@
 
 .header { 
     border-radius: 5px;
-    background: #0a66c2;
+    background: #cda500;
     text-align: center;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .filterItem:hover, .subcategory:hover { 
-    background: #0a66c2;
+    background: #b08f07;
     color: white;
 }
 
@@ -49,19 +49,19 @@
 }
 
 .activeFilterHeader {
-    background: #00478e;
+    background: #b08f07;
     display: flex;
     justify-content: space-between;
 }
 
 .activeFilter {
-    background: #0a66c2;
+    background: #b08f07;
     color: white;
 }
 
 .clearFilterButton { 
     background: white;
-    color: #0a66c2;
+    color: #cda500;
     padding: 0 5px;
     margin-right: 5px;
     border-radius: 5px;

@@ -1,7 +1,7 @@
 #pagination {
     width: 100%;
     padding: 0 0.3rem 0.1rem 0;
-    background: #0a66c2;
+    background: #cda500;
     height: 4.5vh;
     border-radius: 10px 10px 0 0;
 }
@@ -12,11 +12,11 @@
     width: 50%;
     display: flex;
     align-items: center;
-    background: #0a66c2;
+    background: #cda500;
 }
 
 .activePage {
-    background: #00478e !important;
+    background: #b08f07 !important;
     border-radius: 5px;
     color: white;
 }
@@ -50,24 +50,24 @@
     padding: 0 0.7rem;
     height: 80%;
     min-width: max-content;
-    background: #0a66c2;
+    background: #cda500;
     color: white;
     transition: all 0.s ease;
 }
 
 #currentPage {
-    background: #00478e;
+    background: #cda500;
     color: white;
 }
 
 #pagination button:hover {
-    background: #00478e;
+    background: #b08f07;
     color: white;
     border-radius: 5px;
 }
 
 #pagination button:active {
-    background: #00478e !important;
+    background: #b08f07 !important;
     color: white;
     transition: all 0.s ease;
     border-radius: 5px;

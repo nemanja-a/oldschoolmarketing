@@ -53,7 +53,7 @@ export function Payment(props) {
             </span>
               <span id={paymentStyles.amountWrapper}>
                 <Input 
-                    label='Amount in EUR(€)'
+                    label='Amount in RSD($)'
                     name='amount'
                     type='number'
                     onChange={onAmountChange}

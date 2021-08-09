@@ -92,6 +92,23 @@ export function WebsitesTable ({ pageIndex, category, country }) {
     const onWebsiteClick = (websiteUrl) => {
       window.open(websiteUrl, '_blank')
     }
+
+    const renderLabel = (id, type) => { 
+      if (type === "category") {
+        const categories = WEBSITE.CATEGORIES
+        console.log(id)
+        const category = categories.find(item => { 
+          return item.value === id
+        })
+        return category && category.displayValue
+      } else if (type === "country") {
+        const countries = WEBSITE.COUNTRIES
+        const country = countries.find(item => { 
+          return item.value === id
+        })
+        return country && country.displayValue
+      }
+    }
     const rowRenderer = (props) => {
       if (!Object.keys(props.rowData).length) return false
       return <div key={props.index} className={tableStyles.row}>
@@ -115,7 +132,7 @@ export function WebsitesTable ({ pageIndex, category, country }) {
           > 
           <Image
             priority  
-            src={WEBSITE.THUMBNAIL.DEFAULT}
+            src={WEBSITE.THUMBNAIL.TABLE_DEFAULT}
             className={tableStyles.websiteImage}
             layout="fill"
             alt="No image found"
@@ -128,6 +145,19 @@ export function WebsitesTable ({ pageIndex, category, country }) {
            className={cellClasses}
            onClick={() => onWebsiteClick(cell.url)}
            >
+            <div className={tableStyles.imageInfoTop}>            
+                 <span>
+                   {cell.categories.map((categoryId, index) => { 
+                     return <span key={index}>#{renderLabel(categoryId, "category")}</span>
+                   })}
+                </span>
+              {cell.countries && cell.countries.length && 
+                 <span>
+                   {cell.countries.map((countryId, index) => { 
+                     return <span key={index}>#{renderLabel(countryId, "country")}</span>
+                   })}
+                </span>}
+            </div>                 
             <Image
               priority
               src={cell.thumbnail.url || WEBSITE.THUMBNAIL.DEFAULT}
@@ -135,7 +165,7 @@ export function WebsitesTable ({ pageIndex, category, country }) {
               layout="fill"
               alt='No image found'
             />
-            <div className={tableStyles.imageInfo}>
+            <div className={tableStyles.imageInfoBottom}>
               <div className={tableStyles.imageInfoRow}>
                 <span>URL</span>
                 <strong>{cell.url}</strong>

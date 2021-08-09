@@ -1,15 +1,17 @@
 export const ROWS_PER_PAGE = 14
 export const COLUMNS_PER_ROW = 19
-export const TOTAL_PAGE_COUNT = 3333
+export const TOTAL_PAGE_COUNT = 3600
 export const NAVIGATION_BUTTONS_COUNT = 5
 export const CONTAINER_PADDING = 11
+export const BACKGROUND_PRIMARY = '#cda500'
+export const BACKGROUND_SECONDARY = '#b08f07'
 
 export const WEBSITE = { 
     URL_MAX_LENGTH: 80,
     DESCRIPTION_MAX_LENGTH: 60,
     THUMBNAIL: {
-        DEFAULT: '/images/Logo.jpg',
-        NO_IMAGE_FOUND: '/images/no-image-found-360x260.png'
+        TABLE_DEFAULT: '/images/background_default.jpg',
+        IMAGE_PREVIEW_DEFAULT: '/images/Image_preview_default.jpg'
     },
     DEFAULT: {
         url: '',

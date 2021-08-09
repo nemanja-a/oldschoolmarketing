@@ -40,7 +40,7 @@ export function MainContent (props) {
       return <button 
         id={buttonIndex} 
         className={pageIndex === state.pageIndex ? paginationStyles.activePage : null} 
-        onClick={() => onNavigationButtonClicked(pageIndex)}>{pageIndex}
+        onClick={() => onNavigationButtonClicked(pageIndex)}>{pageIndex + 1}
       </button>
     }
     const onNavigationButtonClicked = (pageIndex) => { 

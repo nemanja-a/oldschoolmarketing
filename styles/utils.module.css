@@ -9,7 +9,7 @@
 
 .closeButton {
     float: right;
-    background: #0a66c2;
+    background: #cda500;
     outline: 0;
     border: none;
     height: 29px;
@@ -23,13 +23,13 @@
 
 .closeButton:hover {
     cursor: pointer;
-    background: #00478e;
+    background: #b08f07;
 }
 
 .buttonPrimary {
     min-width: 5vw;
     border: none;
-    background: #0a66c2;
+    background: #cda500;
     border-radius: 5px;
     padding: 0.4rem 0.2rem 0.4rem 0.4rem;
     text-align: center;
@@ -38,7 +38,7 @@
 
 .buttonPrimary:hover {
     cursor: pointer;
-    background: #00478e;
+    background: #b08f07;
 }
 
 .buttonPrimary:disabled {
@@ -47,7 +47,7 @@
 }
 
 .buttonPrimary:disabled:hover {
-    background: #0a66c2;
+    background: #cda500;
 }
 
 .success { 
@@ -102,6 +102,7 @@
 .footer {
     justify-content: space-between;
     padding-top: 1vh;
+    font-size: 1.5vh;
 }
 
 @media screen and (max-width: 1350px) {

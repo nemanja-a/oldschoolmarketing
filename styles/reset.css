@@ -49,6 +49,7 @@ ol[class] {
 
 a {
   text-decoration: none;
+  color: #cda500;
 }
 
 a:hover {
@@ -140,10 +141,10 @@ input[type=search]:focus {
 ::-webkit-scrollbar
 
 ::-webkit-scrollbar-track {
-  background: #0a66c2;
+  background: #cda500;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #0a66c2;
+  background: #cda500;
   border-radius: 10px;
 }

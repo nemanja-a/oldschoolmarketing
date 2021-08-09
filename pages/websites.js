@@ -42,10 +42,10 @@ export default function Websites() {
       {/* Filter section */}
       <section className={utilStyles.filterSection}>
           <div style={{paddingBottom: "3vh", fontStyle: "italic"}}>
-            <div style={{display: "block", background: "#0a66c2", color: "white", borderRadius: "5px 5px 0 0"}} > 
+            <div style={{display: "block", background: "#cda500", color: "white", borderRadius: "5px 5px 0 0"}} > 
              Filters are applied for <strong>current</strong> page only
             </div>
-            <div style={{color: "white", background: "#00478e", borderRadius: "0 0 5px 5px"}}>Current page: {state.page}</div>
+            <div style={{color: "white", background: "#b08f07", borderRadius: "0 0 5px 5px"}}>Current page: {state.page}</div>
             <br/>
 
           </div>          
@@ -73,7 +73,7 @@ export default function Websites() {
         <div/>
           <div className={footerClassNames}>
             <strong>*Disclaimer: Images on this page are copyright of their owners. I am not responsible for the content of external websites.</strong>
-            <strong className={utilStyles.displayFlex}>Copyright © World in 2021 ©
+            <strong className={utilStyles.displayFlex}>Copyright © Two million dollars homepage ©
              <div id={utilStyles.linkedInWrapper}>
               &nbsp; <a href={LINKED_IN_PROFILE_URL} target="_blank">Nemanja Apostolovic</a> &nbsp;         
               <Image
@@ -88,6 +88,10 @@ export default function Websites() {
               />    
             </div> 
           </strong>           
+          </div>
+          <div style={{display: "flex", justifyContent: "center", alignItems: "baseline"}} className={utilStyles.footer}>
+            Inspired by &nbsp;
+            <a style={{fontSize: "2.5vh"}} href="http://www.milliondollarhomepage.com/" target="_blank"> One million dollar homepage</a>
           </div>
       </section>
       {/* Table section */}

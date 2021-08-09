@@ -43,8 +43,7 @@ export function AddWebsiteDialog(props) {
   const { getRootProps, getInputProps } = useDropzone({
     accept: ALLOWED_FORMATS,
     multiple: false,
-    disabled: state.step === 3,
-    onDropRejected: () => { 
+    disabled: state.step === 3,   onDropRejected: () => { 
       showError("Invalid file type. Try again", 5000)
     },
     onDrop: (acceptedFiles) => { 
@@ -198,7 +197,7 @@ export function AddWebsiteDialog(props) {
     setState( {...state, loading: value, loaderText: text} )
   }
   const onNextStep = () => { 
-    if (state.step === 2 && (!state.website.categories.length || !state.website.description.length || !state.website.countries.length)) {
+    if (state.step === 2 && (!state.website.categories.length || !state.website.description.length)) {
       setState({...state, validationError: true})
     } else {
       setState({
@@ -270,8 +269,8 @@ export function AddWebsiteDialog(props) {
 
   const selectStyles = {
     chips: {
-      background: "#ffaa4e",
-      color: "black"
+      background: "#cda500",
+      color: "white"
     }  
   }
 
@@ -328,10 +327,10 @@ export function AddWebsiteDialog(props) {
 
                 <Image
                   priority
-                  src={state.previewImageUrl || WEBSITE.THUMBNAIL.DEFAULT}
+                  src={state.previewImageUrl || WEBSITE.THUMBNAIL.IMAGE_PREVIEW_DEFAULT}
                   className={imagePreviewClasses}
                   layout="fill"
-                  alt={WEBSITE.THUMBNAIL.NO_IMAGE_FOUND}
+                  alt="No image found"
                 />
 
               </div>              
@@ -439,8 +438,7 @@ export function AddWebsiteDialog(props) {
              <span className={utilStyles.error}>Select one or more categories</span>
           </div>}
           <div className={dialogStyles.row}>
-            <Select  
-              required          
+            <Select            
               maxWidth
               id="countriesSelect"
               showCheckbox
@@ -456,9 +454,6 @@ export function AddWebsiteDialog(props) {
               className={selectClasses}
             />                        
           </div>
-          {state.validationError && !state.website.countries.length && <div className={dialogStyles.row}>
-             <span className={utilStyles.error}>Select one or more countries</span>
-          </div>}
 
         </section>
         </form>

@@ -20,7 +20,7 @@ export function GettingStartedDialog() {
 
   return (
     <div className={wrapperClasses}>
-      <div>2€ per spot | &nbsp; </div>
+      <div>2$ per spot | &nbsp; </div>
       <a href="#" onClick={open}>Introduction</a> 
       {/* Dialog */}
       <Dialog className={dialogStyles.dialog} aria-label="add-website-dialog" isOpen={showDialog} onDismiss={close}>
@@ -36,10 +36,10 @@ export function GettingStartedDialog() {
             <div className={dialogStyles.imagePreviewWrapper}>
             <Image
                 priority
-                src={WEBSITE.THUMBNAIL.DEFAULT}
+                src={WEBSITE.THUMBNAIL.IMAGE_PREVIEW_DEFAULT}
                 className={tableStyles.websiteImage}
                 layout="fill"
-                alt={WEBSITE.THUMBNAIL.NO_IMAGE_FOUND}
+                alt="No image found"
             />  
             </div>
           </div>
