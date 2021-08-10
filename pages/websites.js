@@ -91,7 +91,7 @@ export default function Websites() {
           </div>
           <div style={{display: "flex", justifyContent: "center", alignItems: "baseline"}} className={utilStyles.footer}>
             Inspired by &nbsp;
-            <a style={{fontSize: "2.5vh"}} href="http://www.milliondollarhomepage.com/" target="_blank"> One million dollar homepage</a>
+            <a style={{fontSize: "2.5vh"}} href="http://www.milliondollarhomepage.com/" target="_blank"> million dollar homepage</a>
           </div>
       </section>
       {/* Table section */}
