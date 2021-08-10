@@ -424,7 +424,8 @@ export function AddWebsiteDialog(props) {
               showCheckbox
               id="categoriesSelect"
               label="Categories"
-              placeholder="Select website categories..."   
+              placeholder="Select website categories..."  
+              groupBy="categoryId"
               name="categories"                                                              
               options={categoryOptions}
               onSelect={(selectedList) => onSelect(selectedList, 'categories')}
@@ -443,7 +444,7 @@ export function AddWebsiteDialog(props) {
               id="countriesSelect"
               showCheckbox
               label="Countries"
-              placeholder="Select website countries..."                                                                 
+              placeholder="Select website countries..."              
               options={countryOptions}
               name="countries"
               onSelect={(selectedList) => onSelect(selectedList, 'countries')}

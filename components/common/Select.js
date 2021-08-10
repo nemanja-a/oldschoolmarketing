@@ -34,7 +34,9 @@ export function Select(props) {
                 avoidHighlightFirstOption={true}
                 hidePlaceholder={true}
                 showArrow={true}
-                className={utilStyles.formControllError}                
+                className={utilStyles.formControllError}  
+                // TODO  
+                groupBy={props.groupBy}            
             />
         </div>
 }
