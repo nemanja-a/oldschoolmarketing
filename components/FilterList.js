@@ -54,7 +54,6 @@ export const FilterList = React.forwardRef((props, ref) => {
         return !item.subcategory && <span key={index} id={item.value}
             onClick={(event) => onItemClicked(item,event)}>
             <span className={styles.filterItem}>{item.categoryIndex ? `${item.displayValue} +` : item.displayValue}</span> 
-            {/* TODO */}
             {(state.activeGroupItem.value === item.value && item.value !== undefined) && <span>{renderSubcategories(item)}</span>}
           </span>                                                        
         })
