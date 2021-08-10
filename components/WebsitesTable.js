@@ -96,7 +96,6 @@ export function WebsitesTable ({ pageIndex, category, country }) {
     const renderLabel = (id, type) => { 
       if (type === "category") {
         const categories = WEBSITE.CATEGORIES
-        console.log(id)
         const category = categories.find(item => { 
           return item.value === id
         })
@@ -145,18 +144,18 @@ export function WebsitesTable ({ pageIndex, category, country }) {
            className={cellClasses}
            onClick={() => onWebsiteClick(cell.url)}
            >
-            <div className={tableStyles.imageInfoTop}>            
+            <div className={tableStyles.imageInfoTop}>
+                {cell.countries && cell.countries.length && 
+                 <span>
+                   {cell.countries.map((countryId, index) => { 
+                     return <span key={index}>#{renderLabel(countryId, "country")}</span>
+                   })}
+                </span>}            
                  <span>
                    {cell.categories.map((categoryId, index) => { 
                      return <span key={index}>#{renderLabel(categoryId, "category")}</span>
                    })}
                 </span>
-              {cell.countries && cell.countries.length && 
-                 <span>
-                   {cell.countries.map((countryId, index) => { 
-                     return <span key={index}>#{renderLabel(countryId, "country")}</span>
-                   })}
-                </span>}
             </div>                 
             <Image
               priority

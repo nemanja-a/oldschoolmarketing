@@ -21,7 +21,6 @@ export function Payment(props) {
     const addWebsite = async () => {
       props.toggleLoading(true)
       const websiteFormData = props.getFormData()
-      console.log(websiteFormData)
       const addWebsiteURL = `${server}/api/addwebsite`
       const websiteResponse = await fetch(addWebsiteURL, {
         body: JSON.stringify(websiteFormData),

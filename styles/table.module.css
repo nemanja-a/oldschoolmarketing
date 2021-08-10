@@ -111,7 +111,7 @@
     position: absolute;
     background: #ebecec;
     width: 100%;
-    font-size: 0.55vh;
+    font-size: 3px;
     height: 4.5vh;
     justify-content: space-around;
 }
@@ -124,6 +124,10 @@
     background: #cda500;
 }
 
+.imageInfoTop span {
+    font-weight: 600;
+}
+
 .imageInfoBottom {
     top: 99%;
     border-radius: 0 0 3px 3px;
@@ -133,9 +137,6 @@
     padding: 0 1.5px;
     word-break: break-word;
     display: grid;
-}
-.imageInfoRow strong {
-    font-size: 0.43vh;
 }
 
 .previewImage { 
