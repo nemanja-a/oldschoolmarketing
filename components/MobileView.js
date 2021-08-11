@@ -7,12 +7,12 @@ export default function MobileView() {
     
     return (
         <div className={style.container}>
-            <Image
+            {/* <Image
                 priority  
                 src={WEBSITE.THUMBNAIL.IMAGE_PREVIEW_DEFAULT}            
                 layout="fill"                
                 alt="No image found"
-            />
+            /> */}
             <span>Visit page on any device without touch screen!</span>
         </div>
     )

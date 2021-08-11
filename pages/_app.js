@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }) {
   const isMobile = useDeviceDetect().isMobile
 
   return (
-      !isMobile ? <Component {...pageProps} /> : <MobileView {...pageProps} />
+      isMobile ? <Component {...pageProps} /> : <MobileView {...pageProps} />
   )
 }
 export default MyApp
