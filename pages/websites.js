@@ -73,7 +73,7 @@ export default function Websites() {
         <div/>
           <div className={footerClassNames}>
             <strong>*Disclaimer: Images on this page are copyright of their owners. I am not responsible for the content of external websites.</strong>
-            <strong className={utilStyles.displayFlex}>Copyright © Two million dollars homepage ©
+            <strong className={utilStyles.displayFlex}>Copyright © World in 2021 ©
              <div id={utilStyles.linkedInWrapper}>
               &nbsp; <a href={LINKED_IN_PROFILE_URL} target="_blank">Nemanja Apostolovic</a> &nbsp;         
               <Image

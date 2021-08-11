@@ -1,0 +1,16 @@
+.container { 
+    background: #cda500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 10vh;
+    text-align: center;
+}
+
+.container div { 
+    width: 60vw !important;
+    height: 35vh !important;
+    margin: 0 auto !important;
+    border-radius: 25px !important;
+}
