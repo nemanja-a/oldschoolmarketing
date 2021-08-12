@@ -8,8 +8,10 @@ import { classNames } from '../lib/util'
 import { WEBSITE } from '../util/variables'
 import tableStyles from "../styles/table.module.css"
 import Image from 'next/image'
+import detectDevice from './common/DeviceDetect'
+import { Button } from './common/Button'
 
-export function IntroductionDialog() {
+export function IntroductionDialog({ isMobile }) {
   const [showDialog, setShowDIalog] = useState(true)
   const close = () => { setShowDIalog(false) }
   const open = () => { setShowDIalog(true) }
@@ -25,14 +27,16 @@ export function IntroductionDialog() {
       {/* Dialog */}
       <Dialog className={dialogStyles.dialog} aria-label="add-website-dialog" isOpen={showDialog} onDismiss={close}>
         <FadeIn transitionDuration={500}>
-          <button className={utilStyles.closeButton} onClick={close}>
+          {!isMobile && <button className={utilStyles.closeButton} onClick={close}>
             <VisuallyHidden>Close</VisuallyHidden>
             <span aria-hidden>×</span>
-          </button>
-          <div className={dialogStyles.title}>Welcome to</div>    
+          </button>}
+          {isMobile ? <div className={dialogStyles.title}>Welcome to <strong>World in 2021</strong></div> 
+          :
+          <div className={dialogStyles.title}>Welcome to</div> 
+          }
 
-        <div className={dialogStyles.websitePreview} style={{justifyContent: "center"}}>
-          <div>
+        {!isMobile && <div className={dialogStyles.websitePreview} style={{justifyContent: "center"}}>
             <div className={dialogStyles.imagePreviewWrapper}>
             <Image
                 priority
@@ -42,8 +46,7 @@ export function IntroductionDialog() {
                 alt="No image found"
             />  
             </div>
-          </div>
-        </div>
+        </div>}
         <p className={dialogStyles.welcomeText}>
           <span>
           - <strong>Browse websites </strong> - Hover over any <strong>image</strong> other than <strong>World in 2021 logo</strong> to see larger <strong>image</strong>, <strong>URL</strong> and <strong>description</strong> of a website.
@@ -54,8 +57,10 @@ export function IntroductionDialog() {
 
           - <strong>Add website</strong> - when there is no <strong>active filter</strong>, click on any available spot with <strong>World in 2021 logo </strong> 
           and complete the steps to add your website.
+        
           </span>
         </p>
+        {isMobile && <Button primary onClick={close} >OK</Button>}
       </FadeIn>
       </Dialog>
     </div>

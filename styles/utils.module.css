@@ -27,7 +27,7 @@
 }
 
 .buttonPrimary {
-    min-width: 5vw;
+    min-width: 50px;
     border: none;
     background: #cda500;
     border-radius: 5px;

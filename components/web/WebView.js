@@ -78,7 +78,7 @@ export function WebView() {
                    
       {/* Table section */}
       <section>
-        <Header/>
+        <Header isMobile={false} />
         <MainContent category={state.category} country={state.country} onPageChange={onPageChange}/>
         <div/>
           <div className={footerClassNames}>

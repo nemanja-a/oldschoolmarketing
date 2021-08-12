@@ -21,7 +21,6 @@
 
 .title {
     text-align: center;
-    font-size: 4vh;
     padding-top: 0.5rem;
     font-size: 28px;
 }
@@ -94,10 +93,23 @@
         position: absolute;
         bottom: 0;
         border-radius: 5px 5px 0 0;
-        height: 70vh;
+        height: 75vh;
+        overflow: hidden;
+    }
+    .dialog div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;        
     }
     .stepButton {
         width: max-content !important;
+    }
+    .title {        
+        font-size: 20px;
+        padding-bottom: 3vh;
+    }
+    .headerText, .headerText a {
+        color: white;
     }
 }
 

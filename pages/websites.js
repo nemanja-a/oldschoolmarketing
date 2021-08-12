@@ -6,5 +6,5 @@ import detectDevice from "../components/common/DeviceDetect"
 export default function Websites() {
   const isMobile = detectDevice()
 
-  return isMobile? <MobileView /> : <WebView />
+  return isMobile? <MobileView/> : <WebView/>
 }
