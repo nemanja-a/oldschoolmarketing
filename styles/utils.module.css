@@ -114,7 +114,7 @@
 .filterSection {
     min-height: 93vh;
     max-width: 10vw;    
-    padding: 50px 5px 0 5px;
+    padding: 45px 5px 0 5px;
     display: flex;
     flex-direction: column;
     text-align: center;

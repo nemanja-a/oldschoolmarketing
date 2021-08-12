@@ -88,9 +88,13 @@
     }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 800px) {
     .dialog { 
-        width: 50vw;
+        width: 100vw;
+        position: absolute;
+        bottom: 0;
+        border-radius: 5px 5px 0 0;
+        height: 70vh;
     }
     .stepButton {
         width: max-content !important;

@@ -4,7 +4,7 @@ import { classNames, getTableParams } from "../lib/util"
 import tableStyles from "../styles/table.module.css"
 import Image from "next/image"
 import { Table } from "react-virtualized"
-import { ROWS_PER_PAGE, WEBSITE } from "../util/variables"
+import { ROWS_PER_PAGE, WEBSITE, CUSTOM_TRANSFORM_ORIGIN_COUNT } from "../util/variables"
 import { TableLoader } from "./TableLoader"
 import { AddWebsiteDialog } from "./AddWebsiteDialog"
 
@@ -80,9 +80,15 @@ export function WebsitesTable ({ pageIndex, category, country }) {
       const rowData = data.websites.filter(website => {
         return website.rowIndex === index
       })
-      if (index >= ROWS_PER_PAGE - 5) {
+      if (index >= ROWS_PER_PAGE - CUSTOM_TRANSFORM_ORIGIN_COUNT) {
         rowData.map(website => { 
           website.bottomRow = true
+          return website
+        })
+      }
+      if (index <= CUSTOM_TRANSFORM_ORIGIN_COUNT) {
+        rowData.map(website => { 
+          website.topRow = true
           return website
         })
       }
@@ -115,7 +121,8 @@ export function WebsitesTable ({ pageIndex, category, country }) {
         {props.rowData.map((cell, index) => {
           let cellClasses = classNames({
             [tableStyles.cell]: true,
-            [tableStyles.transformOriginCenter]: cell.bottomRow
+            [tableStyles.transformOriginBottom]: cell.bottomRow,
+            [tableStyles.transformOriginTop]: cell.topRow
           })                            
       
           cell.page = pageIndex

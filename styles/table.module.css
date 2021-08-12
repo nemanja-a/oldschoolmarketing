@@ -4,6 +4,15 @@
     border-radius: 5px;
 }
 
+.backgroundVideo {
+    position: fixed;
+    width: 100%;
+}
+
+.backgroundVideoEnd {
+    display: none;
+}
+
 .container {
     background-image: url("/images/background_light.jpg");
     background-size: cover;
@@ -49,12 +58,18 @@
     font-style: italic;
 }
 
-.transformOriginCenter {
+.transformOriginBottom, .transformOriginTop {
     overflow: hidden;
 }
 
-.transformOriginCenter:hover {
+.transformOriginBottom:hover {
     transform-origin: center 9vh;    
+    overflow: visible;    
+    border-radius: 5px;
+}
+
+.transformOriginTop:hover {
+    transform-origin: top;    
     overflow: visible;    
     border-radius: 5px;
 }
@@ -120,6 +135,7 @@
     bottom: 100%; 
     border-radius: 3px 3px 0 0;
     max-height: 6vh;
+    min-height: 1.5vh;
     height: max-content;
     background: #cda500;
 }
