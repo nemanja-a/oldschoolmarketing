@@ -31,6 +31,14 @@
     }
   }
 
+  @media screen and (max-width: 800px) {
+    #tableLoader {
+      position: absolute;
+      left: 40%;
+      top: 50%;
+    }
+  }
+
   /* Modal loader */
   #modalLoader { 
     position: fixed;

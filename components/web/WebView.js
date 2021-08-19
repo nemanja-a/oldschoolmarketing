@@ -1,16 +1,17 @@
 import { useState } from "react"
-import { classNames } from "../../lib/util"
+import { classNames, getRecentlyJoined } from "../../lib/util"
 import { LINKED_IN_PROFILE_URL, WEBSITE } from "../../util/variables"
 import tableStyles from "../../styles/table.module.css"
 import utilStyles from "../../styles/utils.module.css"
 import  Meta  from "../common/Meta"
-import { FilterList } from "../FilterList"
+import { FilterList } from "../web/FilterList"
 import { ToastContainer } from "react-toastify"
 import { Header } from "../web/Header"
-import { MainContent } from "../MainContent"
 import Image from "next/image"
+import { Whiteboard } from "./Whiteboard"
 
 export function WebView() {
+    let recentlyJoined
     const defaultState = {
         category: {},
         country: {}, 
@@ -20,6 +21,10 @@ export function WebView() {
       const onLinkedInLogoClick = () => { 
         window.open(LINKED_IN_PROFILE_URL)
       } 
+
+      const onDataReceived = (data) => {       
+        recentlyJoined = getRecentlyJoined(data)                                  
+      }
     
       const footerClassNames = classNames({
         [utilStyles.displayFlex]: true,
@@ -34,20 +39,9 @@ export function WebView() {
     
       countries.unshift({displayValue: "All"})
       categories.unshift({displayValue: "All"})
-    
-      const videoClasses = classNames({
-        [tableStyles.backgroundVideo]: true,
-        [tableStyles.backgroundVideoEnd]: state.hasVideoEnded
-      })
-      const onVideoEnded = () => { 
-        setState({...state, hasVideoEnded: true })
-      }
 
       return <div id="tableContainer" className={tableStyles.container}>
-        {/* <video autoPlay muted className={videoClasses} onEnded={onVideoEnded} >
-          <source src="/video/background.mp4" type="video/mp4" />
-        </video> */}
-      <Meta title="World in 2021" />
+      <Meta title="Whiteboard marketing" />
       <ToastContainer />
       {/* Filter section */}
       <section className={utilStyles.filterSection}>
@@ -79,7 +73,7 @@ export function WebView() {
       {/* Table section */}
       <section>
         <Header isMobile={false} />
-        <MainContent category={state.category} country={state.country} onPageChange={onPageChange}/>
+        <Whiteboard category={state.category} country={state.country} onPageChange={onPageChange} getData={onDataReceived}/>
         <div/>
           <div className={footerClassNames}>
             <strong>*Disclaimer: Images on this page are copyright of their owners. I am not responsible for the content of external websites.</strong>
@@ -93,15 +87,11 @@ export function WebView() {
                 alt="LinkedIn Logo"
                 className={utilStyles.linkedInLogo}
                 layout="fixed"
-                width={25}
-                height={25}
+                width={20}
+                height={20}
               />    
             </div> 
           </strong>           
-          </div>
-          <div style={{display: "flex", justifyContent: "center", alignItems: "baseline"}} className={utilStyles.footer}>
-            Inspired by &nbsp;
-            <a style={{fontSize: "2.5vh"}} href="http://www.milliondollarhomepage.com/" target="_blank"> million dollar homepage</a>
           </div>
       </section>
       {/* Table section */}

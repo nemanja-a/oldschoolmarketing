@@ -1,12 +1,13 @@
 import React, { useState } from "react"
-import { WebsitesTable } from "./WebsitesTable"
-import paginationStyles from "../styles/pagination.module.css"
-import { NAVIGATION_BUTTONS_COUNT, TOTAL_PAGE_COUNT } from "../util/variables"
-import tableStyles from '../styles/table.module.css'
-import { classNames } from "../lib/util"
-import { Input } from "./common/Input"
+import { WebsitesTable } from "../WebsitesTable"
+import paginationStyles from "../../styles/pagination.module.css"
+import { NAVIGATION_BUTTONS_COUNT, TOTAL_PAGE_COUNT } from "../../util/variables"
+import style from "../../styles/mobile.module.css"
+import { classNames } from "../../lib/util"
+import { Input } from "../common/Input"
+import { Button } from "../common/Button"
 
-export function MainContent (props) {
+export function Whiteboard (props) {
     const [ state, setState ] = useState({
       pageIndex: 0,
       pageRangeStart: 0,
@@ -62,31 +63,47 @@ export function MainContent (props) {
       props.onPageChange(TOTAL_PAGE_COUNT)
     }
 
-    return <div id={tableStyles.mainContent}>
-      <div id={paginationStyles.pagination}>
-        <div id={paginationStyles.paginationWrapper}>
+    const Pagination = () => {
+      return <div id={paginationStyles.pagination}>
+      <div id={paginationStyles.paginationWrapper}>
+        <div style={{height: "4vh"}}>
           {rangeButton('First', previousButtonDisabled, onFirstPageClicked)}
-          {rangeButton('<< Previous', previousButtonDisabled, onRangeButtonClicked.bind(this, state.pageIndex - 1))}
+          {rangeButton('Previous', previousButtonDisabled, onRangeButtonClicked.bind(this, state.pageIndex - 1))}
+          {rangeButton('Next', nextButtonDisabled, onRangeButtonClicked.bind(this, state.pageIndex + 1))}
+          {rangeButton('Last', nextButtonDisabled, onLastPageClicked)}
+        </div>        
+        <div style={{height: "4vh"}}>
           {navigationButton(state.pageRangeStart, 1)}
           {navigationButton(state.pageRangeStart + 1, 2)}
           {navigationButton(state.pageRangeStart + 2, 3)}
           {navigationButton(state.pageRangeStart + 3, 4)}
           {navigationButton(state.pageRangeStart + 4, 5)}
           {navigationButton(state.pageRangeStart + 5, 6)}
-          {rangeButton('Next >>', nextButtonDisabled, onRangeButtonClicked.bind(this, state.pageIndex + 1))}
-          {rangeButton('Last', nextButtonDisabled, onLastPageClicked)}
+        </div>
+        <div>
           <Input 
             label='Go To Page'
             type="number"
             name='page'
             min="0"
-            max="3333"
+            max={TOTAL_PAGE_COUNT}
             classes={goToPageClasses}
             onKeyDown={handleGoToPageEnterKey}
-          />        
+          />
         </div>
       </div>
-      <WebsitesTable category={props.category} country={props.country} pageIndex={state.pageIndex}/>
+    </div>
+    } 
+    
+    return <div id={style.whiteboardContainer}>
+      <Pagination />
+      <WebsitesTable 
+        isMobile={props.isMobile}
+        category={props.category}
+        country={props.country}
+        pageIndex={state.pageIndex}
+        getData={props.getData}
+      />
     </div>
 }
 

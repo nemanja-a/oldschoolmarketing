@@ -11,8 +11,10 @@ import Image from 'next/image'
 import detectDevice from './common/DeviceDetect'
 import { Button } from './common/Button'
 
-export function IntroductionDialog({ isMobile }) {
-  const [showDialog, setShowDIalog] = useState(true)
+export function IntroductionDialog({ isMobile, showOnInit }) {
+  // temp
+  // isMobile = !isMobile
+  const [showDialog, setShowDIalog] = useState(showOnInit)
   const close = () => { setShowDIalog(false) }
   const open = () => { setShowDIalog(true) }
 
@@ -22,7 +24,7 @@ export function IntroductionDialog({ isMobile }) {
 
   return (
     <div className={wrapperClasses}>
-      <div>2$ per spot | &nbsp; </div>
+      {!isMobile && <div>2$ per spot | &nbsp; </div>}
       <a href="#" onClick={open}>Quick start</a> 
       {/* Dialog */}
       <Dialog className={dialogStyles.dialog} aria-label="add-website-dialog" isOpen={showDialog} onDismiss={close}>
@@ -31,7 +33,7 @@ export function IntroductionDialog({ isMobile }) {
             <VisuallyHidden>Close</VisuallyHidden>
             <span aria-hidden>×</span>
           </button>}
-          {isMobile ? <div className={dialogStyles.title}>Welcome to <strong>World in 2021</strong></div> 
+          {isMobile ? <div className={dialogStyles.title}>Welcome to <strong>Whiteboard marketing</strong></div> 
           :
           <div className={dialogStyles.title}>Welcome to</div> 
           }
@@ -49,13 +51,13 @@ export function IntroductionDialog({ isMobile }) {
         </div>}
         <p className={dialogStyles.welcomeText}>
           <span>
-          - <strong>Browse websites </strong> - Hover over any <strong>image</strong> other than <strong>World in 2021 logo</strong> to see larger <strong>image</strong>, <strong>URL</strong> and <strong>description</strong> of a website.
+          - <strong>Browse websites </strong> - Hover over any <strong>image</strong> other than <strong>Add website text</strong> to see larger <strong>image</strong>, <strong>URL</strong> and <strong>description</strong> of a website.
            Click on image will open the link in new tab. <br/> <br/>
            Choose <strong>page</strong> by clicking on any <strong>pagination</strong> button above the table. <br/>
-           Selecting <strong>country</strong> or <strong>category</strong> from <strong>filter section</strong> on the left allows
-           viewing only websites related to chosen filter. Filters are applied only for <strong>active page</strong>. <br/> <br/>
+           Selecting <strong>country</strong> or <strong>category</strong> from <strong>filter section</strong> on the left 
+           will filter websites on <strong>current page</strong>. <br/> <br/>
 
-          - <strong>Add website</strong> - when there is no <strong>active filter</strong>, click on any available spot with <strong>World in 2021 logo </strong> 
+          - <strong>Add website</strong> - when there is no <strong>active filter</strong>, click on any available spot with <strong>Add website text</strong> 
           and complete the steps to add your website.
         
           </span>

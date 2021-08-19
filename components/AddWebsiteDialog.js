@@ -14,7 +14,7 @@ import { Button } from './common/Button'
 import FadeIn from 'react-fade-in';
 import { Payment } from './Payment'
 import { server } from '../config'
-import { classNames } from '../lib/util'
+import { classNames, getSelectStyles } from '../lib/util'
 import { ModalLoader } from './ModalLoader'
 import { useDropzone } from 'react-dropzone'
 import { Select } from './common/Select'
@@ -267,12 +267,7 @@ export function AddWebsiteDialog(props) {
     [utilStyles.dropZoneDisabled]: state.step === 3
   })
 
-  const selectStyles = {
-    chips: {
-      background: "#cda500",
-      color: "white"
-    }  
-  }
+  const selectStyles = getSelectStyles()
 
   const selectClasses = classNames({
     [utilStyles.formControlError]: state.validationError && !state.website.categories.length

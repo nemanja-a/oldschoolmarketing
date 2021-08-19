@@ -118,6 +118,13 @@ div#__next > div {
   height: inherit !important;
 }
 
+@media screen and (max-width: 800px) {
+  .ReactVirtualized__Table__Grid, .ReactVirtualized__Grid__innerScrollContainer {
+    overflow-y: hidden !important;    
+    overflow-x: scroll !important ;
+  }
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

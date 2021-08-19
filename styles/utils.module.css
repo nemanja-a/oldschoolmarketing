@@ -103,6 +103,14 @@
     justify-content: space-between;
     padding-top: 1vh;
     font-size: 1.5vh;
+    background: #cda500;
+    border-radius: 0 0 10px 10px;
+    padding: 0 1vw;
+    min-height: 25px;
+}
+
+.footer a {
+    color: #246bb4;
 }
 
 @media screen and (max-width: 1350px) {
@@ -136,4 +144,51 @@
 
 .inputError {
     border-bottom: 2px solid red !important;
+}
+
+/* Image Info card component styles */
+.imageInfoCard { 
+    
+}
+
+.imageInfoBottom, .imageInfoTop {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background: #ebecec;
+    width: 100%;
+    font-size: 3px;
+    height: 4.5vh;
+    justify-content: space-around;
+}
+
+.imageInfoTop {
+    bottom: 100%; 
+    border-radius: 3px 3px 0 0;
+    max-height: 6vh;
+    min-height: 1.5vh;
+    height: max-content;
+    background: #cda500;
+}
+
+.imageInfoTop span {
+    font-weight: 600;
+}
+
+.imageInfoBottom {
+    top: 99%;
+    border-radius: 0 0 3px 3px;
+}
+
+.imageInfoRow {
+    padding: 0 1.5px;
+    word-break: break-word;
+    display: grid;
+}
+
+@media screen and (max-width: 800px) {
+    .imageInfoBottom, .imageInfoTop {
+        font-size: 0.5vh;
+    }
 }

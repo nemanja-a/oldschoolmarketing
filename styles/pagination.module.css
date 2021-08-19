@@ -31,6 +31,24 @@
     }
 }
 
+@media screen and (max-width: 800px) {
+    #pagination, #paginationWrapper {
+        height: 12vh;
+    }
+    #paginationWrapper {
+        width: 95%;
+        flex-direction: column;
+    }
+    #pagination input {
+        width: 10vw !important;
+    }
+    #pagination button {
+        box-shadow: 0 1px 1px 1px;
+        border-radius: 5px;
+        margin: 0.8rem 0.2rem 0 0.2rem;
+    }
+}
+
 .goToPageInputWrapper {
     width: max-content !important;
     display: flex;

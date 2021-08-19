@@ -7,8 +7,10 @@ import { Table } from "react-virtualized"
 import { ROWS_PER_PAGE, WEBSITE, CUSTOM_TRANSFORM_ORIGIN_COUNT } from "../util/variables"
 import { TableLoader } from "./TableLoader"
 import { AddWebsiteDialog } from "./AddWebsiteDialog"
+import detectDevice from "./common/DeviceDetect"
+import ImageInfoCard from "./common/ImageInfoCard"
 
-export function WebsitesTable ({ pageIndex, category, country }) {
+export function WebsitesTable ({ pageIndex, category, country, getData }) {
   let tableParams;
   const [ state, setState ] = useState({
     columnIndex: 0,
@@ -18,10 +20,11 @@ export function WebsitesTable ({ pageIndex, category, country }) {
   })
 
   useEffect(() => {
-    const container = document.getElementById("tableContainer")
-    !state.container && setState({...state, container})
+    const container = isMobile ? document.getElementById("mobileContainer") : document.getElementById("tableContainer")
+    !state.container && setState({...state, container})             
   })
 
+  const isMobile = detectDevice()
   const open = () => setShowDialog(true)
   const close = async(afterAddSuccess) => {
     // prevent closing on ESC press
@@ -32,6 +35,10 @@ export function WebsitesTable ({ pageIndex, category, country }) {
   }
 
   const onEmptyCellClick = (event) => { 
+    if (state.showDialog) {
+      setState({showDialog: false})
+      return
+    }
     const columnIndex = Number(event.currentTarget.getAttribute("data-columnindex"))
     const rowIndex = Number(event.currentTarget.getAttribute("data-rowindex"))
     const website = data.websites.find(website => { 
@@ -67,7 +74,9 @@ export function WebsitesTable ({ pageIndex, category, country }) {
       })
       if (!hasData && filterActive) {
         return <div className={tableStyles.noData}>No data found</div>
-      }
+      } else {        
+        getData(data)
+      }     
     }
     const emptyCellClasses = classNames ({
       [tableStyles.emptyCell]: true,
@@ -95,25 +104,6 @@ export function WebsitesTable ({ pageIndex, category, country }) {
       return rowData
     }
 
-    const onWebsiteClick = (websiteUrl) => {
-      window.open(websiteUrl, '_blank')
-    }
-
-    const renderLabel = (id, type) => { 
-      if (type === "category") {
-        const categories = WEBSITE.CATEGORIES
-        const category = categories.find(item => { 
-          return item.value === id
-        })
-        return category && category.displayValue
-      } else if (type === "country") {
-        const countries = WEBSITE.COUNTRIES
-        const country = countries.find(item => { 
-          return item.value === id
-        })
-        return country && country.displayValue
-      }
-    }
     const rowRenderer = (props) => {
       if (!Object.keys(props.rowData).length) return false
       return <div key={props.index} className={tableStyles.row}>
@@ -144,45 +134,13 @@ export function WebsitesTable ({ pageIndex, category, country }) {
             alt="No image found"
           />
         </a>
-          : 
-          <div
-           key={`r${cell.rowIndex}-c${cell.columnIndex}`}
-           id={`r${cell.rowIndex}-c${cell.columnIndex}`} 
-           className={cellClasses}
-           onClick={() => onWebsiteClick(cell.url)}
-           >
-            <div className={tableStyles.imageInfoTop}>
-                {cell.countries && cell.countries.length && 
-                 <span>
-                   {cell.countries.map((countryId, index) => { 
-                     return <span key={index}>#{renderLabel(countryId, "country")}</span>
-                   })}
-                </span>}            
-                 <span>
-                   {cell.categories.map((categoryId, index) => { 
-                     return <span key={index}>#{renderLabel(categoryId, "category")}</span>
-                   })}
-                </span>
-            </div>                 
-            <Image
-              priority
-              src={cell.thumbnail.url || WEBSITE.THUMBNAIL.DEFAULT}
-              className={tableStyles.websiteImage}
-              layout="fill"
-              alt='No image found'
+          :     
+          <div key={`r${cell.rowIndex}-c${cell.columnIndex}`}>
+            <ImageInfoCard 
+              website={cell}            
+              classes={cellClasses}
             />
-            <div className={tableStyles.imageInfoBottom}>
-              <div className={tableStyles.imageInfoRow}>
-                <span>URL</span>
-                <strong>{cell.url}</strong>
-              </div>
-              <div className={tableStyles.imageInfoRow}>
-                <span>Description</span>
-                <strong>{cell.description}</strong>
-              </div> 
-            </div>
-
-          </div>          
+          </div>         
         })}
        </div>
     }

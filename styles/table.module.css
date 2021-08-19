@@ -4,15 +4,6 @@
     border-radius: 5px;
 }
 
-.backgroundVideo {
-    position: fixed;
-    width: 100%;
-}
-
-.backgroundVideoEnd {
-    display: none;
-}
-
 .container {
     background-image: url("/images/background_light.jpg");
     background-size: cover;
@@ -23,12 +14,15 @@
     width: 100%;    
 }
 
-@media screen and (max-width: 500px) {
-    .unsupportedPlatform {
-      background: #cda500;
-      color: white;
-      pointer-events: none;
-      z-index: 2;
+@media screen and (max-width: 800px) {
+    .table {
+        width: 100%;
+    }
+    #mainContent {
+        width: 100vw !important;
+    }
+    .cell, .emptyCell {
+        min-width: 17vw !important;
     }
   }
 
@@ -117,42 +111,6 @@
     -webkit-transform: translateZ(0) !important;
     transform: translateZ(0) !important;
     animation-fill-mode: forwards;
-}
-
-.imageInfoBottom, .imageInfoTop {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    background: #ebecec;
-    width: 100%;
-    font-size: 3px;
-    height: 4.5vh;
-    justify-content: space-around;
-}
-
-.imageInfoTop {
-    bottom: 100%; 
-    border-radius: 3px 3px 0 0;
-    max-height: 6vh;
-    min-height: 1.5vh;
-    height: max-content;
-    background: #cda500;
-}
-
-.imageInfoTop span {
-    font-weight: 600;
-}
-
-.imageInfoBottom {
-    top: 99%;
-    border-radius: 0 0 3px 3px;
-}
-
-.imageInfoRow {
-    padding: 0 1.5px;
-    word-break: break-word;
-    display: grid;
 }
 
 .previewImage { 

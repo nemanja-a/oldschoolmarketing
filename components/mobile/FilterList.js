@@ -1,6 +1,6 @@
-import styles from "../styles/filterlist.module.css"
+import styles from "../../styles/filterlist.module.css"
 import React, { useState } from "react"
-import { classNames } from "../lib/util"
+import { classNames } from "../../lib/util"
 
 export const FilterList = React.forwardRef((props, ref) => {
   const filteredItems = JSON.parse(JSON.stringify(props.items)) 
