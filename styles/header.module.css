@@ -52,4 +52,8 @@
     .menu div {
         padding: 2px;
     }
+
+    .textContent {
+        font-size: inherit;
+    }
 }

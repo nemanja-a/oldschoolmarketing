@@ -10,6 +10,18 @@
     padding: 2rem 3rem;
 }
 
+.containerLarge, .containerMedium {
+    overflow-y: auto;
+    margin: 0 auto;
+    margin-top: 2%;
+    height: 91vh;
+    width: 40vw;
+    border-radius: 10px;
+    transition: all 0.5s ease;
+    position: relative;
+    padding: 2rem 3rem;    
+}
+
 .startUpDialog {
     border: 3px solid #ffaa4e;
 
@@ -87,22 +99,49 @@
     }
 }
 
-@media screen and (max-width: 800px) {
-    .dialog { 
-        width: 100vw;
-        position: absolute;
-        bottom: 0;
-        border-radius: 5px 5px 0 0;
-        height: 75vh;
+@media screen and (max-width: 800px) {    
+    .containerSmall {
+        width: 90vw;    
+        border-radius: 5px;
+        min-height: 55vh;
         overflow: hidden;
+        position: absolute;
+        margin: 50% 5%;
     }
-    .dialog div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;        
+
+    .containerMedium { 
+        margin-top: 40%;
+        width: 95vw;
+        border-radius: 5px;
+        height: 60vh;
+        font-size: 16px;
+        overflow: scroll;
     }
-    .stepButton {
-        width: max-content !important;
+
+    .containerLarge {
+        margin: 10vh auto;
+        width: 95vw;                
+        border-radius: 5px;
+        height: 80vh;
+        overflow: unset;        
+    }
+
+    .containerMediumLarge {
+        margin: 22.5vh auto;                
+        width: 100vw;        
+        height: 55vh;
+        position: relative;  
+        overflow: hidden !important;
+    }
+
+    .containerMediumLarge a {
+        color: white;
+        text-decoration: underline;
+        font-weight: 600;
+    }
+
+    .websitePreview {
+        width: 100%;
     }
     .title {        
         font-size: 20px;
@@ -111,10 +150,38 @@
     .headerText, .headerText a {
         color: white;
         width: 100%;
+        text-align: right;
+        padding-right: 8px;    
+    }
+    .imagePreviewWrapper {
+        width: 67vw !important;
     }
 
     .headerText a {
         border-bottom: 1px solid;
+        border: none;
+        font-size: large;
+    }
+
+    #websiteInputWrapper {
+        display: block !important;
+    }
+
+    #websiteInputWrapper div {
+        text-align: center;
+    }
+
+    .stepButton {
+        width: auto;  
+    }
+
+    .imagePreviewInfo {
+        height: 22vh;
+        max-height: 22vh;
+    }
+
+    .introductionDialogButton {
+        margin: 15px 0;
     }
 }
 
@@ -154,7 +221,7 @@
 }
 
 .verifyButton {
-    margin-left: 5%;
+    width: 100%;
 }
 
 #buttons {
@@ -168,7 +235,8 @@
 
 .websitePreview { 
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     padding-bottom: 7vh;
 }
 
@@ -185,6 +253,7 @@
 }
 
 #stepButtonsWrapper {
+    margin-left: 5px;
     display: flex;
     bottom: 1rem;
     padding-top: 4rem;
@@ -225,7 +294,7 @@
 
 .welcomeText {
     width: 100%;
-    font-size: 2vh;
+    font-size: 2vh;    
 }
 
 .welcomeText span {

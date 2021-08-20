@@ -13,11 +13,12 @@ export function Header() {
   return (
     <div id="header" className={styles.container}>
       <div className={styles.textContent}>Whiteboard marketing</div>
-      <Hamburger easing="ease-in" onToggle={onMenuClicked}/>
+      <div className={styles.textContent}><IntroductionDialog showOnInit isMobile={true}/></div>
+      {/* <Hamburger easing="ease-in" onToggle={onMenuClicked}/>
       {showMenu && <FadeIn className={styles.menu} transitionDuration={500}>
         <div><AboutPage/></div>
         <div><IntroductionDialog showOnInit={false}/></div>
-      </FadeIn>}
+      </FadeIn>} */}
     </div>
   )
 }

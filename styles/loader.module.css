@@ -37,10 +37,16 @@
       left: 40%;
       top: 50%;
     }
+    #modalLoader {
+
+    }
   }
 
   /* Modal loader */
   #modalLoader { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -69,8 +75,6 @@
     animation: spinner 1.2s linear infinite;
   }
   .text { 
-    position: absolute;
-    top: 55vh;
-    right: 48vw;
+    margin-top: 75px;      
     color: #ffaa4e;
   }

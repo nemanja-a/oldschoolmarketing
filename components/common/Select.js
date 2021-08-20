@@ -11,7 +11,7 @@ export function Select(props) {
 
     let wrapperStyles = classNames({
         [styles.input]: true,
-        [styles.fullWidth]: props.maxWidth,
+        [utilStyles.fullWidth]: props.maxWidth,
         [props.className]: true
     })
 
@@ -29,6 +29,7 @@ export function Select(props) {
                 onRemove={props.onRemove}            
                 displayValue="displayValue"
                 showCheckbox={props.showCheckbox}
+                singleSelect={props.singleSelect}
                 style={props.style}
                 closeOnSelect={false}
                 avoidHighlightFirstOption={true}

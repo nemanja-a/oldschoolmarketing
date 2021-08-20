@@ -23,9 +23,16 @@ export default function MobileView() {
       // TODO
       // setState({...state, recentlyJoined})
     }        
-
-    const onCategoryChange = (category) => { setState({...state, category}) } 
-    const onCountryChange = (country) => { setState({...state, country}) }
+    
+    const onChange = (filters) => {
+       if (filters.category && filters.country) {
+        setState({...state, category: filters.category, countries: filters.country}) 
+       } else if (filters.category) {
+         setState({...state, category: filters.category })
+       } else if (filters.countries) {
+        setState({...state, country: filters.country })
+       }       
+    }
     const onPageChange = (page) => { setState({...state, page}) }
     const categories = JSON.parse(JSON.stringify(WEBSITE.CATEGORIES))
     const countries = JSON.parse(JSON.stringify(WEBSITE.COUNTRIES))
@@ -41,8 +48,7 @@ export default function MobileView() {
       searchPlaceholder="Search countries..."
       countries={countries}
       categories={categories}
-      onCountryChange={onCountryChange}
-      onCategoryChange={onCategoryChange}
+      onChange={onChange}      
     />
     }
 

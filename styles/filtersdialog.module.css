@@ -2,16 +2,14 @@
     margin: 5vh 0 1vh 3vh;
 }
 
-.dialog {
-    width: 90vw;    
-    border-radius: 5px;
-    min-height: 50vh;
-    overflow: hidden;
-    margin: 50% auto;
+.filtersButton {
+    width: 94.5%;
+    padding: 0.4rem 1.2rem 0.4rem 1.4rem;    
 }
 
-.filtersButton {
-    padding: 0.4rem 1.2rem 0.4rem 1.4rem;
+.title {
+    text-align: center;
+    margin-bottom: 3vh;
 }
 
 .row {
@@ -20,5 +18,15 @@
     align-items: center;
     width: 100%;
     padding: 0.3rem 0;
+}
+
+.applyFiltersButton { 
+    margin-top: 5%;
+    margin-left: 2.5%;
+    width: 50%;
+    height: 6vh;
+    box-shadow: 0 0 0 1px;
+    color: #cda500;
+    background: white;
 }
 

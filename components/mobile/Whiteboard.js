@@ -5,9 +5,8 @@ import { NAVIGATION_BUTTONS_COUNT, TOTAL_PAGE_COUNT } from "../../util/variables
 import style from "../../styles/mobile.module.css"
 import { classNames } from "../../lib/util"
 import { Input } from "../common/Input"
-import { Button } from "../common/Button"
 
-export function Whiteboard (props) {
+export function Whiteboard (props) {  
     const [ state, setState ] = useState({
       pageIndex: 0,
       pageRangeStart: 0,
@@ -49,7 +48,10 @@ export function Whiteboard (props) {
       props.onPageChange(pageIndex)
     }
 
-    const rangeButton = (text, disabled, onClick) => <button disabled={disabled} onClick={onClick}>{text}</button> 
+    const rangeButtonClasses = classNames({
+      [style.rangeButton]: true
+    })
+    const rangeButton = (text, disabled, onClick) => <button disabled={disabled} onClick={onClick} className={rangeButtonClasses}>{text}</button> 
     const onFirstPageClicked = () => {
       setState({loading: true, pageRangeStart: 0, pageIndex: 0})
       props.onPageChange(0)

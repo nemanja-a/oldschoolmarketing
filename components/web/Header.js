@@ -10,7 +10,7 @@ export function Header() {
         <div id={styles.appName}><span>Whiteboard</span> marketing</div>
         <div id={styles.appDescription}>Add website once and stay for a lifetime</div>
         <div id={styles.gettingStartedWrapper}>
-          <div style={{fontSize: "medium"}}><IntroductionDialog showOnInit={true}/></div>
+          <div style={{fontSize: "medium"}}><IntroductionDialog showOnInit/></div>
         </div>
       </div>
     </div>

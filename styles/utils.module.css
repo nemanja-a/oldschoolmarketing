@@ -27,7 +27,7 @@
 }
 
 .buttonPrimary {
-    min-width: 50px;
+    min-width: 9vw;
     border: none;
     background: #cda500;
     border-radius: 5px;
@@ -64,6 +64,14 @@
     padding-left: 5px;
     color: red;
     word-break: break-word;
+}
+
+.fullWidth {
+    width: 100%;
+}
+
+.marginRight {
+    margin-right: 15px;
 }
 
 .dropZone { 
@@ -188,7 +196,38 @@
 }
 
 @media screen and (max-width: 800px) {
-    .imageInfoBottom, .imageInfoTop {
-        font-size: 0.5vh;
+    .mobileImageInfoBottom, .mobileImageInfoTop {
+        background-color: rgba(100, 100, 100, 0.5);
+        position: fixed;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        word-break: break-word;
+        padding: 20px;
+        text-align: center;
+        width: 100%;
+        height: 22.5vh;
+        max-height: 22.5vh;
+    }
+
+    .mobileImageInfoTop {
+        top: 0;
+        left: 0;
+    }
+
+    .mobileImageInfoBottom {
+        bottom: 0;
+        left: 0
+    }
+
+    .buttonPrimary {
+        width: 100%;
+    }
+
+    .mobileImageInfoCloseButton {
+        right: 5px;
+        top: 3px;
+        position: fixed;
+        background: transparent;
     }
 }

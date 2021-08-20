@@ -34,6 +34,10 @@
     /* background: url("/images/whiteboard-background.jpg"); */
 }
 
+.rangeButton {
+    padding: 0 7px !important;
+}
+
 .recentlyJoinedWrapper {
 
 }

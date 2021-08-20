@@ -20,6 +20,7 @@ import { useDropzone } from 'react-dropzone'
 import { Select } from './common/Select'
 import { showError } from '../lib/toast'
 import { getSelectOptions } from '../lib/util'
+import detectDevice from './common/DeviceDetect'
 
 export function AddWebsiteDialog(props) {
   let defaultWebsite = WEBSITE.DEFAULT
@@ -40,6 +41,7 @@ export function AddWebsiteDialog(props) {
   }
   const [ state, setState ] = useState(defaultState)
 
+  const isMobile = detectDevice()
   const { getRootProps, getInputProps } = useDropzone({
     accept: ALLOWED_FORMATS,
     multiple: false,
@@ -220,6 +222,7 @@ export function AddWebsiteDialog(props) {
     [dialogStyles.urlInput]: true,
     [formStyles.input]: true
   })
+  const urlInputPlaceholder = isMobile ? "Enter address..." : `Enter address with maximum of ${WEBSITE.URL_MAX_LENGTH} characters`
 
   const onSelect = (selectedList, controlName) => {
     setState({...state, validationError: false, website: {...state.website, [controlName]: selectedList}} )
@@ -268,7 +271,6 @@ export function AddWebsiteDialog(props) {
   })
 
   const selectStyles = getSelectStyles()
-
   const selectClasses = classNames({
     [utilStyles.formControlError]: state.validationError && !state.website.categories.length
   })
@@ -276,16 +278,21 @@ export function AddWebsiteDialog(props) {
   const descriptionInputClasses = classNames({
     [utilStyles.inputError]: state.validationError && !state.website.description.length
   })
-
+  const nextButtonWrapperClasses = classNames({
+    [utilStyles.fullWidth]: isMobile
+  })
+  const previousButtonWrapperClasses = classNames({
+    [utilStyles.fullWidth]: isMobile,
+    [utilStyles.marginRight]: isMobile
+  })
   const nextButtonDisabled = !state.websiteValid || state.titleProfane || state.descriptionProfane 
-
   const countryOptions = getSelectOptions(WEBSITE.COUNTRIES)
   const categoryOptions = getSelectOptions(WEBSITE.CATEGORIES)
  
   return (
     <div className={cellClasses} id={props.id}>
       {/* Dialog */}
-      <Dialog className={dialogStyles.dialog} aria-label="add-website-dialog" isOpen={state.showDialog} onDismiss={close}>
+      <Dialog className={dialogStyles.containerMedium} aria-label="add-website-dialog" isOpen={state.showDialog} onDismiss={close}>
         <FadeIn transitionDuration={500}>
           <button className={utilStyles.closeButton} onClick={close}>
             <VisuallyHidden>Close</VisuallyHidden>
@@ -299,7 +306,6 @@ export function AddWebsiteDialog(props) {
           {state.loading && <ModalLoader text={state.loaderText}/>}        
 
         <div className={dialogStyles.websitePreview}>
-          <div style={{maxWidth: "16vw", textAlign: "center"}}>
             {state.step !== 3 && <div style={{fontStyle: "italic"}}>Drop or click on image to upload</div>}
             <div className={dialogStyles.imagePreviewWrapper}
              onMouseEnter={() => { state.step !== 3 && setState({...state, imagePreviewHovered: true })} }
@@ -307,7 +313,7 @@ export function AddWebsiteDialog(props) {
             > 
               <div {...getRootProps({className: dropZoneClasses})}>
                 <input {...getInputProps()} />                          
-                <div id={dialogStyles.imageUploadOverlay}>Drop or click here to upload</div>
+                {!isMobile && <div id={dialogStyles.imageUploadOverlay}>Drop or click here to upload</div>}
                 
                 {state.step !== 1 && <div className={dialogStyles.imagePreviewInfo}>
                   <div className={dialogStyles.previewInfoRow}>
@@ -333,7 +339,6 @@ export function AddWebsiteDialog(props) {
             {state.step === 1 && <div style={{fontStyle: "italic"}}>Supported formats are <strong>JPG, JPEG</strong> and <strong>PNG</strong></div>}
 
             {/* Image preview end*/}
-          </div>
         </div>
       </FadeIn>
       {/* First step */}
@@ -347,7 +352,7 @@ export function AddWebsiteDialog(props) {
                   style={{minWidth: '14vw'}}
                   className={urlInputClasses}
                   value={state.website.url}
-                  placeholder={`Enter address with maximum of ${WEBSITE.URL_MAX_LENGTH} characters`}
+                  placeholder={urlInputPlaceholder}
                   id="url" 
                   name="url"
                   onChange={onWebsiteUrlChange}
@@ -379,8 +384,9 @@ export function AddWebsiteDialog(props) {
 
           {state.website.url && (state.website.url.length === WEBSITE.URL_MAX_LENGTH) && <span className={utilStyles.error}>Character limit reached.</span>}
         </div>
-        <div id={dialogStyles.stepButtonsWrapper} style={{justifyContent: "center"}}>
-            {state.step !== 2 && <Button primary onClick={onNextStep} disabled={nextButtonDisabled} className={dialogStyles.stepButton}>Next Step</Button>}
+        <div id={dialogStyles.stepButtonsWrapper} style={{justifyContent: "center", marginLeft: "0"}}>
+            {state.step !== 2 && <Button primary onClick={onNextStep} disabled={nextButtonDisabled}
+             wrapperClasses={nextButtonWrapperClasses}>Next</Button>}
         </div>
       </FadeIn>}
       {/* First step end */}
@@ -419,7 +425,7 @@ export function AddWebsiteDialog(props) {
               showCheckbox
               id="categoriesSelect"
               label="Categories"
-              placeholder="Select website categories..."  
+              placeholder="Select categories"  
               groupBy="categoryId"
               name="categories"                                                              
               options={categoryOptions}
@@ -439,7 +445,7 @@ export function AddWebsiteDialog(props) {
               id="countriesSelect"
               showCheckbox
               label="Countries"
-              placeholder="Select website countries..."              
+              placeholder="Select countries"              
               options={countryOptions}
               name="countries"
               onSelect={(selectedList) => onSelect(selectedList, 'countries')}
@@ -454,8 +460,9 @@ export function AddWebsiteDialog(props) {
         </section>
         </form>
         <div id={dialogStyles.stepButtonsWrapper} style={{justifyContent: "space-between"}}>
-            <Button primary onClick={onPreviousStep} disabled={state.step === 1} className={dialogStyles.stepButton}>Previous Step</Button>
-            <Button primary onClick={onNextStep} disabled={nextButtonDisabled} className={dialogStyles.stepButton}>Next Step</Button>
+            <Button primary onClick={onPreviousStep} wrapperClasses={previousButtonWrapperClasses} disabled={state.step === 1} className={dialogStyles.stepButton}>Previous</Button>
+            <Button primary onClick={onNextStep} wrapperClasses={nextButtonWrapperClasses}
+             disabled={nextButtonDisabled} className={dialogStyles.stepButton}>Next</Button>
         </div>     
       </FadeIn>}
       {/* Second step end */}
@@ -464,7 +471,7 @@ export function AddWebsiteDialog(props) {
       {state.step === 3 && <FadeIn transitionDuration={500}>
         <Payment addWebsiteCallback={addWebsiteCallback} close={props.close} toggleLoading={toggleLoading} getFormData={getFormData}/>
         <div id={dialogStyles.stepButtonsWrapper} style={{justifyContent: "center"}}>
-          <Button primary onClick={onPreviousStep} className={dialogStyles.stepButton}>Previous Step</Button>          
+          <Button primary onClick={onPreviousStep} wrapperClasses={nextButtonWrapperClasses} className={dialogStyles.stepButton}>Previous</Button>          
         </div>
       </FadeIn>}
       {/* Third step end*/}

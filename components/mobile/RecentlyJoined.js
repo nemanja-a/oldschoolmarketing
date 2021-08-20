@@ -1,6 +1,6 @@
 import { useState } from "react"
 import style from "../../styles/mobile.module.css"
-import ImageInfoCard from "../common/ImageInfoCard"
+import ImageInfoCard from "../web/ImageInfoCard"
 
 export default function RecentlyJoined({page, website}) {
     const defaultState = {

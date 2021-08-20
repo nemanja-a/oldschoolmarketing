@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react"
 import useSWR from "swr"
-import { classNames, getTableParams } from "../lib/util"
+import { classNames, getTableParams, setWebsiteTransformOrigin } from "../lib/util"
 import tableStyles from "../styles/table.module.css"
 import Image from "next/image"
 import { Table } from "react-virtualized"
-import { ROWS_PER_PAGE, WEBSITE, CUSTOM_TRANSFORM_ORIGIN_COUNT } from "../util/variables"
+import { ROWS_PER_PAGE, WEBSITE } from "../util/variables"
 import { TableLoader } from "./TableLoader"
 import { AddWebsiteDialog } from "./AddWebsiteDialog"
 import detectDevice from "./common/DeviceDetect"
-import ImageInfoCard from "./common/ImageInfoCard"
+import ImageInfoCard from "./web/ImageInfoCard"
+import ImagePreviewDialog from "./mobile/ImagePreviewDialog"
 
 export function WebsitesTable ({ pageIndex, category, country, getData }) {
   let tableParams;
@@ -89,30 +90,36 @@ export function WebsitesTable ({ pageIndex, category, country, getData }) {
       const rowData = data.websites.filter(website => {
         return website.rowIndex === index
       })
-      if (index >= ROWS_PER_PAGE - CUSTOM_TRANSFORM_ORIGIN_COUNT) {
-        rowData.map(website => { 
-          website.bottomRow = true
-          return website
-        })
-      }
-      if (index <= CUSTOM_TRANSFORM_ORIGIN_COUNT) {
-        rowData.map(website => { 
-          website.topRow = true
-          return website
-        })
-      }
+
+      rowData.map(website => { 
+        website = setWebsiteTransformOrigin(website, index)
+        return website
+      })
+
       return rowData
+    }
+
+    const WebsiteImage = ({cell, cellClasses}) => { 
+      return !isMobile ? 
+      <div>
+            <ImageInfoCard 
+              website={cell}            
+              classes={cellClasses}
+            />
+      </div>
+      :
+      <ImagePreviewDialog website={cell} classes={cellClasses}/>      
     }
 
     const rowRenderer = (props) => {
       if (!Object.keys(props.rowData).length) return false
       return <div key={props.index} className={tableStyles.row}>
         
-        {props.rowData.map((cell, index) => {
-          let cellClasses = classNames({
+        {props.rowData.map((cell) => {
+          const cellClasses = classNames({
             [tableStyles.cell]: true,
             [tableStyles.transformOriginBottom]: cell.bottomRow,
-            [tableStyles.transformOriginTop]: cell.topRow
+            [tableStyles.transformOriginTop]: cell.topRow,            
           })                            
       
           cell.page = pageIndex
@@ -135,12 +142,7 @@ export function WebsitesTable ({ pageIndex, category, country, getData }) {
           />
         </a>
           :     
-          <div key={`r${cell.rowIndex}-c${cell.columnIndex}`}>
-            <ImageInfoCard 
-              website={cell}            
-              classes={cellClasses}
-            />
-          </div>         
+          <WebsiteImage key={`r${cell.rowIndex}-c${cell.columnIndex}`} cell={cell} cellClasses={cellClasses}/>         
         })}
        </div>
     }

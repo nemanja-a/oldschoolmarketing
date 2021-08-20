@@ -56,6 +56,14 @@
     overflow: hidden;
 }
 
+.transformOriginLeft {
+    transform-origin: left !important;
+}
+
+.transformOriginRight {
+    transform-origin: right !important;
+}
+
 .transformOriginBottom:hover {
     transform-origin: center 9vh;    
     overflow: visible;    

@@ -4,11 +4,14 @@ import styles from "../../styles/utils.module.css"
 export function Button(props) {
     const buttonClasses = classNames({
         [styles.buttonPrimary]: props.primary,
-        [styles.buttonSecondary]: props.secondary,
-        [styles.formItemSpacing]: true,
-        [props.className]: true
+        [styles.buttonSecondary]: props.secondary,        
+        [props.className]: true,    
     })
-    return <div>
+
+    const wrapperClasses = classNames({
+        [props.wrapperClasses]: props.wrapperClasses
+    })
+    return <div className={wrapperClasses}>
         <button
             type={props.type || 'button'}
             onClick={() => props.onClick()}

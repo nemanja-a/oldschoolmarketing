@@ -2,7 +2,7 @@ import style from "../../styles/utils.module.css"
 import mobileStyles from "../../styles/mobile.module.css"
 import { WEBSITE } from "../../util/variables"
 import Image from "next/image"
-import detectDevice from "./DeviceDetect"
+import detectDevice from "../common/DeviceDetect"
 import { classNames } from "../../lib/util"
 
 export default function ImageInfoCard({website, classes}) {        
@@ -11,7 +11,7 @@ export default function ImageInfoCard({website, classes}) {
     const onWebsiteClick = (websiteUrl) => {
         if (!isMobile) {
           window.open(websiteUrl, '_blank')
-        }
+        } 
       }
 
     const imageClasses = classNames({

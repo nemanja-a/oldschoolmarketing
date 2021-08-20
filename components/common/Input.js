@@ -8,7 +8,7 @@ export function Input(props) {
       [styles.input]: true,
       [styles.inputNumber]: props.type === 'number',
       [styles.incrementerInput]: props.withIncrement,
-      [styles.fullWidth]: props.maxWidth,
+      [utilStyles.fullWidth]: props.maxWidth,
     })
 
     const inputNumberwrapperClasses = classNames({
@@ -41,11 +41,11 @@ export function Input(props) {
 
     let wrapperStyles = classNames({
         [styles.input]: true,
-        [styles.fullWidth]: props.maxWidth
+        [utilStyles.fullWidth]: props.maxWidth
     })
 
     if (props.maxWidth) {
-        wrapperStyles = `${wrapperStyles} ${styles.fullWidth}`
+        wrapperStyles = `${wrapperStyles} ${utilStyles.fullWidth}`
     }
     
     if (props.classes && props.classes.wrapper) {

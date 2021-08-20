@@ -38,10 +38,7 @@ export function Payment(props) {
       return data  
     }
 
-    const onError = (message) => showError(message)
-    const inputClasses = {
-      element: [paymentStyles.input]
-    }
+    const onError = (message) => showError(message)    
     
   return (
        <div id={dialogStyles.secondStep}>
@@ -57,8 +54,7 @@ export function Payment(props) {
                     type='number'
                     onChange={onAmountChange}
                     min={2}
-                    value={amount}
-                    classes={inputClasses}
+                    value={amount}                    
                 />
                 <span className={utilStyles.footnote}>Spot for website costs 2€, but feel free to change it.</span>
               </span> 

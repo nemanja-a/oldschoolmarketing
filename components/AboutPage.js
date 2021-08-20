@@ -23,7 +23,7 @@ export function AboutPage() {
         
       <a href="#" onClick={open}>What is this page and why?</a> 
       {/* Dialog */}
-      <Dialog className={dialogStyles.dialog} aria-label="add-website-dialog" isOpen={showDialog} onDismiss={close}>
+      <Dialog className={dialogStyles.containerLarge} aria-label="add-website-dialog" isOpen={showDialog} onDismiss={close}>
         <FadeIn transitionDuration={500}>
           <button className={utilStyles.closeButton} onClick={close}>
             <VisuallyHidden>Close</VisuallyHidden>
