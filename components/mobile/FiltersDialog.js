@@ -10,7 +10,7 @@ import { Button } from '../common/Button'
 import { Select } from '../common/Select'
 import { WEBSITE } from '../../util/variables'
 
-export function FiltersDialog({onChange}) {
+export function FiltersDialog({onChange, selectedCountry, selectedCategory}) {  
   const [state, setState] = useState({
       showDialog: false,
   })
@@ -66,7 +66,7 @@ export function FiltersDialog({onChange}) {
               options={categoryOptions}
               onSelect={(selectedList) => onSelect(selectedList, 'category')}
               onRemove={(selectedList) => onRemove(selectedList, 'category')}
-              selectedValues={state.category}
+              selectedValues={selectedCategory}
               style={selectStyles}                          
             />                        
           </div>
@@ -86,7 +86,7 @@ export function FiltersDialog({onChange}) {
               onSelect={(selectedList) => onSelect(selectedList, 'country')}
               onRemove={(selectedList) => onRemove(selectedList, 'country')}
               onRemove={onRemove}              
-              selectedValues={state.country}
+              selectedValues={selectedCountry}
               style={selectStyles}                            
             />                        
           </div>

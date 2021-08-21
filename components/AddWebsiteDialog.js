@@ -155,45 +155,47 @@ export function AddWebsiteDialog(props) {
     } 
     event.stopPropagation()
     event.preventDefault()
-    toggleLoading(true, "Verifying URL...")
-    const validateWebsiteURL = `${server}/api/validate?url=${state.website.url}&page=${state.website.page}`
-    const websiteResponse = await fetch(validateWebsiteURL, {
-      mode: 'no-cors'
-    })
-    if (websiteResponse.status === 409) {
-      setState({
-        ...state,
-        websiteAlreadyExist: true,
-        websiteValid: null
-      })
-      return
-    } else if (websiteResponse.status === 404) {
-      let data = await websiteResponse.json()
-      toggleLoading(false)
-      setState({
-        ...state,
-        websiteValid: false,
-        websiteAlreadyExist: null,
-        urlError: data.error
-      }) 
-    } else if (websiteResponse.status === 200) {
-      toggleLoading(false)
-      setState({
-        ...state,
-        websiteValid: true,
-        websiteAlreadyExist: null,
-        showTitle: true,
-        showDescription: true
-      })
-    } else {
-      toggleLoading(false)
-      setState({
-        ...state,
-        websiteValid: false,
-        websiteAlreadyExist: null,
-        urlError: `URL ${state.website.url} is not valid. Try again`
-      })
-    }
+    // toggleLoading(true, "Verifying URL...")
+    // const validateWebsiteURL = `${server}/api/validate?url=${state.website.url}&page=${state.website.page}`
+    // const websiteResponse = await fetch(validateWebsiteURL, {
+    //   mode: 'no-cors'
+    // })
+    // if (websiteResponse.status === 409) {
+    //   setState({
+    //     ...state,
+    //     websiteAlreadyExist: true,
+    //     websiteValid: null
+    //   })
+    //   return
+    // } else if (websiteResponse.status === 404) {
+    //   let data = await websiteResponse.json()
+    //   toggleLoading(false)
+    //   setState({
+    //     ...state,
+    //     websiteValid: false,
+    //     websiteAlreadyExist: null,
+    //     urlError: data.error
+    //   }) 
+    // } else if (websiteResponse.status === 200) {
+    //   toggleLoading(false)
+    //   setState({
+    //     ...state,
+    //     websiteValid: true,
+    //     websiteAlreadyExist: null,
+    //     showTitle: true,
+    //     showDescription: true
+    //   })
+    // } else {
+    //   toggleLoading(false)
+    //   setState({
+    //     ...state,
+    //     websiteValid: false,
+    //     websiteAlreadyExist: null,
+    //     urlError: `URL ${state.website.url} is not valid. Try again`
+    //   })
+    // }
+
+    setState({...state,  step: 3})
   }
   const toggleLoading = (value, text) => { 
     setState( {...state, loading: value, loaderText: text} )

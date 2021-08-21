@@ -110,6 +110,18 @@ html,
   html, body {
     font-size: 2.5vh;
   }
+
+  ::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+    scrollbar-width: thin;
+  }
+  
+  ::-webkit-scrollbar
+  
+  ::-webkit-scrollbar-thumb {    
+    border-radius: 5px;
+  }
 }
 
 div#__next,
@@ -126,8 +138,8 @@ div#__next > div {
 
 @media screen and (max-width: 800px) {
   .ReactVirtualized__Table__Grid, .ReactVirtualized__Grid__innerScrollContainer {
-    overflow-y: hidden !important;    
-    overflow-x: scroll !important ;
+    overflow-y: auto !important;    
+    overflow-x: auto !important ;
   }
 }
 

@@ -3,7 +3,8 @@
 }
 
 .filtersButton {
-    width: 94.5%;
+    width: 80vw;
+    margin-left: 4.5vw;
     padding: 0.4rem 1.2rem 0.4rem 1.4rem;    
 }
 

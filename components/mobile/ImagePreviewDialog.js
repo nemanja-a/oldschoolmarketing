@@ -46,8 +46,8 @@ export default function ImagePreviewDialog({website, classes}) {
                   <span aria-hidden>×</span>
                 </button>
                 <span>URL</span>
-                <span style={{fontSize: "smaller"}}>(Click on a link or image to open in new tab)</span>
                 <a href={website.url} target="_blank">{website.url}</a>              
+                <span style={{fontSize: "smaller"}}>(Click on a link or image to open in new tab)</span>
               </div>
               <div className={dialogStyles.moibleImagePreviewWrapper} onClick={() => window.open(website.url, '_blank')}>
                 <Image

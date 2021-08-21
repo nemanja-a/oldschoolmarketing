@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import useSWR from "swr"
-import { classNames, getTableParams, setWebsiteTransformOrigin } from "../lib/util"
+import { classNames, getTableParams, handleGetWebsiteRequestParams, handleMobileGetWebsiteRequestParams, setWebsiteTransformOrigin } from "../lib/util"
 import tableStyles from "../styles/table.module.css"
 import Image from "next/image"
 import { Table } from "react-virtualized"
@@ -13,6 +13,7 @@ import ImagePreviewDialog from "./mobile/ImagePreviewDialog"
 
 export function WebsitesTable ({ pageIndex, category, country, getData }) {
   let tableParams;
+  const websiteTableRef = React.createRef()
   const [ state, setState ] = useState({
     columnIndex: 0,
     rowIndex: 0,
@@ -51,19 +52,12 @@ export function WebsitesTable ({ pageIndex, category, country, getData }) {
     tableParams = (state.container && !state.tableParams) && getTableParams(state.container)
 
     const fetcher = async(url) => fetch(url).then(res => res.json())      
-
-    const getWebsitesURL = 'api/websites'
-      let getWebsitesQueryParams
+   
       const shouldFetchWebsites = tableParams
-      if (country.value !== undefined && category.value !== undefined) {
-        getWebsitesQueryParams = `${getWebsitesURL}?page=${Number(pageIndex)}&category=${category.value}&country=${country.value}`
-      } else if (country.value !== undefined) {
-        getWebsitesQueryParams = `${getWebsitesURL}?page=${Number(pageIndex)}&country=${country.value}`
-      } else if (category.value !== undefined) {
-        getWebsitesQueryParams = `${getWebsitesURL}?page=${Number(pageIndex)}&category=${category.value}`
-      } else {
-        getWebsitesQueryParams = `${getWebsitesURL}?page=${Number(pageIndex)}`
-      }  
+      const getWebsitesQueryParams = isMobile ? 
+      handleMobileGetWebsiteRequestParams(Number(pageIndex), category, country)
+      :
+      handleGetWebsiteRequestParams(Number(pageIndex), category, country)            
     const { data, error, mutate } = useSWR(shouldFetchWebsites ? getWebsitesQueryParams : null, fetcher)  
 
     if (error) return <div className={tableStyles.noData}>An error has occured</div>
@@ -99,6 +93,14 @@ export function WebsitesTable ({ pageIndex, category, country, getData }) {
       return rowData
     }
 
+    const onLeftArrowClick = () => { 
+      console.log(websiteTableRef)
+    }
+
+    const onRightArrowClick = () => { 
+
+    }
+
     const WebsiteImage = ({cell, cellClasses}) => { 
       return !isMobile ? 
       <div>
@@ -110,6 +112,21 @@ export function WebsitesTable ({ pageIndex, category, country, getData }) {
       :
       <ImagePreviewDialog website={cell} classes={cellClasses}/>      
     }
+
+    const WebsiteTable = React.forwardRef((props, ref) => {
+      return <Table
+      width={props.tableParams.tableWidth}
+      height={props.tableParams.tableHeight}
+      headerHeight={0}            
+      rowHeight={props.tableParams.rowHeight}
+      rowGetter={rowGetter}
+      rowRenderer={rowRenderer}
+      rowCount={ROWS_PER_PAGE}
+      className={tableStyles.table}
+      disableHeader={true}
+      ref={ref}
+    />
+    })
 
     const rowRenderer = (props) => {
       if (!Object.keys(props.rowData).length) return false
@@ -147,8 +164,9 @@ export function WebsitesTable ({ pageIndex, category, country, getData }) {
        </div>
     }
   
-    return  <div>
-        {tableParams && <Table
+    return  <div style={{display: "flex"}}>
+        <span className={tableStyles.arrowLeft} onClick={onLeftArrowClick}>&lt;</span>
+        {/* {tableParams && <Table
             width={tableParams.tableWidth}
             height={tableParams.tableHeight}
             headerHeight={0}            
@@ -159,7 +177,10 @@ export function WebsitesTable ({ pageIndex, category, country, getData }) {
             className={tableStyles.table}
             disableHeader={true}
           >
-          </Table>}
+          </Table>} */}
+
+          {tableParams && <WebsiteTable tableParams={tableParams} ref={websiteTableRef}/>}          
+          <span className={tableStyles.arrowRight} onClick={onRightArrowClick}>&gt;</span>
           {state.showDialog && 
             <AddWebsiteDialog columnIndex={state.columnIndex} rowIndex={state.rowIndex} 
             website={state.website} close={close}/>}

@@ -3,8 +3,6 @@ import { useState } from "react"
 import RecentlyJoined from "./RecentlyJoined"
 import { Whiteboard } from "./Whiteboard"
 import { getRecentlyJoined } from "../../lib/util"
-import { Button } from "../common/Button"
-import style from "../../styles/mobile.module.css"
 import { FiltersDialog } from "./FiltersDialog"
 import { WEBSITE } from "../../util/variables"
 
@@ -24,12 +22,12 @@ export default function MobileView() {
       // setState({...state, recentlyJoined})
     }        
     
-    const onChange = (filters) => {
-       if (filters.category && filters.country) {
+    const onChange = (filters) => {      
+       if (filters.category && filters.country) {         
         setState({...state, category: filters.category, countries: filters.country}) 
        } else if (filters.category) {
          setState({...state, category: filters.category })
-       } else if (filters.countries) {
+       } else if (filters.country) {
         setState({...state, country: filters.country })
        }       
     }
@@ -43,11 +41,8 @@ export default function MobileView() {
     
     const FIlters = () =>  { 
       return <FiltersDialog 
-      id="countryFilterList"
-      title="Country"
-      searchPlaceholder="Search countries..."
-      countries={countries}
-      categories={categories}
+      selectedCountry={state.country}
+      selectedCategory={state.category}      
       onChange={onChange}      
     />
     }
@@ -57,10 +52,8 @@ export default function MobileView() {
             <Header isMobile={true}/>
             <RecentlyJoined page={state.page} website={recentlyJoined}/>
             <FIlters />
+            <div style={{textAlign: "center", fontSize: "2.5vh"}}>Choose a spot and get a lifetime marketing for your website</div>
             <Whiteboard category={state.category} country={state.country} onPageChange={onPageChange} getData={onDataReceived}/>            
         </div>
-        // <div className={style.container}>
-        //     <span>Coming soon!</span>
-        // </div>
     )
 }

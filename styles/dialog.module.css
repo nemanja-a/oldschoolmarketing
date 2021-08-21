@@ -19,7 +19,7 @@
     border-radius: 10px;
     transition: all 0.5s ease;
     position: relative;
-    padding: 2rem 3rem;    
+    padding: 1rem 3rem;    
 }
 
 .startUpDialog {
@@ -106,7 +106,7 @@
         min-height: 55vh;
         overflow: hidden;
         position: absolute;
-        margin: 50% 5%;
+        margin: 30% 5%;
     }
 
     .containerMedium { 
@@ -122,7 +122,8 @@
         margin: 10vh auto;
         width: 95vw;                
         border-radius: 5px;
-        height: 80vh;
+        /* height: 80vh; */
+        height: 85vh;
         overflow: unset;        
     }
 
