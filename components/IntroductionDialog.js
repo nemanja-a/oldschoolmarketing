@@ -30,7 +30,7 @@ export function IntroductionDialog({ isMobile, showOnInit }) {
             <VisuallyHidden>Close</VisuallyHidden>
             <span aria-hidden>×</span>
           </button>}
-          {isMobile ? <div className={dialogStyles.title}>Welcome to <strong style={{display: "block"}}>Whiteboard marketing</strong></div> 
+          {isMobile ? <div className={dialogStyles.title}>Welcome to <strong style={{display: "block"}}>Old School Marketing</strong></div> 
           :
           <div className={dialogStyles.title}>Welcome to</div> 
           }

@@ -231,7 +231,7 @@
     position: absolute;
     width: 2px;
     height: 25px;
-    background-color: green;
+    background-color: #346b31;
     left: 24px;
     top: 2px;
 }
@@ -240,7 +240,7 @@
     position: absolute;
     width: 9px;
     height: 2px;
-    background-color: green;
+    background-color: #346b31;
     left: 17px;
     top: 25px;
 }
@@ -252,24 +252,34 @@
 .activePreviewModeButtons {
     width: fit-content;
     margin: auto;
-    background: wheat;
+    background: #8E8E8E;
     display: flex;
     justify-content: center;
     border-radius: 3px;
 }
 
 .activePreviewModeButtons button {
-    color: black;
+    color: white;
+    background: #8E8E8E;
 }
+
+.activePreviewModeButtons button:hover {    
+    background: #346b31;
+}
+
 
 .previewMobileButton {
     border-radius: 0 3px 3px 0 !important;
     margin: 4px 4px 4px 0;
 }
 
+.previewMobileButton:hover, .previewWebButton:hover {
+    background: #8E8E8E;
+}
+
 .previewWebButton {
     border-radius: 3px 0 0 3px !important;
-    margin: 4px 0 4px 4px;
+    margin: 4px 0 4px 4px;    
 }
 
 #payPalComponentWrapper {
@@ -280,6 +290,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;    
+    padding: 0.5rem 0;
 }
 
 .websitePreview p {
@@ -364,6 +375,6 @@
 }
 
 .activePreviewMode {
-    background: #b08f07 !important;
+    background: #346b31 !important;
     color: white !important;
 }

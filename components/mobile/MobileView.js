@@ -66,7 +66,7 @@ export default function MobileView() {
             <Whiteboard category={state.category} country={state.country} onPageChange={onPageChange} getData={onDataReceived}/>            
             <div className={footerClassNames}>
               <strong>*Disclaimer: Images on this page are copyright of their owners. I am not responsible for the content of external websites.</strong>
-              <strong className={utilStyles.copyright}>Copyright © Whiteboard marketing ©
+              <strong className={utilStyles.copyright}>Copyright © Old School Marketing ©
               <div id={utilStyles.linkedInWrapper}>
                 &nbsp; <a href={LINKED_IN_PROFILE_URL} target="_blank">Nemanja Apostolovic</a> &nbsp;         
                 <Image

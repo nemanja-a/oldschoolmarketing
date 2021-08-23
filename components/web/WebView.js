@@ -41,15 +41,15 @@ export function WebView() {
       categories.unshift({displayValue: "All"})
 
       return <div id="tableContainer" className={tableStyles.container}>
-      <Meta title="Whiteboard marketing" />
+      <Meta title="Old School Marketing" />
       <ToastContainer />
       {/* Filter section */}
       <section className={utilStyles.filterSection}>
           <div style={{paddingBottom: "1vh", fontStyle: "italic",  boxShadow: "0 0 7px 0"}}>
-            <div style={{display: "block", background: "#cda500", color: "white", borderRadius: "5px 5px 0 0"}} > 
+            <div style={{display: "block", background: "#8E8E8E", color: "white", borderRadius: "5px 5px 0 0"}} > 
              Filters are applied for <strong>current</strong> page only
             </div>
-            <div style={{color: "white", background: "#b08f07", borderRadius: "0 0 5px 5px"}}>Current page: {state.page}</div>
+            <div style={{color: "white", background: "#8E8E8E", borderRadius: "0 0 5px 5px"}}>Current page: {state.page}</div>
             <br/>
 
           </div>          
@@ -77,7 +77,7 @@ export function WebView() {
         <div/>
           <div className={footerClassNames}>
             <strong>*Disclaimer: Images on this page are copyright of their owners. I am not responsible for the content of external websites.</strong>
-            <strong className={utilStyles.displayFlex}>Copyright © Whiteboard marketing ©
+            <strong className={utilStyles.displayFlex}>Copyright © Old School marketing ©
              <div id={utilStyles.linkedInWrapper}>
               &nbsp; <a href={LINKED_IN_PROFILE_URL} target="_blank">Nemanja Apostolovic</a> &nbsp;         
               <Image

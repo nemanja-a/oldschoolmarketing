@@ -54,7 +54,7 @@ export const FilterList = React.forwardRef((props, ref) => {
       return state.filteredItems.map((item, index) => {     
         const filterItemClasses = classNames({
           [styles.filterItem]: true,
-          // [styles.categoryItem]: item.categoryIndex
+          [styles.categoryItem]: item.categoryIndex
         })
 
         return !item.subcategory && <span key={index} id={item.value}

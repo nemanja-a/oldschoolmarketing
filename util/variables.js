@@ -4,8 +4,6 @@ export const TOTAL_PAGE_COUNT = 3599
 export const NAVIGATION_BUTTONS_COUNT = 5
 export const CUSTOM_TRANSFORM_ORIGIN_COUNT = 5
 export const CONTAINER_PADDING = 11
-export const BACKGROUND_PRIMARY = '#cda500'
-export const BACKGROUND_SECONDARY = '#b08f07'
 export const ACTIVE_PREVIEW = {
     MOBILE: "mobile",
     WEB: "web"
@@ -270,3 +268,12 @@ export const WEBSITE = {
 
 export const ALLOWED_FORMATS = 'image/jpeg, image/jpg, image/png'
 export const LINKED_IN_PROFILE_URL = "https://www.linkedin.com/in/nemanja-apostolovic-9178a0156/"
+
+// Golden theme
+// export const PRIMARY_COLOR = "#cda500"
+// export const SECONDARY_COLOR = "b08f07"
+
+// Old School board theme
+// export const CURRENT_PRIMARY_COLOR = "#346b31"
+// export const CURRENT_PRIMARY_COMPLEMENTARY_COLOR = "#084a05"
+// export const CURRENT_SECUNDARY_COLOR = "#8E8E8E"

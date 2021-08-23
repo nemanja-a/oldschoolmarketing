@@ -30,7 +30,7 @@ dd {
 }
 
 li:hover {
-  background: #cda500 !important;
+  background: #346b31 !important;
 }
 
 /* Set core body defaults */
@@ -38,7 +38,7 @@ body {
   min-height: 100vh;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 /* Remove list styles on ul, ol elements with a class attribute */
@@ -49,7 +49,7 @@ ol[class] {
 
 a {
   text-decoration: none;
-  color: #cda500;
+  color: #346b31;
 }
 
 a:hover {
@@ -101,7 +101,7 @@ html,
     margin: 0;
     font-family: 'Noto Serif', serif;    
     font-size: 1.9vh;
-    background: ghostwhite;
+    background: white;
     width: 100%;
     height: 100%;
 }
@@ -169,10 +169,10 @@ input[type=search]:focus {
 ::-webkit-scrollbar
 
 ::-webkit-scrollbar-track {
-  background: #cda500;
+  background: #8E8E8E;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cda500;
+  background: #8E8E8E;
   border-radius: 10px;
 }

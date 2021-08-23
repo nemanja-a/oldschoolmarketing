@@ -411,8 +411,10 @@ export function AddWebsiteDialog(props) {
           {state.loading && <ModalLoader text={state.loaderText}/>}        
 
           <div className={dialogStyles.activePreviewModeButtons}>
-            <Button primary onClick={() => onPreviewModeButtonClicked(ACTIVE_PREVIEW.WEB)} className={webActivePreviewModeClass}>Preview on web</Button>
-            <Button primary onClick={() => onPreviewModeButtonClicked(ACTIVE_PREVIEW.MOBILE)} className={mobileActivePreviewModeClass}>Preview on mobile</Button>
+            {state.step !== 1 &&<Button primary onClick={() => onPreviewModeButtonClicked(ACTIVE_PREVIEW.WEB)}
+             className={webActivePreviewModeClass}>Preview on web</Button>}
+            {state.step !== 1 && <Button primary onClick={() => onPreviewModeButtonClicked(ACTIVE_PREVIEW.MOBILE)}
+             className={mobileActivePreviewModeClass}>Preview on mobile</Button>}
           </div>
 
         <div className={dialogStyles.websitePreview}>

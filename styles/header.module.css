@@ -25,7 +25,7 @@
 
 @media screen and (max-width: 800px) {
     .container { 
-        background: #cda500;
+        background: #346b31;
         height: 45px;
         color: white;
         font-style: italic; 
@@ -36,8 +36,8 @@
     }
 
     .menu {
-        background: #cda500;
-        color: black;
+        background: #346b31;
+        color: white;
         position: absolute;
         top: 45px;
         left: 0;

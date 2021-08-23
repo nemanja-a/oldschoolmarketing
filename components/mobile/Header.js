@@ -12,7 +12,7 @@ export function Header() {
 
   return (
     <div id="header" className={styles.container}>
-      <div className={styles.textContent}>Whiteboard marketing</div>
+      <div className={styles.textContent}>Old School marketing</div>
       <div className={styles.textContent}><IntroductionDialog showOnInit isMobile={true}/></div>
       {/* <Hamburger easing="ease-in" onToggle={onMenuClicked}/>
       {showMenu && <FadeIn className={styles.menu} transitionDuration={500}>

@@ -18,8 +18,8 @@
     height: 64px;
     margin: 8px;
     border-radius: 50%;
-    border: 6px solid #ffaa4e;
-    border-color: #ffaa4e transparent #ffaa4e transparent;
+    border: 6px solid white;
+    border-color: white transparent white transparent;
     animation: spinner 1.2s linear infinite;
   }
   @keyframes spinner {
@@ -36,10 +36,7 @@
       position: absolute;
       left: 40%;
       top: 50%;
-    }
-    #modalLoader {
-
-    }
+    }    
   }
 
   /* Modal loader */
@@ -70,11 +67,11 @@
     height: 64px;
     margin: 8px;
     border-radius: 50%;
-    border: 6px solid #ffaa4e;
-    border-color: #ffaa4e transparent #ffaa4e transparent;
+    border: 6px solid white;
+    border-color: white transparent white transparent;
     animation: spinner 1.2s linear infinite;
   }
   .text { 
     margin-top: 75px;      
-    color: #ffaa4e;
+    color: white;
   }

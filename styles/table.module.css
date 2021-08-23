@@ -47,11 +47,13 @@
 .noData {
     width: 100%;
     display: flex;
-    height: 100%;
+    height: 95%;
     align-items: center;
     justify-content: center;
     font-size: 3vh;
     font-style: italic;
+    background: #346b31;
+    color: white;
 }
 
 .transformOriginBottom, .transformOriginTop {
@@ -134,7 +136,7 @@
     width: 80vw;
     height: 81.5vh;
     box-shadow: 0px 0px 10px 1px grey;
-    background: transparent;
+    background: #346b31;
     background-size: cover;
     background-position: center;
     border-radius: 10px 10px 0 0;
