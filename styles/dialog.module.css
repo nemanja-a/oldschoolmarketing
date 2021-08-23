@@ -258,6 +258,10 @@
     border-radius: 3px;
 }
 
+.activePreviewModeButtons button {
+    color: black;
+}
+
 .previewMobileButton {
     border-radius: 0 3px 3px 0 !important;
     margin: 4px 4px 4px 0;
@@ -361,5 +365,5 @@
 
 .activePreviewMode {
     background: #b08f07 !important;
-    color: black !important;
+    color: white !important;
 }
