@@ -5,7 +5,6 @@
 }
 
 .container {
-    background-image: url("/images/background_light.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

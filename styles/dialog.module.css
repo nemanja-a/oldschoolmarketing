@@ -255,16 +255,17 @@
     background: wheat;
     display: flex;
     justify-content: center;
+    border-radius: 3px;
 }
 
 .previewMobileButton {
-    border-radius: 0 5px 5px 0 !important;
-    margin: 5px 5px 5px 0;
+    border-radius: 0 3px 3px 0 !important;
+    margin: 4px 4px 4px 0;
 }
 
 .previewWebButton {
-    border-radius: 5px 0 0 5px !important;
-    margin: 5px 0 5px 5px;
+    border-radius: 3px 0 0 3px !important;
+    margin: 4px 0 4px 4px;
 }
 
 #payPalComponentWrapper {

@@ -7,6 +7,7 @@ const Meta = ({ title, keywords, description }) => {
             <meta name='keywords' content={keywords} />
             <meta name='description' content ={description} />
             <meta charSet='utf-8' />
+            <meta http-equiv="ScreenOrientation" content="autoRotate:disabled" />
             <title>{title}</title>
         </Head>
     )

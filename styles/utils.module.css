@@ -115,6 +115,7 @@
     border-radius: 0 0 10px 10px;
     padding: 0 1vw;
     min-height: 25px;
+    color: white;
 }
 
 .footer a {
@@ -159,7 +160,8 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    background: #ebecec;
+    /* background: #ebecec; */
+    background: white;
     width: 100%;
     font-size: 3px;
     height: 4.5vh;
@@ -173,6 +175,7 @@
     min-height: 1.5vh;
     height: max-content;
     background: #cda500;
+    color: white;
 }
 
 .imageInfoTop span {
