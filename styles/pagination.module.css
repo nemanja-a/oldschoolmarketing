@@ -43,7 +43,9 @@
         width: 10vw !important;
     }
     #pagination button {
-        box-shadow: 0 1px 1px 1px;
+        font-size: 13px;
+        height: auto !important;
+        /* box-shadow: 0 1px 1px 1px; */
         border-radius: 5px;
         margin: 0.8rem 0.2rem 0 0.2rem;
     }
@@ -57,6 +59,7 @@
 .goToPageInputWrapper label {
     margin: 0.5rem;
     color: white;
+    font-size: 13px;
 }
 
 .goToPageInputWrapper label:hover {

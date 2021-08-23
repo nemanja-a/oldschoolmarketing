@@ -22,12 +22,13 @@ export const FilterList = React.forwardRef((props, ref) => {
         if (item.categoryIndex) {        
           setState({...state, activeGroupItem: item, activeDOMElement: newActiveDOMElement})
         } else {
-          setState({...state, item, activeDOMElement: newActiveDOMElement})
+          setState({...state, item, activeDOMElement: newActiveDOMElement, activeGroupItem: {}})
           props.onChange(item)
         }      
       } else { 
-        state.activeDOMElement.classList.remove([styles.activeFilter])
+        state.activeDOMElement && state.activeDOMElement.classList.remove([styles.activeFilter])
         setState({ item: {}, activeGroupItem: {}, activeSubcategory: {}, filteredItems })
+        props.onChange({})
       }
     }
 
@@ -51,9 +52,14 @@ export const FilterList = React.forwardRef((props, ref) => {
   
     const renderFilterItems = () => { 
       return state.filteredItems.map((item, index) => {     
+        const filterItemClasses = classNames({
+          [styles.filterItem]: true,
+          // [styles.categoryItem]: item.categoryIndex
+        })
+
         return !item.subcategory && <span key={index} id={item.value}
             onClick={(event) => onItemClicked(item,event)}>
-            <span className={styles.filterItem}>{item.categoryIndex ? `${item.displayValue} +` : item.displayValue}</span> 
+            <span className={filterItemClasses}>{item.displayValue}</span> 
             {(state.activeGroupItem.value === item.value && item.value !== undefined) && <span>{renderSubcategories(item)}</span>}
           </span>                                                        
         })

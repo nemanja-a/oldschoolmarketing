@@ -112,9 +112,12 @@ html,
   }
 
   ::-webkit-scrollbar {
-    width: 2px;
-    height: 2px;
-    scrollbar-width: thin;
+    width: 3.5px !important;
+    height: 3.5px !important;    
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent !important;
   }
   
   ::-webkit-scrollbar

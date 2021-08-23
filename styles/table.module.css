@@ -24,18 +24,8 @@
     .cell, .emptyCell {
         min-width: 17vw !important;
     }
-    .arrowLeft, .arrowRight {
-        position: absolute;
-        top: 40vh;     
-        font-size: 30px; 
-    }
-
-    .arrowLeft {
-        left: -20px;      
-    }
-
-    .arrowRight {                
-        right: -20px;        
+    .cell:hover {
+        transform: none !important;
     }
   }
 

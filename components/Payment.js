@@ -42,7 +42,7 @@ export function Payment(props) {
     
   return (
        <div id={dialogStyles.secondStep}>
-          <div className={paymentStyles.content}>
+          <div className={paymentStyles.content} style={{paddingTop: props.webPreviewActive && "20vh"}}>
             <span>
               *After publishing website, it <strong>can not</strong> be modified by neither <strong> user</strong> nor <strong> admin </strong>. Website can only be <strong> removed </strong> by <strong> admin</strong>. <br/> <br/>
               <strong>*Disclaimer:</strong> Websites with <strong>inappropriate content</strong> that manage to bypass safety-content check will be <strong>removed</strong> and <strong>no refund</strong> will be provided.

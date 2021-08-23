@@ -37,6 +37,18 @@
     padding: 0 7px !important;
 }
 
+.text, .title { 
+    text-align: center;
+    font-size: 13px;
+    width: 80vw;
+    margin: auto;
+}
+
+.title {
+    font-size: 16px;
+    font-style: italic;
+}
+
 .recentlyJoinedWrapper {
 
 }

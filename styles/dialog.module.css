@@ -37,7 +37,7 @@
     font-size: 28px;
 }
 
-.imagePreviewInfo {
+.imagePreviewInfoWeb, .imagePreviewInfoMobile {
     text-align: center;
     height: max-content;    
     position: relative !important;
@@ -118,6 +118,10 @@
         overflow: scroll;
     }
 
+    .containerMediumLarge div {
+        transform: none !important;
+    }
+
     .containerLarge {
         margin: 10vh auto;
         width: 95vw;                
@@ -133,6 +137,7 @@
         height: 55vh;
         position: relative;  
         overflow: hidden !important;
+        background: transparent;
     }
 
     .containerMediumLarge a {
@@ -161,7 +166,8 @@
     .headerText a {
         border-bottom: 1px solid;
         border: none;
-        font-size: large;
+        font-size: 14px;        
+        text-decoration: underline;
     }
 
     #websiteInputWrapper {
@@ -176,13 +182,31 @@
         width: auto;  
     }
 
-    .imagePreviewInfo {
+    .imagePreviewInfoWeb {
         height: 22vh;
         max-height: 22vh;
     }
 
     .introductionDialogButton {
         margin: 15px 0;
+    }
+
+    .mobilePreviewImageWrapper {
+        width: 68vw !important;
+    }
+
+    .mobileImagePreview {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .mobilePreviewImageMobile {
+        height: 39.5% !important;
+        min-height: 39.5% !important;
+        max-height: 39.5% !important;
     }
 }
 
@@ -225,9 +249,22 @@
     width: 100%;
 }
 
-#buttons {
+.activePreviewModeButtons {
+    width: fit-content;
+    margin: auto;
+    background: wheat;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+}
+
+.previewMobileButton {
+    border-radius: 0 5px 5px 0 !important;
+    margin: 5px 5px 5px 0;
+}
+
+.previewWebButton {
+    border-radius: 5px 0 0 5px !important;
+    margin: 5px 0 5px 5px;
 }
 
 #payPalComponentWrapper {
@@ -237,8 +274,7 @@
 .websitePreview { 
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding-bottom: 7vh;
+    align-items: center;    
 }
 
 .websitePreview p {
@@ -253,6 +289,24 @@
     height: 24vh;
 }
 
+.mobilePreviewImageWrapperWeb {
+    position: relative;
+    height: 50vh !important;
+    width: 16vw;
+}
+
+.mobilePreviewImageWrapperMobile {
+    position: relative;
+    height: 61vh !important;
+    width: 61vw;
+}
+
+.mobilePreviewImageWeb {
+    height: 50% !important;
+    min-height: 50% !important;
+    max-height: 50% !important;
+}
+
 #stepButtonsWrapper {
     margin-left: 5px;
     display: flex;
@@ -261,7 +315,7 @@
 }
 
 #attributesSection { 
-    padding-top: 15vh;
+    padding-top: 22vh;
 }
 
 .stepButton {
@@ -276,14 +330,16 @@
     padding: 0.3rem 0;
 }
 
-#imageUploadOverlay { 
+#imageUploadOverlay, #mobileImageUploadOverlay { 
     position: absolute!important;
     height: 100%;
     width: 100%;
     cursor: pointer;
     font-size: 2rem;
-    padding: 4rem 0.5rem;
+    padding: 0 0.5rem;
     text-align: center;
+    display: flex;
+    align-items: center;
 }
 
 .imagePreviewHovered { 
@@ -300,4 +356,9 @@
 
 .welcomeText span {
     text-align: center;
+}
+
+.activePreviewMode {
+    background: #b08f07 !important;
+    color: black !important;
 }

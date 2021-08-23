@@ -7,7 +7,7 @@ import utilStyles from "../styles/utils.module.css"
 import formStyles from "../styles/form.module.css"
 import Image from "next/image"
 import 'react-toastify/dist/ReactToastify.css';
-import { ALLOWED_FORMATS, WEBSITE } from '../util/variables'
+import { ACTIVE_PREVIEW, ALLOWED_FORMATS, WEBSITE } from '../util/variables'
 import { Input } from './common/Input'
 import BadWordsFilter from 'bad-words'
 import { Button } from './common/Button'
@@ -37,7 +37,8 @@ export function AddWebsiteDialog(props) {
     showTitle: false,
     showDescription: false,
     website: defaultWebsite,
-    loading: false
+    loading: false,
+    activePreview: isMobile ? ACTIVE_PREVIEW.MOBILE : ACTIVE_PREVIEW.WEB
   }
   const [ state, setState ] = useState(defaultState)
 
@@ -155,47 +156,45 @@ export function AddWebsiteDialog(props) {
     } 
     event.stopPropagation()
     event.preventDefault()
-    // toggleLoading(true, "Verifying URL...")
-    // const validateWebsiteURL = `${server}/api/validate?url=${state.website.url}&page=${state.website.page}`
-    // const websiteResponse = await fetch(validateWebsiteURL, {
-    //   mode: 'no-cors'
-    // })
-    // if (websiteResponse.status === 409) {
-    //   setState({
-    //     ...state,
-    //     websiteAlreadyExist: true,
-    //     websiteValid: null
-    //   })
-    //   return
-    // } else if (websiteResponse.status === 404) {
-    //   let data = await websiteResponse.json()
-    //   toggleLoading(false)
-    //   setState({
-    //     ...state,
-    //     websiteValid: false,
-    //     websiteAlreadyExist: null,
-    //     urlError: data.error
-    //   }) 
-    // } else if (websiteResponse.status === 200) {
-    //   toggleLoading(false)
-    //   setState({
-    //     ...state,
-    //     websiteValid: true,
-    //     websiteAlreadyExist: null,
-    //     showTitle: true,
-    //     showDescription: true
-    //   })
-    // } else {
-    //   toggleLoading(false)
-    //   setState({
-    //     ...state,
-    //     websiteValid: false,
-    //     websiteAlreadyExist: null,
-    //     urlError: `URL ${state.website.url} is not valid. Try again`
-    //   })
-    // }
-
-    setState({...state,  step: 3})
+    toggleLoading(true, "Verifying URL...")
+    const validateWebsiteURL = `${server}/api/validate?url=${state.website.url}&page=${state.website.page}`
+    const websiteResponse = await fetch(validateWebsiteURL, {
+      mode: 'no-cors'
+    })
+    if (websiteResponse.status === 409) {
+      setState({
+        ...state,
+        websiteAlreadyExist: true,
+        websiteValid: null
+      })
+      return
+    } else if (websiteResponse.status === 404) {
+      let data = await websiteResponse.json()
+      toggleLoading(false)
+      setState({
+        ...state,
+        websiteValid: false,
+        websiteAlreadyExist: null,
+        urlError: data.error
+      }) 
+    } else if (websiteResponse.status === 200) {
+      toggleLoading(false)
+      setState({
+        ...state,
+        websiteValid: true,
+        websiteAlreadyExist: null,
+        showTitle: true,
+        showDescription: true
+      })
+    } else {
+      toggleLoading(false)
+      setState({
+        ...state,
+        websiteValid: false,
+        websiteAlreadyExist: null,
+        urlError: `URL ${state.website.url} is not valid. Try again`
+      })
+    }
   }
   const toggleLoading = (value, text) => { 
     setState( {...state, loading: value, loaderText: text} )
@@ -230,7 +229,6 @@ export function AddWebsiteDialog(props) {
     setState({...state, validationError: false, website: {...state.website, [controlName]: selectedList}} )
   }
 
-
   const onRemove = (selectedList, controlName ) => {
     setState({...state, website: {...state.website, [controlName]: selectedList}} )
   }
@@ -264,7 +262,7 @@ export function AddWebsiteDialog(props) {
   const imagePreviewClasses = classNames({
     [tableStyles.websiteImage]: true,
     [tableStyles.previewImage]: true,
-    [dialogStyles.imagePreviewHovered]: state.imagePreviewHovered
+    [dialogStyles.imagePreviewHovered]: state.imagePreviewHovered,
   })
 
   const dropZoneClasses = classNames({
@@ -290,6 +288,111 @@ export function AddWebsiteDialog(props) {
   const nextButtonDisabled = !state.websiteValid || state.titleProfane || state.descriptionProfane 
   const countryOptions = getSelectOptions(WEBSITE.COUNTRIES)
   const categoryOptions = getSelectOptions(WEBSITE.CATEGORIES)
+  
+  const webActivePreviewModeClass = classNames({
+    [dialogStyles.activePreviewMode]: state.activePreview === ACTIVE_PREVIEW.WEB,
+    [dialogStyles.previewWebButton]: true
+  })
+
+  const mobileActivePreviewModeClass = classNames({
+    [dialogStyles.activePreviewMode]: state.activePreview === ACTIVE_PREVIEW.MOBILE,
+    [dialogStyles.previewMobileButton]: true
+  })
+
+  const attributesSectionId = state.activePreview === ACTIVE_PREVIEW.WEB ? dialogStyles.attributesSection : "attributesSection"
+  const onPreviewModeButtonClicked = (mode) => { 
+    setState({...state, activePreview: mode})
+  }
+
+  const renderWebPreview = () => { 
+    return <div className={dialogStyles.imagePreviewWrapper}
+     onMouseEnter={() => { state.step !== 3 && setState({...state, imagePreviewHovered: true })} }
+     onMouseLeave={() => setState({...state, imagePreviewHovered: false})}
+    > 
+      <div {...getRootProps({className: dropZoneClasses})}>
+        <input {...getInputProps()} />                          
+        <div id={dialogStyles.imageUploadOverlay}>Drop or click here to upload</div>
+        {state.step !== 1 && <div className={dialogStyles.imagePreviewInfoWeb}>
+          <div className={dialogStyles.previewInfoRow}>
+            <span>URL</span>
+            <strong>{state.website.url || "www.exampleurl.com"}</strong>
+          </div>
+          <div className={dialogStyles.previewInfoRow}>
+            <span>Description</span>
+            <strong>{state.website.description || "Description goes here"}</strong>
+          </div>   
+        </div>}   
+
+        <Image
+          priority
+          src={state.previewImageUrl || WEBSITE.THUMBNAIL.IMAGE_PREVIEW_DEFAULT}
+          className={imagePreviewClasses}
+          layout="fill"
+          alt="No image found"
+        />
+
+      </div>              
+    </div>
+  }
+
+  const renderMobilePreview = () => { 
+    const mobileImageInfoTopClasses = classNames({
+      [utilStyles.mobileImageInfoTop]: true,
+      [utilStyles.mobilePreviewImageInfoTop]: true,      
+    })
+
+    const mobileImageInfoBottomClasses = classNames({
+      [utilStyles.mobileImageInfoBottom]: true,
+      [utilStyles.mobilePreviewImageInfoBottom]: true,      
+    })
+
+    const mobilePreviewImageClasses = classNames({
+      [tableStyles.websiteImage]: true,
+      [tableStyles.previewImage]: state.step === 1,
+      [dialogStyles.mobilePreviewImageMobile]: state.step !== 1 && isMobile,
+      [dialogStyles.mobilePreviewImageWeb]: state.step !== 1 && !isMobile,
+      [dialogStyles.imagePreviewHovered]: state.imagePreviewHovered,
+    })
+  
+    const mobilePreviewWrapperClasses = classNames({
+      [dialogStyles.imagePreviewWrapper]: state.step === 1,
+      [dialogStyles.mobilePreviewImageWrapperWeb]: state.step !== 1 && !isMobile,
+      [dialogStyles.mobilePreviewImageWrapperMobile]: state.step !== 1 && isMobile,
+    })
+
+    const imageUploadOverlayClasses = classNames({
+      [dialogStyles.imageUploadOverlay]: state.step === 1,
+      [dialogStyles.mobileImageUploadOverlay]: state.step !== 1,
+    })
+
+    return <div className={mobilePreviewWrapperClasses}
+    onMouseEnter={() => { state.step !== 3 && setState({...state, imagePreviewHovered: true })} }
+    onMouseLeave={() => setState({...state, imagePreviewHovered: false})}
+   > 
+     <div {...getRootProps({className: dropZoneClasses})}>
+       <input {...getInputProps()} />      
+       {!isMobile && <div id={imageUploadOverlayClasses}>Drop or click here to upload</div>}                                 
+       {state.step !== 1 && <div className={mobileImageInfoTopClasses}>
+
+          <span>URL</span>
+          <strong>{state.website.url || "www.exampleurl.com"}</strong>
+       </div>}
+
+      <Image         
+        src={state.previewImageUrl || WEBSITE.THUMBNAIL.IMAGE_PREVIEW_DEFAULT}
+        className={mobilePreviewImageClasses}
+        layout="fill"
+        alt="No image found"
+      />    
+       
+       {state.step !== 1 && <div className={mobileImageInfoBottomClasses}>
+        <span>Description</span>
+        <strong>{state.website.description || "Description goes here"}</strong>
+       </div>}      
+
+     </div>              
+   </div>
+  }
  
   return (
     <div className={cellClasses} id={props.id}>
@@ -304,40 +407,17 @@ export function AddWebsiteDialog(props) {
           {state.step === 1 && <div className={utilStyles.stepTitle}>URL and Image</div>}
           {state.step === 2 && <div className={utilStyles.stepTitle}>Thumbnail appearance</div>}
           {state.step === 3 && <div className={utilStyles.stepTitle}>Payment</div>}
-          
+        
           {state.loading && <ModalLoader text={state.loaderText}/>}        
+
+          <div className={dialogStyles.activePreviewModeButtons}>
+            <Button primary onClick={() => onPreviewModeButtonClicked(ACTIVE_PREVIEW.WEB)} className={webActivePreviewModeClass}>Preview on web</Button>
+            <Button primary onClick={() => onPreviewModeButtonClicked(ACTIVE_PREVIEW.MOBILE)} className={mobileActivePreviewModeClass}>Preview on mobile</Button>
+          </div>
 
         <div className={dialogStyles.websitePreview}>
             {state.step !== 3 && <div style={{fontStyle: "italic"}}>Drop or click on image to upload</div>}
-            <div className={dialogStyles.imagePreviewWrapper}
-             onMouseEnter={() => { state.step !== 3 && setState({...state, imagePreviewHovered: true })} }
-             onMouseLeave={() => setState({...state, imagePreviewHovered: false})}
-            > 
-              <div {...getRootProps({className: dropZoneClasses})}>
-                <input {...getInputProps()} />                          
-                {!isMobile && <div id={dialogStyles.imageUploadOverlay}>Drop or click here to upload</div>}
-                
-                {state.step !== 1 && <div className={dialogStyles.imagePreviewInfo}>
-                  <div className={dialogStyles.previewInfoRow}>
-                    <span>URL</span>
-                    <strong>{state.website.url || "www.exampleurl.com"}</strong>
-                  </div>
-                  <div className={dialogStyles.previewInfoRow}>
-                    <span>Description</span>
-                    <strong>{state.website.description || "Description goes here"}</strong>
-                  </div>   
-                </div>}   
-
-                <Image
-                  priority
-                  src={state.previewImageUrl || WEBSITE.THUMBNAIL.IMAGE_PREVIEW_DEFAULT}
-                  className={imagePreviewClasses}
-                  layout="fill"
-                  alt="No image found"
-                />
-
-              </div>              
-            </div>
+            {state.activePreview === ACTIVE_PREVIEW.MOBILE ? renderMobilePreview() : renderWebPreview()}
             {state.step === 1 && <div style={{fontStyle: "italic"}}>Supported formats are <strong>JPG, JPEG</strong> and <strong>PNG</strong></div>}
 
             {/* Image preview end*/}
@@ -396,7 +476,7 @@ export function AddWebsiteDialog(props) {
       {/* Second step */}
       {state.step === 2 && <FadeIn transitionDuration={500}>
       <form>
-        <section id={dialogStyles.attributesSection}>
+        <section id={attributesSectionId}>
           <div className={dialogStyles.row}>
               <Input 
                 required
@@ -454,8 +534,7 @@ export function AddWebsiteDialog(props) {
               onRemove={(selectedList) => onRemove(selectedList, 'countries')}
               onRemove={onRemove}              
               selectedValues={state.website.countries}
-              style={selectStyles}
-              className={selectClasses}
+              style={selectStyles}              
             />                        
           </div>
 
@@ -471,7 +550,13 @@ export function AddWebsiteDialog(props) {
 
       {/* Third step */}
       {state.step === 3 && <FadeIn transitionDuration={500}>
-        <Payment addWebsiteCallback={addWebsiteCallback} close={props.close} toggleLoading={toggleLoading} getFormData={getFormData}/>
+        <Payment 
+          addWebsiteCallback={addWebsiteCallback} 
+          close={props.close}
+          toggleLoading={toggleLoading} 
+          getFormData={getFormData}
+          webPreviewActive={state.activePreview === ACTIVE_PREVIEW.WEB}
+        />
         <div id={dialogStyles.stepButtonsWrapper} style={{justifyContent: "center"}}>
           <Button primary onClick={onPreviousStep} wrapperClasses={nextButtonWrapperClasses} className={dialogStyles.stepButton}>Previous</Button>          
         </div>

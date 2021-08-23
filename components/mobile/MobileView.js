@@ -2,10 +2,12 @@ import { Header } from "./Header"
 import { useState } from "react"
 import RecentlyJoined from "./RecentlyJoined"
 import { Whiteboard } from "./Whiteboard"
-import { getRecentlyJoined } from "../../lib/util"
+import { classNames, getRecentlyJoined } from "../../lib/util"
 import { FiltersDialog } from "./FiltersDialog"
-import { WEBSITE } from "../../util/variables"
-
+import { LINKED_IN_PROFILE_URL, WEBSITE } from "../../util/variables"
+import style from "../../styles/mobile.module.css"
+import utilStyles from "../../styles/utils.module.css"
+import Image from "next/image"
 
 export default function MobileView() {
     let recentlyJoined
@@ -38,6 +40,9 @@ export default function MobileView() {
     countries.unshift({displayValue: "All"})
     categories.unshift({displayValue: "All"})
 
+    const onLinkedInLogoClick = () => { 
+      window.open(LINKED_IN_PROFILE_URL)
+    } 
     
     const FIlters = () =>  { 
       return <FiltersDialog 
@@ -47,13 +52,36 @@ export default function MobileView() {
     />
     }
 
+    const footerClassNames = classNames({      
+      [utilStyles.footer]: true
+    })
+
     return (
         <div id="mobileContainer">
             <Header isMobile={true}/>
             <RecentlyJoined page={state.page} website={recentlyJoined}/>
-            <FIlters />
-            <div style={{textAlign: "center", fontSize: "2.5vh"}}>Choose a spot and get a lifetime marketing for your website</div>
+            <div className={style.title}>Choose a spot and get a lifetime marketing for your website</div>
+            <FIlters />            
+            <div className={style.text}>Swipe across the whiteboard to see more</div>
             <Whiteboard category={state.category} country={state.country} onPageChange={onPageChange} getData={onDataReceived}/>            
+            <div className={footerClassNames}>
+              <strong>*Disclaimer: Images on this page are copyright of their owners. I am not responsible for the content of external websites.</strong>
+              <strong className={utilStyles.copyright}>Copyright © Whiteboard marketing ©
+              <div id={utilStyles.linkedInWrapper}>
+                &nbsp; <a href={LINKED_IN_PROFILE_URL} target="_blank">Nemanja Apostolovic</a> &nbsp;         
+                <Image
+                  onClick={onLinkedInLogoClick}
+                  priority
+                  src='/images/In-Blue-Logo.png.original.png'
+                  alt="LinkedIn Logo"
+                  className={utilStyles.linkedInLogo}
+                  layout="fixed"
+                  width={20}
+                  height={20}
+                />    
+              </div> 
+            </strong>           
+          </div>
         </div>
     )
 }

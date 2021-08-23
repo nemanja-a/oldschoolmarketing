@@ -5,12 +5,11 @@ import FadeIn from "react-fade-in"
 import { WEBSITE } from "../../util/variables"
 import Image from "next/image"
 import dialogStyles from "../../styles/dialog.module.css"
-import detectDevice from "../common/DeviceDetect"
 import { classNames } from "../../lib/util"
 import utilStyles from "../../styles/utils.module.css"
 
 export default function ImagePreviewDialog({website, classes}) {
-    const isMobile = detectDevice()    
+
     const [ showDialog, setShowDialog ] = useState(false)           
     const close = () => { setShowDialog(false) }
     const open = () => { setShowDialog(true) }
@@ -22,6 +21,7 @@ export default function ImagePreviewDialog({website, classes}) {
       [utilStyles.closeButton]: true,
       [utilStyles.mobileImageInfoCloseButton]: true
     })
+
     return (
         <div className={classes}>
             <div key={`r${website.rowIndex}-c${website.columnIndex}`} onClick={open}>
@@ -33,13 +33,9 @@ export default function ImagePreviewDialog({website, classes}) {
                 alt='No image found'
             />
             </div>
-          {/* Dialog */}
-          <Dialog className={dialogStyles.containerMediumLarge} aria-label="add-website-dialog" isOpen={showDialog} onDismiss={close}>
+          {/* Dialog */}        
+          <Dialog className={dialogStyles.containerMediumLarge} aria-label="add-website-dialog" isOpen={showDialog} onDismiss={close}>          
             <FadeIn transitionDuration={500}>
-              {!isMobile && <button className={utilStyles.closeButton} onClick={close}>
-                <VisuallyHidden>Close</VisuallyHidden>
-                <span aria-hidden>×</span>
-              </button>}
               <div className={utilStyles.mobileImageInfoTop}>
                 <button className={imageInfoCloseButtonClasses} onClick={close}>
                   <VisuallyHidden>Close</VisuallyHidden>
@@ -49,11 +45,10 @@ export default function ImagePreviewDialog({website, classes}) {
                 <a href={website.url} target="_blank">{website.url}</a>              
                 <span style={{fontSize: "smaller"}}>(Click on a link or image to open in new tab)</span>
               </div>
-              <div className={dialogStyles.moibleImagePreviewWrapper} onClick={() => window.open(website.url, '_blank')}>
-                <Image
-                  priority
+              <div className={dialogStyles.mobileImagePreviewWrapper} onClick={() => window.open(website.url, '_blank')}>
+                <Image                  
                   src={website.thumbnail.url || WEBSITE.THUMBNAIL.TABLE_DEFAULT}                
-                  className={dialogStyles.mobileImagePreview}
+                  className={dialogStyles.mobileImagePreview}                  
                   layout="fill"
                   alt='No image found'  
                 />
@@ -61,7 +56,7 @@ export default function ImagePreviewDialog({website, classes}) {
               <div className={utilStyles.mobileImageInfoBottom}>
                 <span>Description</span>  
                 <span>{website.description}</span>
-              </div>                                          
+              </div>                     
             </FadeIn>
           </Dialog>
         </div>

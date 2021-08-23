@@ -9,6 +9,7 @@ export function Input(props) {
       [styles.inputNumber]: props.type === 'number',
       [styles.incrementerInput]: props.withIncrement,
       [utilStyles.fullWidth]: props.maxWidth,
+      [props.className]: true
     })
 
     const inputNumberwrapperClasses = classNames({
@@ -63,8 +64,9 @@ export function Input(props) {
     return <div className={wrapperStyles}>
             <label
                 className={labelStyles}
-                htmlFor={props.name}>{props.label}
-                {props.required ? '*' : null}
+                htmlFor={props.name}>
+                    {props.required ? '*' : null}
+                    {props.label}                
             </label>
             {/* Input type number */}
             {props.type === 'number' && <div className={inputNumberwrapperClasses}>

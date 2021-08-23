@@ -6,6 +6,10 @@ export const CUSTOM_TRANSFORM_ORIGIN_COUNT = 5
 export const CONTAINER_PADDING = 11
 export const BACKGROUND_PRIMARY = '#cda500'
 export const BACKGROUND_SECONDARY = '#b08f07'
+export const ACTIVE_PREVIEW = {
+    MOBILE: "mobile",
+    WEB: "web"
+}
 
 export const WEBSITE = { 
     URL_MAX_LENGTH: 80,

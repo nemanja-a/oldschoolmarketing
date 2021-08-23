@@ -5,7 +5,7 @@ import style from "../../styles/filtersdialog.module.css"
 import dialogStyles from "../../styles/dialog.module.css"
 import utilstyles from "../../styles/utils.module.css"
 import FadeIn from 'react-fade-in';
-import { getSelectOptions, getSelectStyles } from '../../lib/util'
+import { classNames, getSelectOptions, getSelectStyles } from '../../lib/util'
 import { Button } from '../common/Button'
 import { Select } from '../common/Select'
 import { WEBSITE } from '../../util/variables'
@@ -36,6 +36,11 @@ export function FiltersDialog({onChange, selectedCountry, selectedCategory}) {
   const categoryOptions = getSelectOptions(WEBSITE.CATEGORIES)
   const selectStyles = getSelectStyles()
 
+  const filtersdialogClasses = classNames({
+    [dialogStyles.containerMedium]: true,
+    [utilstyles.fontMedium]: true
+  })
+
   return (
     <div className={style.buttonWrapper}>      
       <Button 
@@ -46,7 +51,7 @@ export function FiltersDialog({onChange, selectedCountry, selectedCategory}) {
         Filters
       </Button>      
       {/* Dialog */}
-      <Dialog className={dialogStyles.containerSmall} aria-label="add-website-dialog" isOpen={state.showDialog} onDismiss={close}>
+      <Dialog className={filtersdialogClasses} aria-label="add-website-dialog" isOpen={state.showDialog} onDismiss={close}>
         <FadeIn transitionDuration={500}>
           <button className={utilstyles.closeButton} onClick={close}>
             <VisuallyHidden>Close</VisuallyHidden>

@@ -26,8 +26,7 @@ export function WebsitesTable ({ pageIndex, category, country, getData }) {
     !state.container && setState({...state, container})             
   })
 
-  const isMobile = detectDevice()
-  const open = () => setShowDialog(true)
+  const isMobile = detectDevice()  
   const close = async(afterAddSuccess) => {
     // prevent closing on ESC press
     if (event && event.keyCode && event.keyCode === 27) return 
@@ -93,14 +92,6 @@ export function WebsitesTable ({ pageIndex, category, country, getData }) {
       return rowData
     }
 
-    const onLeftArrowClick = () => { 
-      console.log(websiteTableRef)
-    }
-
-    const onRightArrowClick = () => { 
-
-    }
-
     const WebsiteImage = ({cell, cellClasses}) => { 
       return !isMobile ? 
       <div>
@@ -119,7 +110,7 @@ export function WebsitesTable ({ pageIndex, category, country, getData }) {
       height={props.tableParams.tableHeight}
       headerHeight={0}            
       rowHeight={props.tableParams.rowHeight}
-      rowGetter={rowGetter}
+      rowGetter={rowGetter}      
       rowRenderer={rowRenderer}
       rowCount={ROWS_PER_PAGE}
       className={tableStyles.table}
@@ -165,22 +156,7 @@ export function WebsitesTable ({ pageIndex, category, country, getData }) {
     }
   
     return  <div style={{display: "flex"}}>
-        <span className={tableStyles.arrowLeft} onClick={onLeftArrowClick}>&lt;</span>
-        {/* {tableParams && <Table
-            width={tableParams.tableWidth}
-            height={tableParams.tableHeight}
-            headerHeight={0}            
-            rowHeight={tableParams.rowHeight}
-            rowGetter={rowGetter}
-            rowRenderer={rowRenderer}
-            rowCount={ROWS_PER_PAGE}
-            className={tableStyles.table}
-            disableHeader={true}
-          >
-          </Table>} */}
-
           {tableParams && <WebsiteTable tableParams={tableParams} ref={websiteTableRef}/>}          
-          <span className={tableStyles.arrowRight} onClick={onRightArrowClick}>&gt;</span>
           {state.showDialog && 
             <AddWebsiteDialog columnIndex={state.columnIndex} rowIndex={state.rowIndex} 
             website={state.website} close={close}/>}
