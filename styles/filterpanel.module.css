@@ -25,7 +25,7 @@
     font-style: italic;
 }
 
-.listItem { 
+.listItem, .listItemMobile { 
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -45,24 +45,24 @@
     background: #084a05 !important;    
 }
 
-.activeMenu:hover {
-    background: #346b31 !important;
-}
-
-.listItem span {
+.listItem span, .listItemMobile span {
     display: flex;
     justify-content: space-between;
     padding-bottom: 10px;
 }
 
+.listItem li, .listItemMobile li {
+    padding: 8px !important;
+    border-top: 1px ridge;
+}
+
+.activeMenu:hover {
+    background: #346b31 !important;
+}
+
 .subcategories {
     display: flex;
     flex-direction: column;
-}
-
-.listItem li {
-    padding: 8px !important;
-    border-top: 1px ridge;
 }
 
 .ungroupedListItem {

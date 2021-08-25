@@ -19,8 +19,8 @@ export function FilterPanel({onChange, selected, items, grouped, type}) {
       <div className={style.container}>
           <div className={style.panel}>
               {grouped ? state.items.map((item, index) => {
-                  const listItemClasses = classNames({
-                    [style.listItem]: true,
+                  const listItemClasses = classNames({                    
+                    [style.listItemMobile]: true,
                     [style.active]: item.displayValue === selected 
                   })
                   const arrowClasses = classNames({
@@ -46,7 +46,7 @@ export function FilterPanel({onChange, selected, items, grouped, type}) {
               :
               state.items.map((item, index) => { 
                 const listItemClasses = classNames({
-                  [style.listItem]: true,
+                  [style.listItemMobile]: true,
                   [style.ungroupedListItem]: true,
                   [style.active]: item.displayValue === selected 
                 })
