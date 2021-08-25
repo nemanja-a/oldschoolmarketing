@@ -18,8 +18,10 @@
         width: 100%;
         height: 78.5vh;
         border-radius: unset;
-        border-right: 12px solid #b0afaf;
-        border-left: 12px solid #b0afaf;
+        /* border-right: 12px solid #7a7f80; */
+        border-right: 12px solid #7a7f80;        
+        /* border-left: 12px solid #7a7f80; */
+        border-left: 12px solid #7a7f80;
     }
     #mainContent {
         width: 100vw !important;

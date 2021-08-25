@@ -141,7 +141,7 @@ div#__next > div {
   .ReactVirtualized__Table__Grid, .ReactVirtualized__Grid__innerScrollContainer {
     overflow-y: auto !important;    
     overflow-x: auto !important;
-    background: #b0afaf !important;    
+    background: #7a7f80 !important;    
   }
 }
 
@@ -168,10 +168,10 @@ input[type=search]:focus {
 ::-webkit-scrollbar
 
 ::-webkit-scrollbar-track {
-  background: #b0afaf;
+  background: #7a7f80;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #b0afaf;
+  background: #7a7f80;
   border-radius: 10px;
 }

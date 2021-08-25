@@ -52,7 +52,7 @@ export function WebView() {
         return  <section className={filterPanelStyles.container} style={{marginTop: "43px"}}>
           <div className={filterStyles.row}>
             <div className={filterStyles.subtitle}>Categories</div>
-            {!isMobile && state.category.displayValue && <div className={filterStyles.selectedFilter}>
+            {!isMobile && state.category.displayValue && state.category.displayValue !== 'All' && <div className={filterStyles.selectedFilter}>
             <div className={filterStyles.filterLabel}>{state.category.displayValue}</div>
               <button className={utilStyles.closeButton} onClick={() => clearFilter('category')}>
                 <VisuallyHidden>Clear</VisuallyHidden>
@@ -70,7 +70,7 @@ export function WebView() {
           </div>    
           <div className={filterStyles.row}>
             <div className={filterStyles.subtitle}>Countries</div>
-            {!isMobile && state.country.displayValue && <div className={filterStyles.selectedFilter}>
+            {!isMobile && state.country.displayValue && state.country.displayValue !== 'All' && <div className={filterStyles.selectedFilter}>
             <div className={filterStyles.filterLabel}>{state.country.displayValue}</div>
               <button className={utilStyles.closeButton} onClick={() => clearFilter('country')}>
               <VisuallyHidden>Clear</VisuallyHidden>
@@ -85,13 +85,6 @@ export function WebView() {
               onChange={onCountryChange}
             /> 
           </div>
-          {/* <div>
-            <div className={filterStyles.filterLabel}>{state.country}</div>
-            {!state.country && <button className={utilStyles.closeButton} onClick={() => clearFilter('country')}>
-              <VisuallyHidden>Clear</VisuallyHidden>
-              <span aria-hidden>×</span>
-            </button>}
-          </div> */}
         </section>
       }
 

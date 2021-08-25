@@ -258,7 +258,7 @@
 .activePreviewModeButtons {
     width: fit-content;
     margin: auto;
-    background: #b0afaf;
+    background: #7a7f80;
     display: flex;
     justify-content: center;
     border-radius: 3px;
@@ -266,7 +266,7 @@
 
 .activePreviewModeButtons button {
     color: white;
-    background: #b0afaf;
+    background: #7a7f80;
     padding: 2px;
 }
 
@@ -280,7 +280,7 @@
 }
 
 .previewMobileButton:hover, .previewWebButton:hover {
-    background: #b0afaf;
+    background: #7a7f80;
 }
 
 .previewWebButton {

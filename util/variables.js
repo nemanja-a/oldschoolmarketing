@@ -275,6 +275,10 @@ export const LINKED_IN_PROFILE_URL = "https://www.linkedin.com/in/nemanja-aposto
 // Old School board theme
 // export const CURRENT_PRIMARY_COLOR = "#346b31"
 // export const CURRENT_PRIMARY_COMPLEMENTARY_COLOR = "#084a05"
-// export const CURRENT_SECONDARY_COLOR = #b0afaf
+// OVU SAM ZAMENIO
+// export const CURRENT_SECONDARY_COLOR = #7a7f80
+
+// SA OVOM DOLE
+// export const NEW_PRIMARY_COLOR = "#7a7f80"
 // export const NEW_SECONDARY_COLOR = "#8E8E8E"
 

@@ -17,6 +17,9 @@
     border: 1px ridge;
     white-space: nowrap;
     overflow: scroll;
+    display: flex;
+    align-items: center;    
+    justify-content: space-between;
 }
 
 .filterLabel ::-webkit-scrollbar {

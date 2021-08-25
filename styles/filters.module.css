@@ -46,14 +46,15 @@
     display: flex;
     justify-content: space-between;    
     flex-direction: column;
-    width: 100%;
     padding: 0.3rem 0;
     font-style: italic;
+    width: 94%;
     color: white;
     height: 39vh;
     overflow: scroll;
-    border: 1px ridge;    
-    margin: 15px 0;
+    border: 2px ridge;  
+    border-radius: 10px;
+    margin: 15px 5px;
     overflow-x: hidden;
 }
 
@@ -64,6 +65,8 @@
         overflow: auto !important;
         border: unset !important;
         margin: 0 !important;
+        width: 100% !important;
+        border-radius: unset !important;
     }
 
     .subtitle {

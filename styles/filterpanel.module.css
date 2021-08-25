@@ -17,7 +17,7 @@
     height: min-content;
     margin-right: 5px;
     border-radius: 5px;
-    min-width: 10vw;
+    min-width: 11vw;
 }
 
 .fontCursive {
@@ -32,6 +32,10 @@
     margin: 0 5px;
     padding: 12px 8px 4px 8px !important;
     text-align: center;    
+}
+
+.listItem {
+    width: 90%;
 }
 
 /* .listItem:hover, .listItem li:hover {
