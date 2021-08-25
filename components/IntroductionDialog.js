@@ -50,11 +50,11 @@ export function IntroductionDialog({ isMobile, showOnInit }) {
          {!isMobile && <span>
           - <strong>Browse websites </strong> - Hover over any <strong>image</strong> other than <strong>Add</strong> to see larger <strong>image</strong>, <strong>URL</strong> and <strong>description</strong> of a website.
            Click on image will open the link in new tab. <br/> <br/>
-           Choose <strong>page</strong> by clicking on any <strong>pagination</strong> button above the whiteboard. <br/>
+           Choose <strong>page</strong> by clicking on any <strong>pagination</strong> button above the chalkboard. <br/>
            Selecting <strong>country</strong> or <strong>category</strong> from <strong>filter section</strong> on the left 
            will filter websites on <strong>current page</strong>. <br/> <br/>
 
-          - <strong>Add website</strong> - when there is no <strong>active filter</strong>, click on any available spot with <strong>Add</strong> 
+          - <strong>Add website</strong> - when there is no <strong>active filter</strong>, click on any available spot with <strong>Add </strong> 
           and complete the steps to add your website.
         
           </span>}
@@ -67,11 +67,16 @@ export function IntroductionDialog({ isMobile, showOnInit }) {
            will filter websites on <strong>current page</strong>. <br/> <br/>
 
           - <strong>Add website</strong> - when there is no <strong>active filter</strong>, click on any available spot with <strong>Add </strong> 
-          and complete the steps to add your website.
+           and complete the steps to add your website.
         
           </span>}
         </p>
-        {isMobile && <Button primary onClick={close} className={dialogStyles.introductionDialogButton} >OK</Button>}
+         <Button
+            primary
+            onClick={close}
+            wrapperClasses={dialogStyles.introductionDialogButtonWrapper}
+            className={dialogStyles.introductionDialogButton}>OK
+          </Button>
       </FadeIn>
       </Dialog>
     </div>

@@ -121,19 +121,6 @@
     }
 }
 
-.filterSection {
-    min-height: 93vh;
-    max-width: 10vw;    
-    padding: 45px 5px 0 5px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-}
-
-.filterSection label {
-    color: black;
-}
-
 #descriptionSection {
     padding: 40px 10px 0 10px;
     max-width: 10vw;

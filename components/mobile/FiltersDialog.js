@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Dialog } from '@reach/dialog'
 import VisuallyHidden from '@reach/visually-hidden'
-import style from "../../styles/filtersdialog.module.css"
+import style from "../../styles/filters.module.css"
 import dialogStyles from "../../styles/dialog.module.css"
 import utilstyles from "../../styles/utils.module.css"
 import FadeIn from 'react-fade-in';

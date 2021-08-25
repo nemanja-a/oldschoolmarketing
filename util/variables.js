@@ -127,7 +127,7 @@ export const WEBSITE = {
             { value: 55, displayValue: "Eswatini" },
             { value: 56, displayValue: "Ethiopia" },
             { value: 57, displayValue: "FIji" },
-            { value: 58, displayValue: "Finsland" },
+            { value: 58, displayValue: "Finland" },
             { value: 59, displayValue: "France" },
             { value: 60, displayValue: "Gabon" },
             { value: 61, displayValue: "Gambia" },

@@ -1,0 +1,75 @@
+.buttonWrapper {
+    margin-top: 5vh;
+}
+
+.filtersButton {
+    text-align: left;
+    width: 100%;    
+    padding: 0.8rem 0 0.8rem 0.8rem;
+    border-radius: unset;
+    border: 1px ridge;
+}
+
+.selectedFilter {
+    width: 100%;
+    padding-left: 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #084a05
+}
+
+.selectedFilter button {
+    background: #084a05;
+}
+
+.title {
+    text-align: center;
+    margin-left: 3vw;
+    margin-bottom: 3vh;
+    font-style: italic;
+}
+
+.subtitle:hover {
+    cursor: default;
+}
+
+.subtitle {     
+    font-size: 2.5vh;
+    border-bottom: 1px ridge;
+    padding: 15px 0;
+    font-weight: 600;
+    text-align: center;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;    
+    flex-direction: column;
+    width: 100%;
+    padding: 0.3rem 0;
+    font-style: italic;
+    color: white;
+    height: 39vh;
+    overflow: scroll;
+    border: 1px ridge;    
+    margin: 15px 0;
+    overflow-x: hidden;
+}
+
+@media screen and (max-width: 800px) {
+    .row {        
+        color: black !important;
+        height: auto !important;
+        overflow: auto !important;
+        border: unset !important;
+        margin: 0 !important;
+    }
+
+    .subtitle {
+        font-size: 3vh !important;
+        padding: 15px !important;
+        text-align: left !important;
+    }
+}
+
