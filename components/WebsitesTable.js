@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import useSWR from "swr"
-import { classNames, getTableParams, handleGetWebsiteRequestParams, handleMobileGetWebsiteRequestParams, setWebsiteTransformOrigin } from "../lib/util"
+import { classNames, getTableParams, handleGetWebsiteRequestParams, handleMobileGetWebsiteRequestParams, setCornerCellsStyles, setWebsiteTransformOrigin } from "../lib/util"
 import tableStyles from "../styles/table.module.css"
 import Image from "next/image"
 import { Table } from "react-virtualized"
@@ -61,7 +61,8 @@ export function WebsitesTable ({ pageIndex, category, country, getData }) {
 
     if (error) return <div className={tableStyles.noData}>An error has occured</div>
     if (!data) return <TableLoader/> 
-    const filterActive = country.value !== undefined || category.value !== undefined
+    const filterActive = (country.value !== undefined || country.length) || 
+      (category.value !== undefined || category.length)
     if (data) {
       const hasData = data.websites.find(website => { 
         if (!website.isEmpty) return true
@@ -72,10 +73,6 @@ export function WebsitesTable ({ pageIndex, category, country, getData }) {
         getData(data)
       }     
     }
-    const emptyCellClasses = classNames ({
-      [tableStyles.emptyCell]: true,
-      [tableStyles.cellDisabled]: filterActive
-    })
     
     const rowGetter = ({index}) => { 
       if(!data) return {}
@@ -86,6 +83,7 @@ export function WebsitesTable ({ pageIndex, category, country, getData }) {
 
       rowData.map(website => { 
         website = setWebsiteTransformOrigin(website, index)
+        website = setCornerCellsStyles(website, index)
         return website
       })
 
@@ -123,12 +121,28 @@ export function WebsitesTable ({ pageIndex, category, country, getData }) {
       if (!Object.keys(props.rowData).length) return false
       return <div key={props.index} className={tableStyles.row}>
         
-        {props.rowData.map((cell) => {
+        {props.rowData.map((cell) => {          
           const cellClasses = classNames({
             [tableStyles.cell]: true,
             [tableStyles.transformOriginBottom]: cell.bottomRow,
-            [tableStyles.transformOriginTop]: cell.topRow,            
-          })                            
+            [tableStyles.transformOriginTop]: cell.topRow,
+            [tableStyles.topLeftBorder]: cell.topLeftBorderCell,
+            [tableStyles.bottomLeftBorder]: cell.bottomLeftBorderCell,
+            [tableStyles.topRightBorder]: cell.topRightBorderCell,
+            [tableStyles.bottomRightBorder]: cell.bottomRightBorderCell,            
+          })                       
+          const emptyCellClasses = classNames ({
+            [tableStyles.emptyCell]: true,
+            [tableStyles.cellDisabled]: filterActive,
+            [tableStyles.topLeftBorder]: cell.topLeftBorderCell,
+            [tableStyles.bottomLeftBorder]: cell.bottomLeftBorderCell,
+            [tableStyles.topRightBorder]: cell.topRightBorderCell,
+            [tableStyles.bottomRightBorder]: cell.bottomRightBorderCell,
+          })     
+          const tableImageClasses = classNames ({
+            [tableStyles.websiteImage]: true,
+            [tableStyles.imageBordered]: filterActive && !isMobile
+          })
       
           cell.page = pageIndex
 
@@ -143,8 +157,9 @@ export function WebsitesTable ({ pageIndex, category, country, getData }) {
           > 
           <Image
             priority  
-            src={WEBSITE.THUMBNAIL.TABLE_DEFAULT}
-            className={tableStyles.websiteImage}
+            src={!filterActive ? WEBSITE.THUMBNAIL.TABLE_DEFAULT : WEBSITE.THUMBNAIL.CELL_DISABLED_BACKGROUND}
+            // className={tableStyles.websiteImage}
+            className={tableImageClasses}
             layout="fill"
             alt="No image found"
           />

@@ -1,13 +1,14 @@
 import { Header } from "./Header"
 import { useState } from "react"
 import RecentlyJoined from "./RecentlyJoined"
-import { Whiteboard } from "./Whiteboard"
+import { Chalkboard } from "./Chalkboard"
 import { classNames, getRecentlyJoined } from "../../lib/util"
 import { FiltersDialog } from "./FiltersDialog"
 import { LINKED_IN_PROFILE_URL, WEBSITE } from "../../util/variables"
 import style from "../../styles/mobile.module.css"
 import utilStyles from "../../styles/utils.module.css"
 import Image from "next/image"
+import ActiveFilters from "./ActiveFilters"
 
 export default function MobileView() {
     let recentlyJoined
@@ -31,7 +32,9 @@ export default function MobileView() {
          setState({...state, category: filters.category })
        } else if (filters.country) {
         setState({...state, country: filters.country })
-       }       
+       } else {
+          setState({...state, country: '', category: ''})
+       }      
     }
     const onPageChange = (page) => { setState({...state, page}) }
     const categories = JSON.parse(JSON.stringify(WEBSITE.CATEGORIES))
@@ -45,11 +48,18 @@ export default function MobileView() {
     } 
     
     const FIlters = () =>  { 
-      return <FiltersDialog 
-      selectedCountry={state.country}
-      selectedCategory={state.category}      
-      onChange={onChange}      
-    />
+      return <div className={style.filters}>
+        <FiltersDialog 
+          selectedCountry={state.country}
+          selectedCategory={state.category}      
+          onChange={onChange}      
+        />
+        <ActiveFilters
+           selectedCategory={state.category}
+           selectedCountry={state.country}  
+           clearFilters={onChange}          
+        />
+      </div>
     }
 
     const footerClassNames = classNames({      
@@ -60,10 +70,10 @@ export default function MobileView() {
         <div id="mobileContainer">
             <Header isMobile={true}/>
             <RecentlyJoined page={state.page} website={recentlyJoined}/>
-            <div className={style.title}>Choose a spot and get a lifetime marketing for your website</div>
+            <div className={style.title}>Internet marketing made simple</div>
             <FIlters />            
-            <div className={style.text}>Swipe across the whiteboard to see more</div>
-            <Whiteboard category={state.category} country={state.country} onPageChange={onPageChange} getData={onDataReceived}/>            
+            <div className={style.text}>Swipe across the chalk board to see more</div>
+            <Chalkboard category={state.category} country={state.country} onPageChange={onPageChange} getData={onDataReceived}/>            
             <div className={footerClassNames}>
               <strong>*Disclaimer: Images on this page are copyright of their owners. I am not responsible for the content of external websites.</strong>
               <strong className={utilStyles.copyright}>Copyright © Old School Marketing ©

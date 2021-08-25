@@ -36,7 +36,8 @@ export function Select(props) {
                 hidePlaceholder={true}
                 showArrow={true}
                 className={utilStyles.formControllError}  
-                groupBy={props.groupBy}            
+                groupBy={props.groupBy}      
+                selectionLimit={props.selectionLimit}
             />
         </div>
 }

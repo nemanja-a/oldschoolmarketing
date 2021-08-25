@@ -4,17 +4,16 @@ export const TOTAL_PAGE_COUNT = 3599
 export const NAVIGATION_BUTTONS_COUNT = 5
 export const CUSTOM_TRANSFORM_ORIGIN_COUNT = 5
 export const CONTAINER_PADDING = 11
-export const ACTIVE_PREVIEW = {
-    MOBILE: "mobile",
-    WEB: "web"
-}
+export const TABLE_BORDER_WIDTH = 24
+export const ACTIVE_PREVIEW = { MOBILE: "mobile", WEB: "web" }
 
 export const WEBSITE = { 
     URL_MAX_LENGTH: 80,
     DESCRIPTION_MAX_LENGTH: 60,
     THUMBNAIL: {
         TABLE_DEFAULT: '/images/background_default.jpg',
-        IMAGE_PREVIEW_DEFAULT: '/images/Image_preview_default.jpg'
+        IMAGE_PREVIEW_DEFAULT: '/images/Image_preview_default.jpg',
+        CELL_DISABLED_BACKGROUND: '/images/empty-cell-background.jpeg'
     },
     DEFAULT: {
         url: '',
@@ -276,4 +275,6 @@ export const LINKED_IN_PROFILE_URL = "https://www.linkedin.com/in/nemanja-aposto
 // Old School board theme
 // export const CURRENT_PRIMARY_COLOR = "#346b31"
 // export const CURRENT_PRIMARY_COMPLEMENTARY_COLOR = "#084a05"
-// export const CURRENT_SECUNDARY_COLOR = "#8E8E8E"
+// export const CURRENT_SECONDARY_COLOR = #b0afaf
+// export const NEW_SECONDARY_COLOR = "#8E8E8E"
+

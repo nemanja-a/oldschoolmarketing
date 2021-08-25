@@ -1,33 +1,34 @@
 .buttonWrapper {
-    margin: 5vh 0 1vh 3vh;
+    margin-top: 5vh;
 }
 
 .filtersButton {
-    width: 80vw;
-    margin-left: 4.5vw;
-    padding: 0.4rem 1.2rem 0.4rem 1.4rem;    
+    text-align: left;
+    width: 100%;    
+    padding: 0.8rem 0 0.8rem 0.8rem;
+    border-radius: unset;
+    border: 1px ridge;
 }
 
 .title {
     text-align: center;
+    margin-left: 3vw;
     margin-bottom: 3vh;
+}
+
+.subtitle { 
+    font-size: 16px;
+    border-bottom: 1px ridge;
+    padding: 15px;
+    font-weight: 600;
 }
 
 .row {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-between;    
+    flex-direction: column;
     width: 100%;
     padding: 0.3rem 0;
-}
-
-.applyFiltersButton { 
-    margin-top: 5%;
-    margin-left: 2.5%;
-    width: 50%;
-    height: 6vh;
-    box-shadow: 0 0 0 1px;
-    color: #346b31;
-    background: white;
+    font-style: italic;
 }
 

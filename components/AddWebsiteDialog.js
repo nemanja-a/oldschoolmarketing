@@ -14,12 +14,11 @@ import { Button } from './common/Button'
 import FadeIn from 'react-fade-in';
 import { Payment } from './Payment'
 import { server } from '../config'
-import { classNames, getSelectStyles } from '../lib/util'
+import { classNames, getSelectOptions, getSelectStyles } from '../lib/util'
 import { ModalLoader } from './ModalLoader'
 import { useDropzone } from 'react-dropzone'
 import { Select } from './common/Select'
 import { showError } from '../lib/toast'
-import { getSelectOptions } from '../lib/util'
 import detectDevice from './common/DeviceDetect'
 
 export function AddWebsiteDialog(props) {
@@ -405,7 +404,7 @@ export function AddWebsiteDialog(props) {
           </button>
           <div className={dialogStyles.title}>Add website</div>
           {state.step === 1 && <div className={utilStyles.stepTitle}>URL and Image</div>}
-          {state.step === 2 && <div className={utilStyles.stepTitle}>Thumbnail appearance</div>}
+          {state.step === 2 && <div className={utilStyles.stepTitle}>Website appearance</div>}
           {state.step === 3 && <div className={utilStyles.stepTitle}>Payment</div>}
         
           {state.loading && <ModalLoader text={state.loaderText}/>}        

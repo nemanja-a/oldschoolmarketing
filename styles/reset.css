@@ -47,8 +47,7 @@ ol[class] {
   list-style: none;
 }
 
-a {
-  text-decoration: none;
+a {  
   color: #346b31;
 }
 
@@ -135,14 +134,14 @@ div#__next > div {
 /* Override class from react virtualized lib */
 .ReactVirtualized__Table__Grid, .ReactVirtualized__Grid__innerScrollContainer {
   overflow: visible !important;
-  width: 100% !important;
   height: inherit !important;
 }
 
 @media screen and (max-width: 800px) {
   .ReactVirtualized__Table__Grid, .ReactVirtualized__Grid__innerScrollContainer {
     overflow-y: auto !important;    
-    overflow-x: auto !important ;
+    overflow-x: auto !important;
+    background: #b0afaf !important;    
   }
 }
 
@@ -169,10 +168,10 @@ input[type=search]:focus {
 ::-webkit-scrollbar
 
 ::-webkit-scrollbar-track {
-  background: #8E8E8E;
+  background: #b0afaf;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #8E8E8E;
+  background: #b0afaf;
   border-radius: 10px;
 }

@@ -6,7 +6,7 @@ import tableStyles from '../../styles/table.module.css'
 import { classNames } from "../../lib/util"
 import { Input } from "../common/Input"
 
-export function Whiteboard (props) {
+export function Chalkboard (props) {
     const [ state, setState ] = useState({
       pageIndex: 0,
       pageRangeStart: 0,

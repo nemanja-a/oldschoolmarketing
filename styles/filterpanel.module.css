@@ -1,0 +1,49 @@
+.container {
+    margin: 25px 0;
+}
+
+.listItem { 
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    border: 1px solid lightgray;
+    padding: 12px 8px 4px 25px !important;
+    margin: 5px 0 !important;
+}
+
+.listItem span {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+
+.subcategories {
+    display: flex;
+    flex-direction: column;
+}
+
+.listItem li {
+    padding: 8px !important;
+    border-top: 1px ridge;
+}
+
+.ungroupedListItem {
+    padding: 8px !important;
+}
+
+.active {    
+    color: #346b31;
+    border: 2px solid #346b31 !important;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    transform: rotate(0deg);
+    transition: transform 0.2s linear;
+}
+
+.iconActive {
+    transform: rotate(180deg);
+    transition: transform 0.2s linear;
+}

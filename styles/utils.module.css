@@ -108,15 +108,11 @@
     justify-content: space-between;
     padding-top: 1vh;
     font-size: 1.5vh;
-    background: #8E8E8E;
+    background: #b0afaf;
     border-radius: 0 0 10px 10px;
     padding: 0 1vw;
     min-height: 25px;
-    color: white;
-}
-
-.footer a {
-    color: #246bb4;
+    color: black;
 }
 
 @media screen and (max-width: 1350px) {
@@ -170,7 +166,7 @@
     max-height: 6vh;
     min-height: 1.5vh;
     height: max-content;
-    background: #8E8E8E;    
+    background: #b0afaf;    
     color: white;
 }
 
@@ -217,8 +213,8 @@
 }
 
 @media screen and (max-width: 800px) {
-    .mobileImageInfoBottom, .mobileImageInfoTop {
-        background-color: rgba(100, 100, 100, 0.5);        
+    .mobileImageInfoBottom, .mobileImageInfoTop {        
+        background-color: rgba(0, 0, 0, 0.7);
         position: fixed;
         color: white;
         display: flex;
@@ -259,18 +255,19 @@
 
     .mobileImageInfoCloseButton {
         right: 5px;
-        top: 3px;
+        top: 5px;
         position: fixed;
         background: transparent;
+        font-size: 30px;
     }
 
     .fontMedium {
-        font-size: 13px;
+        font-size: 14px;
     }
 
     .footer {
-        font-size: 12px;
-        width: 80vw;
+        font-size: 12px;            
+        width: 100%;
         margin: auto;
     }
 

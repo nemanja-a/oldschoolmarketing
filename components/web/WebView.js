@@ -8,7 +8,7 @@ import { FilterList } from "../web/FilterList"
 import { ToastContainer } from "react-toastify"
 import { Header } from "../web/Header"
 import Image from "next/image"
-import { Whiteboard } from "./Whiteboard"
+import { Chalkboard } from "./Chalkboard"
 
 export function WebView() {
     let recentlyJoined
@@ -46,10 +46,10 @@ export function WebView() {
       {/* Filter section */}
       <section className={utilStyles.filterSection}>
           <div style={{paddingBottom: "1vh", fontStyle: "italic",  boxShadow: "0 0 7px 0"}}>
-            <div style={{display: "block", background: "#8E8E8E", color: "white", borderRadius: "5px 5px 0 0"}} > 
+            <div style={{display: "block", background: "#b0afaf", color: "white", borderRadius: "5px 5px 0 0"}} > 
              Filters are applied for <strong>current</strong> page only
             </div>
-            <div style={{color: "white", background: "#8E8E8E", borderRadius: "0 0 5px 5px"}}>Current page: {state.page}</div>
+            <div style={{color: "white", background: "#b0afaf", borderRadius: "0 0 5px 5px"}}>Current page: {state.page}</div>
             <br/>
 
           </div>          
@@ -73,7 +73,7 @@ export function WebView() {
       {/* Table section */}
       <section>
         <Header isMobile={false} />
-        <Whiteboard category={state.category} country={state.country} onPageChange={onPageChange} getData={onDataReceived}/>
+        <Chalkboard category={state.category} country={state.country} onPageChange={onPageChange} getData={onDataReceived}/>
         <div/>
           <div className={footerClassNames}>
             <strong>*Disclaimer: Images on this page are copyright of their owners. I am not responsible for the content of external websites.</strong>

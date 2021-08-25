@@ -48,25 +48,25 @@ export function IntroductionDialog({ isMobile, showOnInit }) {
         </div>}
         <p className={dialogStyles.welcomeText}>
          {!isMobile && <span>
-          - <strong>Browse websites </strong> - Hover over any <strong>image</strong> other than <strong>Add website</strong> to see larger <strong>image</strong>, <strong>URL</strong> and <strong>description</strong> of a website.
+          - <strong>Browse websites </strong> - Hover over any <strong>image</strong> other than <strong>Add</strong> to see larger <strong>image</strong>, <strong>URL</strong> and <strong>description</strong> of a website.
            Click on image will open the link in new tab. <br/> <br/>
            Choose <strong>page</strong> by clicking on any <strong>pagination</strong> button above the whiteboard. <br/>
            Selecting <strong>country</strong> or <strong>category</strong> from <strong>filter section</strong> on the left 
            will filter websites on <strong>current page</strong>. <br/> <br/>
 
-          - <strong>Add website</strong> - when there is no <strong>active filter</strong>, click on any available spot with <strong>Add website text</strong> 
+          - <strong>Add website</strong> - when there is no <strong>active filter</strong>, click on any available spot with <strong>Add</strong> 
           and complete the steps to add your website.
         
           </span>}
 
           {isMobile && <span>
-          - <strong>Browse websites </strong> - Click on any <strong>image</strong> other than <strong>Add website</strong> to see larger <strong>image</strong>, <strong>URL</strong> and <strong>description</strong> of a website.
-           Click anywhere on <strong>enlarged image</strong> will open the link in new tab. <br/> <br/>
+          - <strong>Browse websites </strong> - Click on any <strong>image</strong> other than <strong>Add</strong> will zoom in the <strong>image</strong> and show website's <strong>URL</strong> and <strong>description</strong>.
+           Click on <strong>URL</strong> or <strong>image</strong> itself will open the link in new tab. <br/> <br/>
            Choose <strong>page</strong> by clicking on any <strong>pagination</strong> button above the whiteboard. <br/>
            Selecting <strong>country</strong> or <strong>category</strong> from <strong>filter section</strong> on the left 
            will filter websites on <strong>current page</strong>. <br/> <br/>
 
-          - <strong>Add website</strong> - when there is no <strong>active filter</strong>, click on any available spot with <strong>Add website text</strong> 
+          - <strong>Add website</strong> - when there is no <strong>active filter</strong>, click on any available spot with <strong>Add </strong> 
           and complete the steps to add your website.
         
           </span>}

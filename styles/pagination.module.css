@@ -1,7 +1,7 @@
 #pagination {
     width: 100%;
     padding: 0 0.3rem 0.1rem 0;
-    background: #8E8E8E;
+    background: #b0afaf;
     height: 4.5vh;
     border-radius: 10px 10px 0 0;
 }
@@ -12,13 +12,13 @@
     width: 50%;
     display: flex;
     align-items: center;
-    background: #8E8E8E;
+    background: #b0afaf;
 }
 
 .activePage {
     background: white !important;
     border-radius: 5px;
-    color: #8E8E8E !important;
+    color: #b0afaf !important;
 }
 
 @media screen and (max-width: 1200px) {
@@ -34,6 +34,7 @@
 @media screen and (max-width: 800px) {
     #pagination, #paginationWrapper {
         height: 12vh;
+        border-radius: unset;
     }
     #paginationWrapper {
         width: 95%;
@@ -45,7 +46,7 @@
     #pagination button {
         font-size: 13px;
         height: auto !important;
-        /* box-shadow: 0 1px 1px 1px; */
+        color: black !important;
         border-radius: 5px;
         margin: 0.8rem 0.2rem 0 0.2rem;
     }
@@ -58,8 +59,9 @@
 
 .goToPageInputWrapper label {
     margin: 0.5rem;
-    color: white;
+    color: black;
     font-size: 13px;
+    font-weight: 600;
 }
 
 .goToPageInputWrapper label:hover {
@@ -71,25 +73,26 @@
     padding: 0 0.7rem;
     height: 80%;
     min-width: max-content;
-    background: #8E8E8E;
+    background: #b0afaf;
     color: white;
     transition: all 0.s ease;
+    font-weight: 600;
 }
 
 #currentPage {
     background: white;
-    color: #8E8E8E;
+    color: #b0afaf;
 }
 
 #pagination button:hover {
     background: white;
-    color: #8E8E8E;
+    color: #b0afaf;
     border-radius: 5px;
 }
 
 #pagination button:active {
     background: white !important;
-    color: #8E8E8E;
+    color: #b0afaf;
     transition: all 0.s ease;
     border-radius: 5px;
 }

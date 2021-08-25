@@ -22,12 +22,12 @@
 }
 
 #whiteboardContainer {    
-    margin: 0 auto;
-    width: 80%;
+    margin: 0 auto;    
+    width: 100%;
     min-height: 87vh;
     position: relative;    
     box-shadow: 0px 0px 10px 1px grey;
-    background: transparent;
+    background: #346b31;
     background-size: cover;
     background-position: center;
     border-radius: 10px 10px 0 0;    
@@ -37,18 +37,26 @@
     padding: 0 7px !important;
 }
 
+.rangeButton:disabled {
+    opacity: 0.3;
+}
+
 .text, .title { 
     text-align: center;
-    font-size: 13px;
+    font-size: 2.5vh;
+    font-style: italic;
+}
+
+.title {
+    /* font-size: 16px;     */
+    font-size: 3vh;
     width: 80vw;
     margin: auto;
 }
 
-.title {
-    font-size: 16px;
-    font-style: italic;
+.displayFlex {
+    display: flex;
 }
-
 .recentlyJoinedWrapper {
 
 }
