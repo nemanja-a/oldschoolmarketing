@@ -30,7 +30,7 @@ export function FilterPanel({onChange, selected, items, grouped, type}) {
                   return <ul key={index} className={listItemClasses}>
                       <span onClick={() => item.subcategories ? toggleMenu(item) : applyFilter(item)}>                      
                         {item.displayValue}
-                        {item.subcategories && <img className={arrowClasses} src="/images/collapse.svg" />}
+                        {item.subcategories && <img className={arrowClasses} src="/images/arrow.svg" />}
                       </span>                    
                     {(state.activeMenu && (state.activeMenu.displayValue === item.categoryIndex) && item.subcategories) &&
                     <div className={style.subcategories}>
