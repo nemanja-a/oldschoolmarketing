@@ -4,8 +4,7 @@
         margin: 25px 0 !important;
         height: auto !important;
         overflow: auto !important;
-        background: white !important;
-        border-radius: unset !important;
+        background: white !important;            
     }    
     .listItem {
         padding: 12px 8px 4px 25px !important; 
@@ -15,8 +14,7 @@
 .container {    
     background: #346b31;
     height: min-content;
-    margin-right: 5px;
-    border-radius: 5px;
+    margin-right: 5px;    
     min-width: 11vw;
 }
 

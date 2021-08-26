@@ -52,9 +52,6 @@ export function FiltersDialog({onChange, selectedCountry, selectedCategory}) {
                 type="category"
              />                        
           </div>
-          {state.validationError && !state.website.categories.length && <div className={dialogStyles.row}>
-             <span className={utilStyles.error}>Select one or more categories</span>
-          </div>}
           <div className={style.row}>
             <div className={style.subtitle}>Countries</div>
             <FilterPanel

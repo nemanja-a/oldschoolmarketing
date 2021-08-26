@@ -50,7 +50,7 @@ export function IntroductionDialog({ isMobile, showOnInit }) {
          {!isMobile && <span>
           - <strong>Browse websites </strong> - Hover over any <strong>image</strong> other than <strong>Add</strong> to see larger <strong>image</strong>, <strong>URL</strong> and <strong>description</strong> of a website.
            Click on image will open the link in new tab. <br/> <br/>
-           Choose <strong>page</strong> by clicking on any <strong>pagination</strong> button above the chalkboard. <br/>
+           Choose <strong>page</strong> by clicking on any <strong>button</strong>  above the chalkboard. <br/>
            Selecting <strong>country</strong> or <strong>category</strong> from <strong>filter section</strong> on the left 
            will filter websites on <strong>current page</strong>. <br/> <br/>
 
@@ -61,10 +61,10 @@ export function IntroductionDialog({ isMobile, showOnInit }) {
 
           {isMobile && <span>
           - <strong>Browse websites </strong> - Click on any <strong>image</strong> other than <strong>Add</strong> will zoom in the <strong>image</strong> and show website's <strong>URL</strong> and <strong>description</strong>.
-           Click on <strong>URL</strong> or <strong>image</strong> itself will open the link in new tab. <br/> <br/>
-           Choose <strong>page</strong> by clicking on any <strong>pagination</strong> button above the whiteboard. <br/>
-           Selecting <strong>country</strong> or <strong>category</strong> from <strong>filter section</strong> on the left 
-           will filter websites on <strong>current page</strong>. <br/> <br/>
+           Click on <strong>URL</strong> or <strong>image</strong> itself will open the link in new tab. <br/> <br/>  
+           Choose <strong>page</strong> by clicking on any <strong>button</strong> above the chalkboard. <br/>
+           Show websites for specific <strong>category</strong> or <strong>country</strong> from <strong>filters menu</strong> by 
+           clicking on <strong>filters</strong> button. <br/><br/>
 
           - <strong>Add website</strong> - when there is no <strong>active filter</strong>, click on any available spot with <strong>Add </strong> 
            and complete the steps to add your website.

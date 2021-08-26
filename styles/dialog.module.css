@@ -22,6 +22,10 @@
     padding: 1rem;    
 }
 
+.containerLarge {
+    height: auto !important;
+}
+
 .startUpDialog {
     border: 3px solid #ffaa4e;
 
@@ -130,9 +134,8 @@
     .containerLarge {
         margin: 10vh auto;
         width: 95vw;                
-        border-radius: 5px;
-        /* height: 80vh; */
-        height: 85vh;
+        border-radius: 5px;        
+        height: 85vh !important;
         overflow: unset;        
     }
 

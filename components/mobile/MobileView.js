@@ -27,13 +27,13 @@ export default function MobileView() {
     
     const onChange = (filters) => {      
        if (filters.category && filters.country) {         
-        setState({...state, category: filters.category, countries: filters.country}) 
+        setState({...state, category: filters, countries: filters}) 
        } else if (filters.category) {
-         setState({...state, category: filters.category })
+         setState({...state, category: filters })
        } else if (filters.country) {
-        setState({...state, country: filters.country })
+        setState({...state, country: filters })
        } else {
-          setState({...state, country: '', category: ''})
+          setState({...state, country: {}, category: {}})
        }      
     }
     const onPageChange = (page) => { setState({...state, page}) }
@@ -50,6 +50,9 @@ export default function MobileView() {
     const FIlters = () =>  { 
       return <div className={style.filters}>
         <FiltersDialog 
+          showButton
+          showCategories
+          showCountries
           selectedCountry={state.country}
           selectedCategory={state.category}      
           onChange={onChange}      
@@ -70,7 +73,8 @@ export default function MobileView() {
         <div id="mobileContainer">
             <Header isMobile={true}/>
             <RecentlyJoined page={state.page} website={recentlyJoined}/>
-            <div className={style.title}>Internet marketing made simple</div>
+            {/* <div className={style.title}>Internet marketing made simple</div> */}
+            <div className={style.title}>Lifetime marketing on chalkboard for 2$</div>
             <FIlters />            
             <div className={style.text}>Swipe across the chalk board to see more</div>
             <Chalkboard category={state.category} country={state.country} onPageChange={onPageChange} getData={onDataReceived}/>            
