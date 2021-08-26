@@ -236,6 +236,7 @@
     }
 
     .buttonPrimary {
+        min-width: 40vw !important;
         width: 100%;
     }
 

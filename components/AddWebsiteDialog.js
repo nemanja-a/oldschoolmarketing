@@ -147,53 +147,66 @@ export function AddWebsiteDialog(props) {
   }
 
   const onVerifyWebsiteClick = async (event) => {
-    const urlRegExp = new RegExp(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)
-    const urlValid = state.website.url.match(urlRegExp)
-    if (!urlValid) {
-      setState({...state, websiteValid: false, urlError: `URL ${state.website.url} does not match valid URL pattern. Try again.` })
-      return
-    } 
-    event.stopPropagation()
-    event.preventDefault()
-    toggleLoading(true, "Verifying URL...")
-    const validateWebsiteURL = `${server}/api/validate?url=${state.website.url}&page=${state.website.page}`
-    const websiteResponse = await fetch(validateWebsiteURL, {
-      mode: 'no-cors'
-    })
-    if (websiteResponse.status === 409) {
-      setState({
-        ...state,
-        websiteAlreadyExist: true,
-        websiteValid: null
-      })
-      return
-    } else if (websiteResponse.status === 404) {
-      let data = await websiteResponse.json()
-      toggleLoading(false)
-      setState({
-        ...state,
-        websiteValid: false,
-        websiteAlreadyExist: null,
-        urlError: data.error
-      }) 
-    } else if (websiteResponse.status === 200) {
-      toggleLoading(false)
-      setState({
+
+    //temp
+
+        setState({
         ...state,
         websiteValid: true,
         websiteAlreadyExist: null,
         showTitle: true,
-        showDescription: true
+        showDescription: true,
+        step: 2
       })
-    } else {
-      toggleLoading(false)
-      setState({
-        ...state,
-        websiteValid: false,
-        websiteAlreadyExist: null,
-        urlError: `URL ${state.website.url} is not valid. Try again`
-      })
-    }
+
+
+    // const urlRegExp = new RegExp(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)
+    // const urlValid = state.website.url.match(urlRegExp)
+    // if (!urlValid) {
+    //   setState({...state, websiteValid: false, urlError: `URL ${state.website.url} does not match valid URL pattern. Try again.` })
+    //   return
+    // } 
+    // event.stopPropagation()
+    // event.preventDefault()
+    // toggleLoading(true, "Verifying URL...")
+    // const validateWebsiteURL = `${server}/api/validate?url=${state.website.url}&page=${state.website.page}`
+    // const websiteResponse = await fetch(validateWebsiteURL, {
+    //   mode: 'no-cors'
+    // })
+    // if (websiteResponse.status === 409) {
+    //   setState({
+    //     ...state,
+    //     websiteAlreadyExist: true,
+    //     websiteValid: null
+    //   })
+    //   return
+    // } else if (websiteResponse.status === 404) {
+    //   let data = await websiteResponse.json()
+    //   toggleLoading(false)
+    //   setState({
+    //     ...state,
+    //     websiteValid: false,
+    //     websiteAlreadyExist: null,
+    //     urlError: data.error
+    //   }) 
+    // } else if (websiteResponse.status === 200) {
+    //   toggleLoading(false)
+    //   setState({
+    //     ...state,
+    //     websiteValid: true,
+    //     websiteAlreadyExist: null,
+    //     showTitle: true,
+    //     showDescription: true
+    //   })
+    // } else {
+    //   toggleLoading(false)
+    //   setState({
+    //     ...state,
+    //     websiteValid: false,
+    //     websiteAlreadyExist: null,
+    //     urlError: `URL ${state.website.url} is not valid. Try again`
+    //   })
+    // }
   }
   const toggleLoading = (value, text) => { 
     setState( {...state, loading: value, loaderText: text} )
