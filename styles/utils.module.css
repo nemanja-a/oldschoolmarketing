@@ -108,7 +108,7 @@
     justify-content: space-between;
     padding-top: 1vh;
     font-size: 1.5vh;
-    background: #7a7f80;
+    background: #CCCCCC;
     padding: 0 1vw;
     min-height: 25px;
     color: black;
@@ -152,7 +152,7 @@
     max-height: 6vh;
     min-height: 1.5vh;
     height: max-content;
-    background: #7a7f80;    
+    background: #CCCCCC;    
     color: white;
 }
 

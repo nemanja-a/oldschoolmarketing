@@ -7,7 +7,7 @@ import utilStyles from "../styles/utils.module.css"
 import formStyles from "../styles/form.module.css"
 import Image from "next/image"
 import 'react-toastify/dist/ReactToastify.css';
-import { ACTIVE_PREVIEW, ALLOWED_FORMATS, WEBSITE } from '../util/variables'
+import { ACTIVE_PREVIEW, ALLOWED_FORMATS, CATEGORIES_SELECTION_LIMIT, WEBSITE } from '../util/variables'
 import { Input } from './common/Input'
 import BadWordsFilter from 'bad-words'
 import { Button } from './common/Button'
@@ -517,6 +517,7 @@ export function AddWebsiteDialog(props) {
               selectedValues={state.website.categories}
               style={selectStyles}
               className={selectClasses}
+              selectionLimit={CATEGORIES_SELECTION_LIMIT}
             />                        
           </div>
           {state.validationError && !state.website.categories.length && <div className={dialogStyles.row}>
