@@ -171,9 +171,8 @@
     position: relative;
     width: 80vw;
     height: 81.5vh;
-    box-shadow: 0px 0px 10px 1px grey;
+    box-shadow: 5px 0px 10px 1px grey;
     background: #346b31;
     background-size: cover;
     background-position: center;
-    border-radius: 10px 10px 0 0;
 }

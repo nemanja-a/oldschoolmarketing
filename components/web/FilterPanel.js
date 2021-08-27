@@ -28,7 +28,7 @@ export function FilterPanel({onChange, selected, items, grouped, type}) {
     [style.fontCursive]: !isMobile
   })
   return (
-      <div className={containerStyles}>      
+      <div className={containerStyles} style={{boxShadow: "none !important"}}>      
           <div className={style.panel}>
               {grouped ? state.items.map((item, index) => {
                   const listItemClasses = classNames({
