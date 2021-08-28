@@ -90,6 +90,7 @@ html, body {
   margin: 0;
   /* font-family: 'Noto Serif', serif; */
   font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
   font-size: 1.9vh;
   background: white;
   width: 100%;
