@@ -1,27 +1,27 @@
 #pagination {
     width: 100%;
-    padding: 0 0.3rem 0.1rem 0;    
+    padding: 0 0.3rem 0.1rem 0;
     background: #CCCCCC;
     height: 4.5vh;
 }
 
-#paginationWrapper { 
+#paginationWrapper {
     margin: auto;
     height: 100%;
     width: 50%;
     display: flex;
-    align-items: center;    
+    align-items: center;
     background: #CCCCCC;
 }
 
 .activePage {
     background: white !important;
     border-radius: 5px;
-    color: #CCCCCC !important;    
+    color: #CCCCCC !important;
 }
 
 @media screen and (max-width: 1200px) {
-    #paginationWrapper { 
+    #paginationWrapper {
         height: 100%;
         width: 100%;
         display: flex;
@@ -107,6 +107,6 @@
     outline: none;
 }
 
-#pagination button:hover { 
+#pagination button:hover {
     cursor: pointer;
 }

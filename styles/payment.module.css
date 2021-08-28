@@ -3,7 +3,7 @@
     margin: 1vh auto;
 }
 
-#amountWrapper, #amountWrapper div { 
+#amountWrapper, #amountWrapper div {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,7 +15,7 @@
 
 @media screen and (max-width: 800px) {
     .content {
-        width: auto;    
+        width: auto;
         margin: 8vh auto;
     }
 }

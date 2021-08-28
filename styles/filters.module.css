@@ -4,7 +4,7 @@
 
 .filtersButton {
     text-align: left;
-    width: 100%;    
+    width: 100%;
     padding: 0.8rem 0 0.8rem 0.8rem;
     border-radius: unset;
     border: 1px ridge;
@@ -34,7 +34,7 @@
     cursor: default;
 }
 
-.subtitle {     
+.subtitle {
     font-size: 2.5vh;
     border-bottom: 1px ridge;
     padding: 15px 0;
@@ -44,7 +44,7 @@
 
 .row {
     display: flex;
-    justify-content: space-between;    
+    justify-content: space-between;
     flex-direction: column;
     padding: 0.3rem 0;
     font-style: italic;
@@ -52,14 +52,13 @@
     color: white;
     height: 39vh;
     overflow: scroll;
-    border: 2px ridge;  
-    border-radius: 10px;
+    border-bottom: 2px ridge;
     margin: 15px 5px;
     overflow-x: hidden;
 }
 
 @media screen and (max-width: 800px) {
-    .row {        
+    .row {
         color: black !important;
         height: auto !important;
         overflow: auto !important;
@@ -68,11 +67,9 @@
         width: 100% !important;
         border-radius: unset !important;
     }
-
     .subtitle {
         font-size: 3vh !important;
         padding: 15px !important;
         text-align: left !important;
     }
 }
-

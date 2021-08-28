@@ -5,7 +5,7 @@
     margin-bottom: 17px;
 }
 
-.header { 
+.header {
     border-radius: 5px;
     background: #CCCCCC;
     text-align: center;
@@ -15,21 +15,20 @@
     color: white;
 }
 
-
 .filterItem, .subcategory {
     text-align: center;
     width: 100%;
     box-shadow: 0 0 5px 0 #646262;
 }
 
-.filterItem, .filterItem span{
+.filterItem, .filterItem span {
     display: block;
     box-shadow: 0px 0px 5px 0px #aaaaaa;
     color: white;
     background: #346b31;
 }
 
-.filterItem:hover, .subcategory:hover { 
+.filterItem:hover, .subcategory:hover {
     background: #CCCCCC;
     color: white;
 }
@@ -65,7 +64,7 @@
     color: white;
 }
 
-.clearFilterButton { 
+.clearFilterButton {
     background: white;
     color: #CCCCCC;
     padding: 0 5px;

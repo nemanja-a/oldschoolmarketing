@@ -6,75 +6,75 @@ import style from "../../styles/mobile.module.css"
 import { classNames } from "../../lib/util"
 import { Input } from "../common/Input"
 
-export function Chalkboard (props) {  
-    const [ state, setState ] = useState({
-      pageIndex: 0,
-      pageRangeStart: 0,
-    })
+export function Chalkboard(props) {
+  const [state, setState] = useState({
+    pageIndex: 0,
+    pageRangeStart: 0,
+  })
 
-    const handleGoToPageEnterKey = (control) => { 
-      if (control.eventKey === 'Enter') {
-        let pageRangeStart, pageIndex
-        if (control.value >= TOTAL_PAGE_COUNT - NAVIGATION_BUTTONS_COUNT && control.value <= TOTAL_PAGE_COUNT) {
-          pageRangeStart = TOTAL_PAGE_COUNT - NAVIGATION_BUTTONS_COUNT
-          pageIndex = TOTAL_PAGE_COUNT - (TOTAL_PAGE_COUNT - control.value)          
-        } else if (control.value <= TOTAL_PAGE_COUNT) {
-          pageRangeStart = pageIndex = control.value          
-        }
-        setState({...state, pageRangeStart, pageIndex})
-        props.onPageChange(pageIndex)
+  const handleGoToPageEnterKey = (control) => {
+    if (control.eventKey === 'Enter') {
+      let pageRangeStart, pageIndex
+      if (control.value >= TOTAL_PAGE_COUNT - NAVIGATION_BUTTONS_COUNT && control.value <= TOTAL_PAGE_COUNT) {
+        pageRangeStart = TOTAL_PAGE_COUNT - NAVIGATION_BUTTONS_COUNT
+        pageIndex = TOTAL_PAGE_COUNT - (TOTAL_PAGE_COUNT - control.value)
+      } else if (control.value <= TOTAL_PAGE_COUNT) {
+        pageRangeStart = pageIndex = control.value
       }
-    }
-
-    const goToPageWrapperClasses = classNames({
-      [paginationStyles.goToPageInputWrapper]: true
-    })
-    const goToPageClasses = {
-      wrapper: goToPageWrapperClasses
-    }
-
-    const previousButtonDisabled = !state.pageIndex
-    const nextButtonDisabled = state.pageIndex > TOTAL_PAGE_COUNT - 1
-    
-    const navigationButton = (pageIndex, buttonIndex) => {
-      return <button 
-        id={buttonIndex} 
-        className={pageIndex === state.pageIndex ? paginationStyles.activePage : null} 
-        onClick={() => onNavigationButtonClicked(pageIndex)}>{pageIndex + 1}
-      </button>
-    }
-    const onNavigationButtonClicked = (pageIndex) => { 
-      setState({...state, pageIndex})
+      setState({ ...state, pageRangeStart, pageIndex })
       props.onPageChange(pageIndex)
     }
+  }
 
-    const rangeButtonClasses = classNames({
-      [style.rangeButton]: true
-    })
-    const rangeButton = (text, disabled, onClick) => <button disabled={disabled} onClick={onClick} className={rangeButtonClasses}>{text}</button> 
-    const onFirstPageClicked = () => {
-      setState({loading: true, pageRangeStart: 0, pageIndex: 0})
-      props.onPageChange(0)
-    }
-    const onRangeButtonClicked = (pageRangeStart) => { 
-      setState({loading: true, pageRangeStart, pageIndex: pageRangeStart}) 
-      props.onPageChange(pageRangeStart)
-    }
-    const onLastPageClicked = () => { 
-      setState({loading: true, pageRangeStart: TOTAL_PAGE_COUNT - NAVIGATION_BUTTONS_COUNT, pageIndex: TOTAL_PAGE_COUNT})
-      props.onPageChange(TOTAL_PAGE_COUNT)
-    }
+  const goToPageWrapperClasses = classNames({
+    [paginationStyles.goToPageInputWrapper]: true
+  })
+  const goToPageClasses = {
+    wrapper: goToPageWrapperClasses
+  }
 
-    const Pagination = () => {
-      return <div id={paginationStyles.pagination}>
+  const previousButtonDisabled = !state.pageIndex
+  const nextButtonDisabled = state.pageIndex > TOTAL_PAGE_COUNT - 1
+
+  const navigationButton = (pageIndex, buttonIndex) => {
+    return <button
+      id={buttonIndex}
+      className={pageIndex === state.pageIndex ? paginationStyles.activePage : null}
+      onClick={() => onNavigationButtonClicked(pageIndex)}>{pageIndex + 1}
+    </button>
+  }
+  const onNavigationButtonClicked = (pageIndex) => {
+    setState({ ...state, pageIndex })
+    props.onPageChange(pageIndex)
+  }
+
+  const rangeButtonClasses = classNames({
+    [style.rangeButton]: true
+  })
+  const rangeButton = (text, disabled, onClick) => <button disabled={disabled} onClick={onClick} className={rangeButtonClasses}>{text}</button>
+  const onFirstPageClicked = () => {
+    setState({ loading: true, pageRangeStart: 0, pageIndex: 0 })
+    props.onPageChange(0)
+  }
+  const onRangeButtonClicked = (pageRangeStart) => {
+    setState({ loading: true, pageRangeStart, pageIndex: pageRangeStart })
+    props.onPageChange(pageRangeStart)
+  }
+  const onLastPageClicked = () => {
+    setState({ loading: true, pageRangeStart: TOTAL_PAGE_COUNT - NAVIGATION_BUTTONS_COUNT, pageIndex: TOTAL_PAGE_COUNT })
+    props.onPageChange(TOTAL_PAGE_COUNT)
+  }
+
+  const Pagination = () => {
+    return <div id={paginationStyles.pagination}>
       <div id={paginationStyles.paginationWrapper}>
-        <div style={{height: "4vh"}}>
+        <div style={{ height: "4vh" }}>
           {rangeButton('First', previousButtonDisabled, onFirstPageClicked)}
           {rangeButton('Previous', previousButtonDisabled, onRangeButtonClicked.bind(this, state.pageIndex - 1))}
           {rangeButton('Next', nextButtonDisabled, onRangeButtonClicked.bind(this, state.pageIndex + 1))}
           {rangeButton('Last', nextButtonDisabled, onLastPageClicked)}
-        </div>        
-        <div style={{height: "4vh"}}>
+        </div>
+        <div style={{ height: "4vh" }}>
           {navigationButton(state.pageRangeStart, 1)}
           {navigationButton(state.pageRangeStart + 1, 2)}
           {navigationButton(state.pageRangeStart + 2, 3)}
@@ -83,7 +83,7 @@ export function Chalkboard (props) {
           {navigationButton(state.pageRangeStart + 5, 6)}
         </div>
         <div>
-          <Input 
+          <Input
             label='Go To Page'
             type="number"
             name='page'
@@ -92,20 +92,20 @@ export function Chalkboard (props) {
             classes={goToPageClasses}
             onKeyDown={handleGoToPageEnterKey}
           />
-        </div>      
+        </div>
       </div>
     </div>
-    } 
-    
-    return <div id={style.whiteboardContainer}>
-      <Pagination />
-      <WebsitesTable 
-        isMobile={props.isMobile}
-        category={props.category}
-        country={props.country}
-        pageIndex={state.pageIndex}
-        getData={props.getData}
-      />
-    </div>
+  }
+
+  return <div id={style.whiteboardContainer}>
+    <Pagination />
+    <WebsitesTable
+      isMobile={props.isMobile}
+      category={props.category}
+      country={props.country}
+      pageIndex={state.pageIndex}
+      getData={props.getData}
+    />
+  </div>
 }
 

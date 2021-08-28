@@ -9,14 +9,16 @@
 #appName {
     margin-left: 0.5rem;
     font-size: 2.5vh;
+    font-style: italic;
+    font-weight: 600;
 }
 
-#appDescription { 
+#appDescription {
     margin: auto;
     font-size: 2.5vh;
 }
 
-#gettingStartedWrapper { 
+#gettingStartedWrapper {
     font-size: large;
     display: flex;
     flex-direction: column;
@@ -24,17 +26,16 @@
 }
 
 @media screen and (max-width: 800px) {
-    .container { 
+    .container {
         background: #346b31;
         height: 45px;
         color: white;
-        font-style: italic; 
+        font-style: italic;
         padding-left: 10px;
         display: flex;
         justify-content: space-between;
         width: 100%;
     }
-
     .menu {
         background: #346b31;
         color: white;
@@ -44,11 +45,9 @@
         width: 100%;
         padding: 10px;
     }
-
     .menu div {
         padding: 2px;
     }
-
     .textContent {
         font-size: 14px;
     }

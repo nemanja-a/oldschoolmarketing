@@ -19,7 +19,7 @@
     border-radius: 10px;
     transition: all 0.5s ease;
     position: relative;
-    padding: 1rem;    
+    padding: 1rem 3rem;
 }
 
 .containerLarge {
@@ -28,8 +28,8 @@
 
 .startUpDialog {
     border: 3px solid #ffaa4e;
-
 }
+
 .headerText {
     display: flex;
     font-size: 1.5rem;
@@ -43,7 +43,7 @@
 
 .imagePreviewInfoWeb, .imagePreviewInfoMobile {
     text-align: center;
-    height: max-content;    
+    height: max-content;
     position: relative !important;
     top: 100%;
     background: #ebecec;
@@ -62,8 +62,9 @@
     word-break: break-word;
     display: grid;
 }
+
 .previewInfoRow strong {
-    font-size: 12px;    
+    font-size: 12px;
 }
 
 .introductionDialogButtonWrapper {
@@ -71,7 +72,7 @@
     text-align: center;
 }
 
-@media screen and (min-width: 1200px) and (max-width: 1400px){
+@media screen and (min-width: 1200px) and (max-width: 1400px) {
     .urlInput {
         min-width: auto !important;
         width: 14vw !important;
@@ -103,22 +104,21 @@
 }
 
 @media screen and (min-width: 800px) and (max-width: 1000px) {
-    .dialog { 
+    .dialog {
         width: 50vw;
     }
 }
 
-@media screen and (max-width: 800px) {    
+@media screen and (max-width: 800px) {
     .containerSmall {
-        width: 90vw;    
+        width: 90vw;
         border-radius: 5px;
         min-height: 55vh;
         overflow: hidden;
         position: absolute;
         margin: 30% 5%;
     }
-
-    .containerMedium { 
+    .containerMedium {
         margin-top: 40%;
         width: 95vw;
         border-radius: 5px;
@@ -126,38 +126,36 @@
         font-size: 16px;
         overflow: scroll;
     }
-
     .containerMediumLarge div {
         transform: none !important;
     }
-
     .containerLarge {
         margin: 10vh auto;
-        width: 95vw;                
-        border-radius: 5px;        
+        width: 95vw;
+        border-radius: 5px;
         height: 85vh !important;
-        overflow: unset;        
+        overflow: unset;
     }
-
     .containerMediumLarge {
-        margin: 22.5vh auto;                
-        width: 100vw;        
+        margin: 22.5vh auto;
+        width: 100vw;
         height: 55vh;
-        position: relative;  
+        position: relative;
         overflow: hidden !important;
         background: transparent;
     }
-
     .containerMediumLarge a {
         color: white;
         text-decoration: underline;
         font-weight: 600;
     }
-
+    .containerLarge, .containerMedium {
+        padding: 1rem !important;
+    }
     .websitePreview {
         width: 100%;
     }
-    .title {        
+    .title {
         font-size: 20px;
         padding-bottom: 3vh;
     }
@@ -165,44 +163,36 @@
         color: white;
         width: 100%;
         text-align: right;
-        padding-right: 8px;    
+        padding-right: 8px;
     }
     .imagePreviewWrapper {
         width: 67vw !important;
     }
-
     .headerText a {
         border-bottom: 1px solid;
         border: none;
-        font-size: 14px;        
+        font-size: 14px;
         text-decoration: underline;
     }
-
     #websiteInputWrapper {
         display: block !important;
     }
-
     #websiteInputWrapper div {
         text-align: center;
     }
-
     .stepButton {
-        width: auto;  
+        width: auto;
     }
-
     .imagePreviewInfoWeb {
         height: 22vh;
         max-height: 22vh;
     }
-
     .introductionDialogButton {
         margin: 45px 0;
     }
-
     .mobilePreviewImageWrapper {
         width: 68vw !important;
     }
-
     .mobileImagePreview {
         position: absolute;
         top: 0;
@@ -211,7 +201,6 @@
         height: 100%;
         object-fit: cover;
     }
-
     .mobilePreviewImageMobile {
         height: 39.5% !important;
         min-height: 39.5% !important;
@@ -228,7 +217,7 @@
 }
 
 .checkmark {
-    display:inline-block;
+    display: inline-block;
     width: 13px;
     height: 26px;
     -ms-transform: rotate(45deg);
@@ -273,10 +262,9 @@
     padding: 2px;
 }
 
-.activePreviewModeButtons button:hover {    
+.activePreviewModeButtons button:hover {
     background: #346b31;
 }
-
 
 .previewMobileButton {
     border-radius: 0 3px 3px 0 !important;
@@ -294,10 +282,10 @@
     width: 15rem;
 }
 
-.websitePreview { 
+.websitePreview {
     display: flex;
     flex-direction: column;
-    align-items: center;    
+    align-items: center;
     padding: 0.5rem 0;
 }
 
@@ -309,7 +297,7 @@
 
 .imagePreviewWrapper {
     position: relative;
-    width: 16vw;
+    width: 18vw;
     height: 24vh;
 }
 
@@ -338,12 +326,12 @@
     padding-top: 4rem;
 }
 
-#attributesSection { 
+#attributesSection {
     padding-top: 22vh;
 }
 
 .stepButton {
-    width: 11vw;  
+    width: 11vw;
 }
 
 .row {
@@ -354,7 +342,7 @@
     padding: 0.3rem 0;
 }
 
-#imageUploadOverlay, #mobileImageUploadOverlay { 
+#imageUploadOverlay, #mobileImageUploadOverlay {
     position: absolute!important;
     height: 100%;
     width: 100%;
@@ -366,7 +354,7 @@
     align-items: center;
 }
 
-.imagePreviewHovered { 
+.imagePreviewHovered {
     opacity: 0.3;
     border: 2px solid !important;
     border-style: dashed !important;
@@ -375,7 +363,7 @@
 
 .welcomeText {
     width: 100%;
-    font-size: 2vh;    
+    font-size: 2vh;
 }
 
 .welcomeText span {

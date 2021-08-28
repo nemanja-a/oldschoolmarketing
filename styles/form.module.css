@@ -1,4 +1,4 @@
-.inputWrapper { 
+.inputWrapper {
     padding: 0 0.5rem 0.1rem 0.5rem;
     width: 100%;
     -webkit-transition: all 0.25s ease-in-out;
@@ -40,11 +40,11 @@
     margin: 0.2rem 0;
 }
 
-.disabled { 
+.disabled {
     opacity: 0.5;
 }
 
-.formControl { 
+.formControl {
     position: relative;
     min-width: 30%;
 }
@@ -53,7 +53,7 @@
     min-width: max-content;
 }
 
-.checkbox { 
+.checkbox {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -66,7 +66,7 @@
 }
 
 @media screen and (max-width: 800px) {
-    .inputNumber {        
+    .inputNumber {
         width: 20vw;
     }
 }

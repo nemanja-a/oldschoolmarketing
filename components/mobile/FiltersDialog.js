@@ -10,13 +10,13 @@ import { Button } from '../common/Button'
 import { WEBSITE } from '../../util/variables'
 import { FilterPanel } from './FilterPanel'
 
-export function FiltersDialog({onChange, selectedCountry, selectedCategory}) {  
+export function FiltersDialog({ onChange, selectedCountry, selectedCategory }) {
   const [state, setState] = useState({
-      showDialog: false,
+    showDialog: false,
   })
-  const close = () => { setState({...state, showDialog: false}) }
-  const open = () => { setState({...state, showDialog: true}) }
-   
+  const close = () => { setState({ ...state, showDialog: false }) }
+  const open = () => { setState({ ...state, showDialog: true }) }
+
   const categories = getFilters(WEBSITE.CATEGORIES)
 
   const filtersdialogClasses = classNames({
@@ -25,14 +25,14 @@ export function FiltersDialog({onChange, selectedCountry, selectedCategory}) {
   })
 
   return (
-    <div className={style.buttonWrapper}>      
-      <Button 
+    <div className={style.buttonWrapper}>
+      <Button
         primary
         onClick={open}
-        className={style.filtersButton}        
+        className={style.filtersButton}
       >
         Filters
-      </Button>      
+      </Button>
       {/* Dialog */}
       <Dialog className={filtersdialogClasses} aria-label="add-website-dialog" isOpen={state.showDialog} onDismiss={close}>
         <FadeIn transitionDuration={500}>
@@ -42,27 +42,27 @@ export function FiltersDialog({onChange, selectedCountry, selectedCategory}) {
           </button>
           <h2 className={style.title}>Filters</h2>
           <div className={style.row}>
-             <div className={style.subtitle}>Categories</div>
-             <FilterPanel 
-                onChange={onChange}
-                selected={selectedCategory}
-                id="categoryFilter"
-                items={categories}
-                grouped
-                type="category"
-             />                        
+            <div className={style.subtitle}>Categories</div>
+            <FilterPanel
+              onChange={onChange}
+              selected={selectedCategory}
+              id="categoryFilter"
+              items={categories}
+              grouped
+              type="category"
+            />
           </div>
           <div className={style.row}>
             <div className={style.subtitle}>Countries</div>
             <FilterPanel
-               onChange={onChange} 
-               selected={selectedCountry}
-               id="countryFilter"
-               items={WEBSITE.COUNTRIES}
-               type="country"
-            />                        
-          </div>                
-      </FadeIn>
+              onChange={onChange}
+              selected={selectedCountry}
+              id="countryFilter"
+              items={WEBSITE.COUNTRIES}
+              type="country"
+            />
+          </div>
+        </FadeIn>
       </Dialog>
     </div>
   )

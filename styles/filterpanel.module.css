@@ -1,21 +1,21 @@
-
 @media screen and (max-width: 800px) {
     .container {
         margin: 25px 0 !important;
         height: auto !important;
         overflow: auto !important;
         background: white !important;
-        box-shadow: unset !important;            
-    }    
+        box-shadow: unset !important;
+    }
     .listItem {
-        padding: 12px 8px 4px 25px !important; 
-        border: 1px solid lightgray;       
+        padding: 12px 8px 4px 25px !important;
+        border: 1px solid lightgray;
     }
 }
-.container {    
+
+.container {
     background: #346b31;
     height: min-content;
-    margin-right: 5px;    
+    margin-right: 5px;
     min-width: 11vw;
     box-shadow: 2px 0px 10px 2px grey;
 }
@@ -25,13 +25,13 @@
     font-style: italic;
 }
 
-.listItem, .listItemMobile { 
+.listItem, .listItemMobile {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
     margin: 0 5px;
     padding: 12px 8px 4px 8px !important;
-    text-align: center;    
+    text-align: center;
 }
 
 .listItem {
@@ -46,7 +46,7 @@
 
 .listItem:hover, .listItem li:hover {
     cursor: pointer;
-    background: #084a05 !important;    
+    background: #084a05 !important;
 }
 
 .listItem span, .listItemMobile span {
@@ -73,7 +73,7 @@
     padding: 8px !important;
 }
 
-.active {    
+.active {
     color: #346b31;
     border: 2px solid #346b31 !important;
 }
@@ -89,9 +89,6 @@
     transform: rotate(180deg);
     transition: transform 0.2s linear;
 }
-
-
-
 
 /* .icon {
     background: url(/images/arrow.svg);

@@ -8,11 +8,9 @@ export function Header() {
     <div id="header" className={utilStyles.displayFlex}>
       <div className={styles.textContent}>
         <div id={styles.appName}>Old School Marketing</div>
-        {/* <div id={styles.appDescription}>Add website once and stay for a lifetime</div> */}
-        {/* <div id={styles.appDescription}>Internet marketing made simple</div> */}
         <div id={styles.appDescription}>Lifetime marketing on chalkboard for 2$</div>
         <div id={styles.gettingStartedWrapper}>
-          <div style={{fontSize: "medium"}}><IntroductionDialog showOnInit/></div>
+          <div style={{ fontSize: "medium" }}><IntroductionDialog showOnInit /></div>
         </div>
       </div>
     </div>

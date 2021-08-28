@@ -4,8 +4,8 @@ import styles from "../../styles/utils.module.css"
 export function Button(props) {
     const buttonClasses = classNames({
         [styles.buttonPrimary]: props.primary,
-        [styles.buttonSecondary]: props.secondary,        
-        [props.className]: true,    
+        [styles.buttonSecondary]: props.secondary,
+        [props.className]: true,
     })
 
     const wrapperClasses = classNames({

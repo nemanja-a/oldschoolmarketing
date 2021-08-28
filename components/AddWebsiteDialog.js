@@ -39,28 +39,28 @@ export function AddWebsiteDialog(props) {
     loading: false,
     activePreview: isMobile ? ACTIVE_PREVIEW.MOBILE : ACTIVE_PREVIEW.WEB
   }
-  const [ state, setState ] = useState(defaultState)
+  const [state, setState] = useState(defaultState)
 
   const isMobile = detectDevice()
   const { getRootProps, getInputProps } = useDropzone({
     accept: ALLOWED_FORMATS,
     multiple: false,
-    disabled: state.step === 3,   onDropRejected: () => { 
+    disabled: state.step === 3, onDropRejected: () => {
       showError("Invalid file type. Try again", 5000)
     },
-    onDrop: (acceptedFiles) => { 
+    onDrop: (acceptedFiles) => {
       acceptedFiles[0] && onImageChange(acceptedFiles[0])
-     }
+    }
   })
 
-  const close = () => { 
+  const close = () => {
     if (state.website.image) {
       deleteUnusedUploadedImage()
     }
     props.close()
   }
 
-  const deleteUnusedUploadedImage = async() => { 
+  const deleteUnusedUploadedImage = async () => {
     return await fetch(
       `${server}/api/deleteimage?filename=${state.website.thumbnail.cloudinaryId}`, {
       method: "DELETE"
@@ -83,7 +83,7 @@ export function AddWebsiteDialog(props) {
 
   const onDescriptionChange = (event) => {
     const filter = new BadWordsFilter()
-   
+
     setState({
       ...state,
       validationError: false,
@@ -95,10 +95,10 @@ export function AddWebsiteDialog(props) {
     })
   }
 
-  const onImageChange = async(file) => {
+  const onImageChange = async (file) => {
     toggleLoading(true, "Uploading image...")
     const formData = new FormData()
-    if (!file && file.type.substr(0,5) !== "image") return
+    if (!file && file.type.substr(0, 5) !== "image") return
     if (state.website.image) {
       deleteUnusedUploadedImage()
     }
@@ -122,37 +122,37 @@ export function AddWebsiteDialog(props) {
     } else {
       const reader = new FileReader()
       reader.readAsDataURL(file)
-      reader.onloadend = async() => {
+      reader.onloadend = async () => {
         toggleLoading(false)
-         setState({
-           ...state,
-           imageUnsafeText: '',
-           imagePreviewHovered: false,
-           imageError: false,
-           previewImageUrl: uploadResponse.url,
-           website: {
-             ...state.website,
-             thumbnail: {                
-               cloudinaryId: uploadResponse.cloudinaryId
-             },
-             image: file
-           }
-         })
-        }
+        setState({
+          ...state,
+          imageUnsafeText: '',
+          imagePreviewHovered: false,
+          imageError: false,
+          previewImageUrl: uploadResponse.url,
+          website: {
+            ...state.website,
+            thumbnail: {
+              cloudinaryId: uploadResponse.cloudinaryId
+            },
+            image: file
+          }
+        })
+      }
     }
   }
 
   const addWebsiteCallback = () => {
-    setState({...state, website: {...state.website, image: null } })
+    setState({ ...state, website: { ...state.website, image: null } })
   }
 
   const onVerifyWebsiteClick = async (event) => {
     const urlRegExp = new RegExp(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)
     const urlValid = state.website.url.match(urlRegExp)
     if (!urlValid) {
-      setState({...state, websiteValid: false, urlError: `URL ${state.website.url} does not match valid URL pattern. Try again.` })
+      setState({ ...state, websiteValid: false, urlError: `URL ${state.website.url} does not match valid URL pattern. Try again.` })
       return
-    } 
+    }
     event.stopPropagation()
     event.preventDefault()
     toggleLoading(true, "Verifying URL...")
@@ -175,7 +175,7 @@ export function AddWebsiteDialog(props) {
         websiteValid: false,
         websiteAlreadyExist: null,
         urlError: data.error
-      }) 
+      })
     } else if (websiteResponse.status === 200) {
       toggleLoading(false)
       setState({
@@ -195,27 +195,27 @@ export function AddWebsiteDialog(props) {
       })
     }
   }
-  const toggleLoading = (value, text) => { 
-    setState( {...state, loading: value, loaderText: text} )
+  const toggleLoading = (value, text) => {
+    setState({ ...state, loading: value, loaderText: text })
   }
-  const onNextStep = () => { 
+  const onNextStep = () => {
     if (state.step === 2 && (!state.website.categories.length || !state.website.description.length)) {
-      setState({...state, validationError: true})
+      setState({ ...state, validationError: true })
     } else {
       setState({
         ...state,
-        validationError: false, 
+        validationError: false,
         step: state.step + 1,
         urlError: null,
         imageError: null,
         websiteAlreadyExist: null,
-        }) 
+      })
     }
   }
 
-  const onPreviousStep = () => { 
+  const onPreviousStep = () => {
     localStorage.removeItem('amount')
-    setState({...state, step: state.step - 1}) 
+    setState({ ...state, step: state.step - 1 })
   }
 
   const urlInputClasses = classNames({
@@ -225,18 +225,18 @@ export function AddWebsiteDialog(props) {
   const urlInputPlaceholder = isMobile ? "Enter address..." : `Enter address with maximum of ${WEBSITE.URL_MAX_LENGTH} characters`
 
   const onSelect = (selectedList, controlName) => {
-    setState({...state, validationError: false, website: {...state.website, [controlName]: selectedList}} )
+    setState({ ...state, validationError: false, website: { ...state.website, [controlName]: selectedList } })
   }
 
-  const onRemove = (selectedList, controlName ) => {
-    setState({...state, website: {...state.website, [controlName]: selectedList}} )
+  const onRemove = (selectedList, controlName) => {
+    setState({ ...state, website: { ...state.website, [controlName]: selectedList } })
   }
 
   const getFormData = () => {
-    const categories = state.website.categories.map(category => { 
+    const categories = state.website.categories.map(category => {
       return category.value
     })
-    const countries = state.website.countries && state.website.countries.map(category => { 
+    const countries = state.website.countries && state.website.countries.map(category => {
       return category.value
     })
     return {
@@ -244,18 +244,18 @@ export function AddWebsiteDialog(props) {
       page: props.website.page,
       rowIndex: props.website.rowIndex,
       columnIndex: props.website.columnIndex,
-      thumbnail: {...state.website.thumbnail, url: state.previewImageUrl},
+      thumbnail: { ...state.website.thumbnail, url: state.previewImageUrl },
       createdAt: new Date(),
       categories,
       countries,
       description: state.website.description
-    } 
-    
+    }
+
   }
 
   const cellClasses = classNames({
-      [tableStyles.emptyCell]: true,
-      [tableStyles.cellDisabled]: props.filterActive
+    [tableStyles.emptyCell]: true,
+    [tableStyles.cellDisabled]: props.filterActive
   })
 
   const imagePreviewClasses = classNames({
@@ -284,10 +284,10 @@ export function AddWebsiteDialog(props) {
     [utilStyles.fullWidth]: isMobile,
     [utilStyles.marginRight]: isMobile
   })
-  const nextButtonDisabled = !state.websiteValid || state.titleProfane || state.descriptionProfane 
+  const nextButtonDisabled = !state.websiteValid || state.titleProfane || state.descriptionProfane
   const countryOptions = getSelectOptions(WEBSITE.COUNTRIES)
   const categoryOptions = getSelectOptions(WEBSITE.CATEGORIES)
-  
+
   const webActivePreviewModeClass = classNames({
     [dialogStyles.activePreviewMode]: state.activePreview === ACTIVE_PREVIEW.WEB,
     [dialogStyles.previewWebButton]: true
@@ -299,17 +299,17 @@ export function AddWebsiteDialog(props) {
   })
 
   const attributesSectionId = state.activePreview === ACTIVE_PREVIEW.WEB ? dialogStyles.attributesSection : "attributesSection"
-  const onPreviewModeButtonClicked = (mode) => { 
-    setState({...state, activePreview: mode})
+  const onPreviewModeButtonClicked = (mode) => {
+    setState({ ...state, activePreview: mode })
   }
 
-  const renderWebPreview = () => { 
+  const renderWebPreview = () => {
     return <div className={dialogStyles.imagePreviewWrapper}
-     onMouseEnter={() => { state.step !== 3 && setState({...state, imagePreviewHovered: true })} }
-     onMouseLeave={() => setState({...state, imagePreviewHovered: false})}
-    > 
-      <div {...getRootProps({className: dropZoneClasses})}>
-        <input {...getInputProps()} />                          
+      onMouseEnter={() => { state.step !== 3 && setState({ ...state, imagePreviewHovered: true }) }}
+      onMouseLeave={() => setState({ ...state, imagePreviewHovered: false })}
+    >
+      <div {...getRootProps({ className: dropZoneClasses })}>
+        <input {...getInputProps()} />
         <div id={dialogStyles.imageUploadOverlay}>Drop or click here to upload</div>
         {state.step !== 1 && <div className={dialogStyles.imagePreviewInfoWeb}>
           <div className={dialogStyles.previewInfoRow}>
@@ -319,8 +319,8 @@ export function AddWebsiteDialog(props) {
           <div className={dialogStyles.previewInfoRow}>
             <span>Description</span>
             <strong>{state.website.description || "Description goes here"}</strong>
-          </div>   
-        </div>}   
+          </div>
+        </div>}
 
         <Image
           priority
@@ -330,19 +330,19 @@ export function AddWebsiteDialog(props) {
           alt="No image found"
         />
 
-      </div>              
+      </div>
     </div>
   }
 
-  const renderMobilePreview = () => { 
+  const renderMobilePreview = () => {
     const mobileImageInfoTopClasses = classNames({
       [utilStyles.mobileImageInfoTop]: true,
-      [utilStyles.mobilePreviewImageInfoTop]: true,      
+      [utilStyles.mobilePreviewImageInfoTop]: true,
     })
 
     const mobileImageInfoBottomClasses = classNames({
       [utilStyles.mobileImageInfoBottom]: true,
-      [utilStyles.mobilePreviewImageInfoBottom]: true,      
+      [utilStyles.mobilePreviewImageInfoBottom]: true,
     })
 
     const mobilePreviewImageClasses = classNames({
@@ -352,7 +352,7 @@ export function AddWebsiteDialog(props) {
       [dialogStyles.mobilePreviewImageWeb]: state.step !== 1 && !isMobile,
       [dialogStyles.imagePreviewHovered]: state.imagePreviewHovered,
     })
-  
+
     const mobilePreviewWrapperClasses = classNames({
       [dialogStyles.imagePreviewWrapper]: state.step === 1,
       [dialogStyles.mobilePreviewImageWrapperWeb]: state.step !== 1 && !isMobile,
@@ -365,34 +365,34 @@ export function AddWebsiteDialog(props) {
     })
 
     return <div className={mobilePreviewWrapperClasses}
-    onMouseEnter={() => { state.step !== 3 && setState({...state, imagePreviewHovered: true })} }
-    onMouseLeave={() => setState({...state, imagePreviewHovered: false})}
-   > 
-     <div {...getRootProps({className: dropZoneClasses})}>
-       <input {...getInputProps()} />      
-       {!isMobile && <div id={imageUploadOverlayClasses}>Drop or click here to upload</div>}                                 
-       {state.step !== 1 && <div className={mobileImageInfoTopClasses}>
+      onMouseEnter={() => { state.step !== 3 && setState({ ...state, imagePreviewHovered: true }) }}
+      onMouseLeave={() => setState({ ...state, imagePreviewHovered: false })}
+    >
+      <div {...getRootProps({ className: dropZoneClasses })}>
+        <input {...getInputProps()} />
+        {!isMobile && <div id={imageUploadOverlayClasses}>Drop or click here to upload</div>}
+        {state.step !== 1 && <div className={mobileImageInfoTopClasses}>
 
           <span>URL</span>
           <strong>{state.website.url || "www.exampleurl.com"}</strong>
-       </div>}
+        </div>}
 
-      <Image         
-        src={state.previewImageUrl || WEBSITE.THUMBNAIL.IMAGE_PREVIEW_DEFAULT}
-        className={mobilePreviewImageClasses}
-        layout="fill"
-        alt="No image found"
-      />    
-       
-       {state.step !== 1 && <div className={mobileImageInfoBottomClasses}>
-        <span>Description</span>
-        <strong>{state.website.description || "Description goes here"}</strong>
-       </div>}      
+        <Image
+          src={state.previewImageUrl || WEBSITE.THUMBNAIL.IMAGE_PREVIEW_DEFAULT}
+          className={mobilePreviewImageClasses}
+          layout="fill"
+          alt="No image found"
+        />
 
-     </div>              
-   </div>
+        {state.step !== 1 && <div className={mobileImageInfoBottomClasses}>
+          <span>Description</span>
+          <strong>{state.website.description || "Description goes here"}</strong>
+        </div>}
+
+      </div>
+    </div>
   }
- 
+
   return (
     <div className={cellClasses} id={props.id}>
       {/* Dialog */}
@@ -406,164 +406,164 @@ export function AddWebsiteDialog(props) {
           {state.step === 1 && <div className={utilStyles.stepTitle}>URL and Image</div>}
           {state.step === 2 && <div className={utilStyles.stepTitle}>Website appearance</div>}
           {state.step === 3 && <div className={utilStyles.stepTitle}>Payment</div>}
-        
-          {state.loading && <ModalLoader text={state.loaderText}/>}        
+
+          {state.loading && <ModalLoader text={state.loaderText} />}
 
           <div className={dialogStyles.activePreviewModeButtons}>
-            {state.step !== 1 &&<Button primary onClick={() => onPreviewModeButtonClicked(ACTIVE_PREVIEW.WEB)}
-             className={webActivePreviewModeClass}>Preview on web</Button>}
+            {state.step !== 1 && <Button primary onClick={() => onPreviewModeButtonClicked(ACTIVE_PREVIEW.WEB)}
+              className={webActivePreviewModeClass}>Preview on web</Button>}
             {state.step !== 1 && <Button primary onClick={() => onPreviewModeButtonClicked(ACTIVE_PREVIEW.MOBILE)}
-             className={mobileActivePreviewModeClass}>Preview on mobile</Button>}
+              className={mobileActivePreviewModeClass}>Preview on mobile</Button>}
           </div>
 
-        <div className={dialogStyles.websitePreview}>
-            {state.step !== 3 && <div style={{fontStyle: "italic"}}>Drop or click on image to upload</div>}
+          <div className={dialogStyles.websitePreview}>
+            {state.step !== 3 && <div style={{ fontStyle: "italic" }}>Drop or click on image to upload</div>}
             {state.activePreview === ACTIVE_PREVIEW.MOBILE ? renderMobilePreview() : renderWebPreview()}
-            {state.step === 1 && <div style={{fontStyle: "italic"}}>Supported formats are <strong>JPG, JPEG</strong> and <strong>PNG</strong></div>}
+            {state.step === 1 && <div style={{ fontStyle: "italic" }}>Supported formats are <strong>JPG, JPEG</strong> and <strong>PNG</strong></div>}
 
             {/* Image preview end*/}
-        </div>
-      </FadeIn>
-      {/* First step */}
-      {state.step === 1 && <FadeIn transitionDuration={500}>
-        <div className={dialogStyles.step}>
-          <div id={dialogStyles.websiteInputWrapper}>
-            <span style={{display: "flex"}}>
-              <span>
-                <label htmlFor="url" className={utilStyles.formItemSpacing}>*Website Address</label>
-                <input
-                  style={{minWidth: '14vw'}}
-                  className={urlInputClasses}
-                  value={state.website.url}
-                  placeholder={urlInputPlaceholder}
-                  id="url" 
-                  name="url"
-                  onChange={onWebsiteUrlChange}
-                  onKeyDown={() => event.key === 'Enter' && onVerifyWebsiteClick(event) }
-                  type="text"
-                  autoComplete="url"
-                  maxLength={WEBSITE.URL_MAX_LENGTH}
-                />
-                <span>*Make sure that URL starts with https://</span>
+          </div>
+        </FadeIn>
+        {/* First step */}
+        {state.step === 1 && <FadeIn transitionDuration={500}>
+          <div className={dialogStyles.step}>
+            <div id={dialogStyles.websiteInputWrapper}>
+              <span style={{ display: "flex" }}>
+                <span>
+                  <label htmlFor="url" className={utilStyles.formItemSpacing}>*Website Address</label>
+                  <input
+                    style={{ minWidth: '14vw' }}
+                    className={urlInputClasses}
+                    value={state.website.url}
+                    placeholder={urlInputPlaceholder}
+                    id="url"
+                    name="url"
+                    onChange={onWebsiteUrlChange}
+                    onKeyDown={() => event.key === 'Enter' && onVerifyWebsiteClick(event)}
+                    type="text"
+                    autoComplete="url"
+                    maxLength={WEBSITE.URL_MAX_LENGTH}
+                  />
+                  <span>*Make sure that URL starts with https://</span>
+                </span>
+                {state.websiteValid && <span className={dialogStyles.checkmark}>
+                  <div className={dialogStyles.checkmarkStem}></div>
+                  <div className={dialogStyles.checkmarkKick}></div>
+                </span>}
               </span>
-            {state.websiteValid && <span className={dialogStyles.checkmark}>
-                <div className={dialogStyles.checkmarkStem}></div>
-                <div className={dialogStyles.checkmarkKick}></div>
-            </span>}
-            </span>
-            <span style={{marginLeft: "5%"}}>
+              <span style={{ marginLeft: "5%" }}>
                 <Button
-                    primary
-                    onClick={() => onVerifyWebsiteClick(event)}
-                    disabled={state.websiteValid || !state.website.url}
-                    className={dialogStyles.verifyButton}
+                  primary
+                  onClick={() => onVerifyWebsiteClick(event)}
+                  disabled={state.websiteValid || !state.website.url}
+                  className={dialogStyles.verifyButton}
                 >
                   Verify
                 </Button>
-            </span>
-          </div>
-          {(!state.websiteValid && state.websiteValid !== null) && <span className={utilStyles.error}>{state.urlError}</span>}
-          {state.websiteAlreadyExist && <strong className={utilStyles.warning}>Website with url *{state.website.url}* has been found. But, If new website is located 10 or more pages before/after it's nearest location, it can be added again.</strong>}
-
-          {state.website.url && (state.website.url.length === WEBSITE.URL_MAX_LENGTH) && <span className={utilStyles.error}>Character limit reached.</span>}
-        </div>
-        <div id={dialogStyles.stepButtonsWrapper} style={{justifyContent: "center", marginLeft: "0"}}>
-            {state.step !== 2 && <Button primary onClick={onNextStep} disabled={nextButtonDisabled}
-             wrapperClasses={nextButtonWrapperClasses}>Next</Button>}
-        </div>
-      </FadeIn>}
-      {/* First step end */}
-
-      {/* Second step */}
-      {state.step === 2 && <FadeIn transitionDuration={500}>
-      <form>
-        <section id={attributesSectionId}>
-          <div className={dialogStyles.row}>
-              <Input 
-                required
-                maxWidth
-                label='Description'
-                placeholder={`Enter maximum of ${WEBSITE.DESCRIPTION_MAX_LENGTH} characters...`}
-                disabled={!state.websiteValid}
-                name='description'
-                value={state.website.description}              
-                onChange={(event) => onDescriptionChange(event)}
-                maxLength={WEBSITE.DESCRIPTION_MAX_LENGTH}
-                className={descriptionInputClasses}
-              />
-          </div>
-          {state.validationError && !state.website.description.length && <div className={dialogStyles.row}>
-            <span className={utilStyles.error}>Description is required</span>
-          </div>}
-          <div className={dialogStyles.row}>
-            <div>
-              {state.website.description && (state.website.description.length === WEBSITE.DESCRIPTION_MAX_LENGTH) && <span className={utilStyles.error}>Character limit reached.</span>}
-              {state.descriptionProfane && <span className={utilStyles.error}>Bad words are not allowed.</span>}
+              </span>
             </div>
-          </div>
-          <div className={dialogStyles.row}>
-            <Select
-              required            
-              maxWidth
-              showCheckbox
-              id="categoriesSelect"
-              label="Categories"
-              placeholder="Select categories"  
-              groupBy="categoryId"
-              name="categories"                                                              
-              options={categoryOptions}
-              onSelect={(selectedList) => onSelect(selectedList, 'categories')}
-              onRemove={(selectedList) => onRemove(selectedList, 'categories')}
-              selectedValues={state.website.categories}
-              style={selectStyles}
-              className={selectClasses}
-              selectionLimit={CATEGORIES_SELECTION_LIMIT}
-            />                        
-          </div>
-          {state.validationError && !state.website.categories.length && <div className={dialogStyles.row}>
-             <span className={utilStyles.error}>Select one or more categories</span>
-          </div>}
-          <div className={dialogStyles.row}>
-            <Select            
-              maxWidth
-              id="countriesSelect"
-              showCheckbox
-              label="Countries"
-              placeholder="Select countries"              
-              options={countryOptions}
-              name="countries"
-              onSelect={(selectedList) => onSelect(selectedList, 'countries')}
-              onRemove={(selectedList) => onRemove(selectedList, 'countries')}
-              onRemove={onRemove}              
-              selectedValues={state.website.countries}
-              style={selectStyles}              
-            />                        
-          </div>
+            {(!state.websiteValid && state.websiteValid !== null) && <span className={utilStyles.error}>{state.urlError}</span>}
+            {state.websiteAlreadyExist && <strong className={utilStyles.warning}>Website with url *{state.website.url}* has been found. But, If new website is located 10 or more pages before/after it's nearest location, it can be added again.</strong>}
 
-        </section>
-        </form>
-        <div id={dialogStyles.stepButtonsWrapper} style={{justifyContent: "space-between"}}>
+            {state.website.url && (state.website.url.length === WEBSITE.URL_MAX_LENGTH) && <span className={utilStyles.error}>Character limit reached.</span>}
+          </div>
+          <div id={dialogStyles.stepButtonsWrapper} style={{ justifyContent: "center", marginLeft: "0" }}>
+            {state.step !== 2 && <Button primary onClick={onNextStep} disabled={nextButtonDisabled}
+              wrapperClasses={nextButtonWrapperClasses}>Next</Button>}
+          </div>
+        </FadeIn>}
+        {/* First step end */}
+
+        {/* Second step */}
+        {state.step === 2 && <FadeIn transitionDuration={500}>
+          <form>
+            <section id={attributesSectionId}>
+              <div className={dialogStyles.row}>
+                <Input
+                  required
+                  maxWidth
+                  label='Description'
+                  placeholder={`Enter maximum of ${WEBSITE.DESCRIPTION_MAX_LENGTH} characters...`}
+                  disabled={!state.websiteValid}
+                  name='description'
+                  value={state.website.description}
+                  onChange={(event) => onDescriptionChange(event)}
+                  maxLength={WEBSITE.DESCRIPTION_MAX_LENGTH}
+                  className={descriptionInputClasses}
+                />
+              </div>
+              {state.validationError && !state.website.description.length && <div className={dialogStyles.row}>
+                <span className={utilStyles.error}>Description is required</span>
+              </div>}
+              <div className={dialogStyles.row}>
+                <div>
+                  {state.website.description && (state.website.description.length === WEBSITE.DESCRIPTION_MAX_LENGTH) && <span className={utilStyles.error}>Character limit reached.</span>}
+                  {state.descriptionProfane && <span className={utilStyles.error}>Bad words are not allowed.</span>}
+                </div>
+              </div>
+              <div className={dialogStyles.row}>
+                <Select
+                  required
+                  maxWidth
+                  showCheckbox
+                  id="categoriesSelect"
+                  label="Categories"
+                  placeholder="Select categories"
+                  groupBy="categoryId"
+                  name="categories"
+                  options={categoryOptions}
+                  onSelect={(selectedList) => onSelect(selectedList, 'categories')}
+                  onRemove={(selectedList) => onRemove(selectedList, 'categories')}
+                  selectedValues={state.website.categories}
+                  style={selectStyles}
+                  className={selectClasses}
+                  selectionLimit={CATEGORIES_SELECTION_LIMIT}
+                />
+              </div>
+              {state.validationError && !state.website.categories.length && <div className={dialogStyles.row}>
+                <span className={utilStyles.error}>Select one or more categories</span>
+              </div>}
+              <div className={dialogStyles.row}>
+                <Select
+                  maxWidth
+                  id="countriesSelect"
+                  showCheckbox
+                  label="Countries"
+                  placeholder="Select countries"
+                  options={countryOptions}
+                  name="countries"
+                  onSelect={(selectedList) => onSelect(selectedList, 'countries')}
+                  onRemove={(selectedList) => onRemove(selectedList, 'countries')}
+                  onRemove={onRemove}
+                  selectedValues={state.website.countries}
+                  style={selectStyles}
+                />
+              </div>
+
+            </section>
+          </form>
+          <div id={dialogStyles.stepButtonsWrapper} style={{ justifyContent: "space-between" }}>
             <Button primary onClick={onPreviousStep} wrapperClasses={previousButtonWrapperClasses} disabled={state.step === 1} className={dialogStyles.stepButton}>Previous</Button>
             <Button primary onClick={onNextStep} wrapperClasses={nextButtonWrapperClasses}
-             disabled={nextButtonDisabled} className={dialogStyles.stepButton}>Next</Button>
-        </div>     
-      </FadeIn>}
-      {/* Second step end */}
+              disabled={nextButtonDisabled} className={dialogStyles.stepButton}>Next</Button>
+          </div>
+        </FadeIn>}
+        {/* Second step end */}
 
-      {/* Third step */}
-      {state.step === 3 && <FadeIn transitionDuration={500}>
-        <Payment 
-          addWebsiteCallback={addWebsiteCallback} 
-          close={props.close}
-          toggleLoading={toggleLoading} 
-          getFormData={getFormData}
-          webPreviewActive={state.activePreview === ACTIVE_PREVIEW.WEB}
-        />
-        <div id={dialogStyles.stepButtonsWrapper} style={{justifyContent: "center"}}>
-          <Button primary onClick={onPreviousStep} wrapperClasses={nextButtonWrapperClasses} className={dialogStyles.stepButton}>Previous</Button>          
-        </div>
-      </FadeIn>}
-      {/* Third step end*/}
+        {/* Third step */}
+        {state.step === 3 && <FadeIn transitionDuration={500}>
+          <Payment
+            addWebsiteCallback={addWebsiteCallback}
+            close={props.close}
+            toggleLoading={toggleLoading}
+            getFormData={getFormData}
+            webPreviewActive={state.activePreview === ACTIVE_PREVIEW.WEB}
+          />
+          <div id={dialogStyles.stepButtonsWrapper} style={{ justifyContent: "center" }}>
+            <Button primary onClick={onPreviousStep} wrapperClasses={nextButtonWrapperClasses} className={dialogStyles.stepButton}>Previous</Button>
+          </div>
+        </FadeIn>}
+        {/* Third step end*/}
       </Dialog>
       {/* Dialog */}
     </div>
